@@ -218,7 +218,7 @@
         }
 
         /* ============================================================
-               HERO SLIDER (MOINS SOMBRE)
+               HERO SLIDER (AVEC VOS 3 IMAGES)
                ============================================================ */
         .hero-slider {
             position: relative;
@@ -248,20 +248,19 @@
             transform: scale(1);
         }
 
-        /* Overlay moins sombre : rgba(29, 29, 44, 0.75) au lieu de 0.88 */
         .slide-1 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.75) 40%, rgba(29, 29, 44, 0.3) 100%),
-                        url('gsecurite/slide1.jpg') center/cover no-repeat;
+                        url('gsecurite/slide1.jpg') center 40%/cover no-repeat;
         }
 
         .slide-2 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.75) 40%, rgba(29, 29, 44, 0.3) 100%),
-                        url('gsecurite/slide2.jpg') center/cover no-repeat;
+                        url('gsecurite/slide2.jpg') center 30%/cover no-repeat;
         }
 
         .slide-3 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.75) 40%, rgba(29, 29, 44, 0.3) 100%),
-                        url('https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+                        url('gsecurite/slide3.jpg') center/cover no-repeat;
         }
 
         .slide-content {
@@ -487,7 +486,7 @@
         }
 
         /* ============================================================
-               SERVICES (7 SERVICES - RECHERCHE SUPPRIMÉE)
+               SERVICES (7 SERVICES)
                ============================================================ */
         .services-section {
             padding: 80px 0;
@@ -621,7 +620,7 @@
         }
 
         /* ============================================================
-               RECRUTEMENT (SIMPLIFIÉ - LIEN FACEBOOK)
+               RECRUTEMENT (AVEC IMAGE EQUIPE EN FOND)
                ============================================================ */
         .recrutement-section {
             padding: 100px 0;
@@ -670,7 +669,6 @@
             margin-right: auto;
         }
 
-        /* Bouton Facebook */
         .btn-facebook {
             display: inline-flex;
             align-items: center;
@@ -1170,9 +1168,10 @@
     </header>
 
     <!-- ============================================================
-    HERO SLIDER (3 SLIDES - MOINS SOMBRE)
+    HERO SLIDER (3 SLIDES - AVEC VOS IMAGES)
     ============================================================ -->
     <section class="hero-slider" id="accueil">
+        <!-- Slide 1 -->
         <div class="slide slide-1 active">
             <div class="container">
                 <div class="slide-content">
@@ -1187,6 +1186,7 @@
             </div>
         </div>
 
+        <!-- Slide 2 -->
         <div class="slide slide-2">
             <div class="container">
                 <div class="slide-content">
@@ -1201,6 +1201,7 @@
             </div>
         </div>
 
+        <!-- Slide 3 -->
         <div class="slide slide-3">
             <div class="container">
                 <div class="slide-content">
@@ -1215,6 +1216,7 @@
             </div>
         </div>
 
+        <!-- Indicateurs (dots) -->
         <div class="slider-dots">
             <button class="dot active" data-index="0" aria-label="Slide 1"></button>
             <button class="dot" data-index="1" aria-label="Slide 2"></button>
@@ -1266,6 +1268,7 @@
             </div>
 
             <div class="services-grid">
+                <!-- Sécurité générale -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-image">
                         <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
@@ -1280,6 +1283,7 @@
                     </div>
                 </div>
 
+                <!-- Vigile -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="150">
                     <div class="card-image">
                         <img src="gsecurite/vigile.jpg" alt="Vigile">
@@ -1294,6 +1298,7 @@
                     </div>
                 </div>
 
+                <!-- Sécurité incendie -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-image">
                         <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
@@ -1308,6 +1313,7 @@
                     </div>
                 </div>
 
+                <!-- Sécurité électronique -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="card-image">
                         <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
@@ -1322,6 +1328,7 @@
                     </div>
                 </div>
 
+                <!-- Escortage & Protection rapprochée -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-image">
                         <img src="gsecurite/escortage.png" alt="Escortage & Protection rapprochée">
@@ -1336,6 +1343,7 @@
                     </div>
                 </div>
 
+                <!-- Convoie sécurisé -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="350">
                     <div class="card-image">
                         <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
@@ -1350,6 +1358,7 @@
                     </div>
                 </div>
 
+                <!-- Vente d'accessoires -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-image">
                         <img src="gsecurite/accessoires.png" alt="Vente d'accessoires de sécurité">
@@ -1454,7 +1463,7 @@
     </section>
 
     <!-- ============================================================
-    RECRUTEMENT (SIMPLIFIÉ - LIEN FACEBOOK)
+    RECRUTEMENT (AVEC IMAGE EQUIPE EN FOND)
     ============================================================ -->
     <section class="recrutement-section" id="recrutement" data-aos="zoom-in">
         <div class="container">
@@ -1594,12 +1603,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
+            // ---------- INITIALISATION AOS ----------
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50
             });
 
+            // ---------- MENU HAMBURGER ----------
             const hamburger = document.getElementById('hamburger');
             const nav = document.getElementById('nav');
 
@@ -1615,6 +1626,7 @@
                 });
             });
 
+            // ---------- HEADER SCROLL ----------
             const header = document.getElementById('header');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
@@ -1624,6 +1636,7 @@
                 }
             });
 
+            // ---------- LIEN ACTIF ----------
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav a:not(.nav-cta)');
 
@@ -1645,6 +1658,7 @@
 
             window.addEventListener('scroll', updateActiveLink);
 
+            // ---------- HERO SLIDER ----------
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.dot');
             let currentIndex = 0;
@@ -1683,6 +1697,7 @@
 
             startSlider();
 
+            // ---------- FORMULAIRE ----------
             const form = document.getElementById('contactForm');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
