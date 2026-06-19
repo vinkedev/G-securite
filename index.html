@@ -486,7 +486,7 @@
         }
 
         /* ============================================================
-               SERVICES (7 SERVICES)
+               SERVICES (7 SERVICES - AVEC object-position)
                ============================================================ */
         .services-section {
             padding: 80px 0;
@@ -1168,10 +1168,9 @@
     </header>
 
     <!-- ============================================================
-    HERO SLIDER (3 SLIDES - AVEC VOS IMAGES)
+    HERO SLIDER (3 SLIDES)
     ============================================================ -->
     <section class="hero-slider" id="accueil">
-        <!-- Slide 1 -->
         <div class="slide slide-1 active">
             <div class="container">
                 <div class="slide-content">
@@ -1186,7 +1185,6 @@
             </div>
         </div>
 
-        <!-- Slide 2 -->
         <div class="slide slide-2">
             <div class="container">
                 <div class="slide-content">
@@ -1201,7 +1199,6 @@
             </div>
         </div>
 
-        <!-- Slide 3 -->
         <div class="slide slide-3">
             <div class="container">
                 <div class="slide-content">
@@ -1216,7 +1213,6 @@
             </div>
         </div>
 
-        <!-- Indicateurs (dots) -->
         <div class="slider-dots">
             <button class="dot active" data-index="0" aria-label="Slide 1"></button>
             <button class="dot" data-index="1" aria-label="Slide 2"></button>
@@ -1258,7 +1254,7 @@
     </section>
 
     <!-- ============================================================
-    SERVICES (7 SERVICES)
+    SERVICES (AVEC object-position)
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
@@ -1271,7 +1267,7 @@
                 <!-- Sécurité générale -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-image">
-                        <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
+                        <img src="gsecurite/securite-generale.png" alt="Sécurité générale" style="object-position: center;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-shield-alt service-icon"></i>
@@ -1286,7 +1282,7 @@
                 <!-- Vigile -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="150">
                     <div class="card-image">
-                        <img src="gsecurite/vigile.jpg" alt="Vigile">
+                        <img src="gsecurite/vigile.jpg" alt="Vigile" style="object-position: center 20%;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-user-shield service-icon"></i>
@@ -1301,7 +1297,7 @@
                 <!-- Sécurité incendie -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-image">
-                        <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
+                        <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie" style="object-position: center;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-fire-extinguisher service-icon"></i>
@@ -1316,7 +1312,7 @@
                 <!-- Sécurité électronique -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="card-image">
-                        <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
+                        <img src="gsecurite/camera.jpg" alt="Sécurité électronique" style="object-position: center;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-video service-icon"></i>
@@ -1331,7 +1327,7 @@
                 <!-- Escortage & Protection rapprochée -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-image">
-                        <img src="gsecurite/escortage.png" alt="Escortage & Protection rapprochée">
+                        <img src="gsecurite/escortage.png" alt="Escortage & Protection rapprochée" style="object-position: center 20%;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-crown service-icon"></i>
@@ -1346,7 +1342,7 @@
                 <!-- Convoie sécurisé -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="350">
                     <div class="card-image">
-                        <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
+                        <img src="gsecurite/convoyage.png" alt="Convoie sécurisé" style="object-position: center;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-truck service-icon"></i>
@@ -1361,7 +1357,7 @@
                 <!-- Vente d'accessoires -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-image">
-                        <img src="gsecurite/accessoires.png" alt="Vente d'accessoires de sécurité">
+                        <img src="gsecurite/accessoires.png" alt="Vente d'accessoires de sécurité" style="object-position: center;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-store service-icon"></i>
@@ -1603,14 +1599,12 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // ---------- INITIALISATION AOS ----------
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50
             });
 
-            // ---------- MENU HAMBURGER ----------
             const hamburger = document.getElementById('hamburger');
             const nav = document.getElementById('nav');
 
@@ -1626,7 +1620,6 @@
                 });
             });
 
-            // ---------- HEADER SCROLL ----------
             const header = document.getElementById('header');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
@@ -1636,7 +1629,6 @@
                 }
             });
 
-            // ---------- LIEN ACTIF ----------
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav a:not(.nav-cta)');
 
@@ -1658,7 +1650,6 @@
 
             window.addEventListener('scroll', updateActiveLink);
 
-            // ---------- HERO SLIDER ----------
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.dot');
             let currentIndex = 0;
@@ -1697,7 +1688,6 @@
 
             startSlider();
 
-            // ---------- FORMULAIRE ----------
             const form = document.getElementById('contactForm');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
