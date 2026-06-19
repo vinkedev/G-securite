@@ -8,6 +8,9 @@
     <!-- Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
         /* ============================================================
                ROOT VARIABLES
@@ -26,7 +29,8 @@
             --color-text-muted: #6C757D;
 
             --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            --transition: 0.3s ease;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-slow: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* ============================================================
@@ -48,6 +52,13 @@
             background-color: var(--color-white);
             line-height: 1.6;
             padding-top: 80px;
+            opacity: 0;
+            animation: fadeInBody 0.8s ease forwards;
+        }
+
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         a {
@@ -86,7 +97,13 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: none;
-            transition: var(--transition);
+            transition: all var(--transition);
+            transform: translateY(0);
+        }
+
+        .header.scrolled {
+            background-color: rgba(29, 29, 44, 0.95);
+            padding: 12px 0;
         }
 
         .header .container {
@@ -103,6 +120,10 @@
             font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: 1px;
+            transition: transform var(--transition);
+        }
+        .logo:hover {
+            transform: scale(1.02);
         }
         .logo img {
             height: 45px;
@@ -124,13 +145,30 @@
             font-weight: 500;
             padding: 6px 0;
             border-bottom: 2px solid transparent;
-            transition: var(--transition);
+            transition: all var(--transition);
             color: var(--color-white);
+            position: relative;
         }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition);
+        }
+
+        .nav a:hover::after,
+        .nav a.active::after {
+            width: 100%;
+        }
+
         .nav a:hover,
         .nav a.active {
             color: var(--color-primary);
-            border-bottom-color: var(--color-primary);
         }
 
         .nav-cta {
@@ -140,11 +178,14 @@
             border-radius: 12px;
             border-bottom: none !important;
             font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all var(--transition);
+        }
+        .nav-cta::after {
+            display: none !important;
         }
         .nav-cta:hover {
             background-color: var(--color-primary-dark);
-            transform: scale(1.03);
+            transform: scale(1.05);
             color: var(--color-white) !important;
             box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
         }
@@ -164,7 +205,16 @@
             height: 3px;
             background-color: var(--color-white);
             border-radius: 3px;
-            transition: var(--transition);
+            transition: all var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
         }
 
         /* ============================================================
@@ -187,28 +237,30 @@
             align-items: center;
             padding: 80px 0;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.2s ease, transform 1.2s ease;
             background-size: cover;
             background-position: center;
+            transform: scale(1.02);
         }
 
         .slide.active {
             opacity: 1;
+            transform: scale(1);
         }
 
         .slide-1 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.92) 40%, rgba(29, 29, 44, 0.4) 100%),
-                        url('https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+                        url('https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         }
 
         .slide-2 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.92) 40%, rgba(29, 29, 44, 0.4) 100%),
-                        url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+                        url('https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         }
 
         .slide-3 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.92) 40%, rgba(29, 29, 44, 0.4) 100%),
-                        url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+                        url('https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         }
 
         .slide-content {
@@ -228,6 +280,12 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 16px;
+            animation: pulseBadge 2s infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .slide-content h1 {
@@ -255,7 +313,7 @@
             border-radius: 12px;
             font-weight: 600;
             letter-spacing: 0.3px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all var(--transition);
             border: none;
             cursor: pointer;
             text-align: center;
@@ -267,7 +325,7 @@
         }
         .slide-content .btn-primary:hover {
             background-color: var(--color-primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(193, 18, 28, 0.25);
         }
 
@@ -279,7 +337,8 @@
         .slide-content .btn-outline:hover {
             background: var(--color-white);
             color: var(--color-secondary);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.15);
         }
 
         .hero-buttons {
@@ -305,24 +364,24 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition);
             border: none;
         }
 
         .slider-dots .dot.active {
             background: var(--color-primary);
-            transform: scale(1.2);
+            transform: scale(1.3);
         }
 
         .slider-dots .dot:hover {
             background: var(--color-primary-light);
+            transform: scale(1.2);
         }
 
-        /* Animation */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -335,6 +394,8 @@
                ============================================================ */
         .section {
             padding: 80px 0;
+            position: relative;
+            overflow: hidden;
         }
 
         .section-alt {
@@ -370,12 +431,22 @@
             align-items: center;
         }
 
+        .about-image {
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
         .about-image img {
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(29, 29, 44, 0.08);
             width: 100%;
             height: auto;
             object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.03);
         }
 
         .about-text h3 {
@@ -399,7 +470,7 @@
             border-radius: 12px;
             font-weight: 600;
             letter-spacing: 0.3px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all var(--transition);
             border: none;
             cursor: pointer;
             text-align: center;
@@ -411,12 +482,12 @@
         }
         .btn-primary:hover {
             background-color: var(--color-primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(193, 18, 28, 0.25);
         }
 
         /* ============================================================
-               SERVICES (PREMIUM - AVEC IMAGES)
+               SERVICES (AVEC VOS IMAGES ET TEXTES)
                ============================================================ */
         .services-section {
             padding: 80px 0;
@@ -446,7 +517,7 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
@@ -456,13 +527,14 @@
             overflow: hidden;
             border: 1px solid rgba(29, 29, 44, 0.06);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all var(--transition-slow);
             display: flex;
             flex-direction: column;
+            transform: translateY(0);
         }
 
         .service-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             border-color: var(--color-primary);
             box-shadow: 0 25px 50px rgba(193, 18, 28, 0.10);
         }
@@ -478,11 +550,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .service-card:hover .card-image img {
-            transform: scale(1.08);
+            transform: scale(1.10);
         }
 
         .card-content {
@@ -493,7 +565,7 @@
         }
 
         .card-content h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--color-secondary);
             margin-bottom: 10px;
             font-weight: 700;
@@ -503,14 +575,113 @@
         .card-content p {
             font-size: 0.92rem;
             color: var(--color-text-muted);
-            line-height: 1.6;
-            margin: 0;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            flex-grow: 1;
         }
 
         .card-content .service-icon {
             font-size: 1.6rem;
             color: var(--color-primary);
             margin-bottom: 12px;
+        }
+
+        /* Bouton Devis WhatsApp */
+        .btn-devis {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #25D366;
+            color: var(--color-white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn-devis i {
+            font-size: 1.2rem;
+            transition: transform var(--transition);
+        }
+
+        .btn-devis:hover {
+            background-color: #1DA851;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-devis:hover i {
+            transform: scale(1.2);
+        }
+
+        /* ============================================================
+               RECRUTEMENT (AVEC IMAGE EQUIPE EN FOND)
+               ============================================================ */
+        .recrutement-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(29, 29, 44, 0.88) 40%, rgba(29, 29, 44, 0.6) 100%),
+                        url('gsecurite/equipe.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .recrutement-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 50px;
+            background: rgba(29, 29, 44, 0.70);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            color: var(--color-white);
+            transition: all var(--transition-slow);
+        }
+
+        .recrutement-box:hover {
+            background: rgba(29, 29, 44, 0.80);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.01);
+        }
+
+        .recrutement-box h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .recrutement-box h2 span {
+            color: var(--color-primary);
+        }
+
+        .recrutement-box p {
+            opacity: 0.9;
+            margin-bottom: 32px;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .recrutement-box .btn {
+            background: var(--color-primary);
+            border: none;
+            padding: 16px 48px;
+            font-size: 1.05rem;
+        }
+
+        .recrutement-box .btn:hover {
+            background: var(--color-primary-dark);
+            box-shadow: 0 12px 30px rgba(193, 18, 28, 0.4);
+            transform: translateY(-3px);
         }
 
         /* ============================================================
@@ -532,7 +703,7 @@
             font-weight: 500;
             box-shadow: 0 4px 15px rgba(29, 29, 44, 0.04);
             border: 1px solid var(--color-border);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -540,11 +711,15 @@
         .zone-tag i {
             color: var(--color-primary);
             font-size: 0.9rem;
+            transition: transform var(--transition);
         }
         .zone-tag:hover {
             transform: translateY(-3px);
             border-color: var(--color-primary);
             box-shadow: 0 8px 25px rgba(193, 18, 28, 0.08);
+        }
+        .zone-tag:hover i {
+            transform: scale(1.2);
         }
 
         /* ============================================================
@@ -563,10 +738,10 @@
             box-shadow: 0 10px 30px rgba(29, 29, 44, 0.03);
             border: 1px solid rgba(29, 29, 44, 0.05);
             border-left: 5px solid var(--color-primary);
-            transition: all 0.3s ease;
+            transition: all var(--transition);
         }
         .testimonial-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(29, 29, 44, 0.06);
         }
 
@@ -602,11 +777,11 @@
             padding: 32px 24px;
             text-align: center;
             border: 1px solid rgba(29, 29, 44, 0.05);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all var(--transition-slow);
             box-shadow: 0 10px 30px rgba(29, 29, 44, 0.02);
         }
         .realisation-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(193, 18, 28, 0.06);
             border-color: var(--color-primary);
         }
@@ -614,6 +789,10 @@
             font-size: 2.4rem;
             color: var(--color-primary);
             margin-bottom: 12px;
+            transition: transform var(--transition);
+        }
+        .realisation-card:hover i {
+            transform: scale(1.2) rotate(-5deg);
         }
         .realisation-card h4 {
             font-size: 1.1rem;
@@ -623,44 +802,6 @@
         .realisation-card p {
             color: var(--color-text-muted);
             font-size: 0.95rem;
-        }
-
-        /* ============================================================
-               RECRUTEMENT
-               ============================================================ */
-        .recrutement-box {
-            background: var(--color-secondary);
-            color: var(--color-white);
-            border-radius: 20px;
-            padding: 50px 40px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .recrutement-box h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .recrutement-box h2 span {
-            color: var(--color-primary);
-        }
-        .recrutement-box p {
-            opacity: 0.85;
-            margin-bottom: 28px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .recrutement-box .btn {
-            background: var(--color-primary);
-            border: none;
-        }
-        .recrutement-box .btn:hover {
-            background: var(--color-primary-dark);
-            box-shadow: 0 12px 30px rgba(193, 18, 28, 0.3);
-            transform: translateY(-2px);
         }
 
         /* ============================================================
@@ -684,6 +825,10 @@
             align-items: center;
             gap: 14px;
             margin-bottom: 18px;
+            transition: transform var(--transition);
+        }
+        .contact-info-item:hover {
+            transform: translateX(5px);
         }
         .contact-info-item i {
             width: 44px;
@@ -696,6 +841,10 @@
             justify-content: center;
             font-size: 1.1rem;
             flex-shrink: 0;
+            transition: transform var(--transition);
+        }
+        .contact-info-item:hover i {
+            transform: scale(1.1);
         }
         .contact-info-item strong {
             display: block;
@@ -717,7 +866,7 @@
             font-size: 1rem;
             margin-bottom: 18px;
             font-family: inherit;
-            transition: all 0.3s ease;
+            transition: all var(--transition);
             background: var(--color-white);
         }
         .contact-form input:focus,
@@ -726,6 +875,7 @@
             outline: none;
             border-color: var(--color-primary);
             box-shadow: 0 0 0 4px rgba(193, 18, 28, 0.08);
+            transform: translateY(-2px);
         }
         .contact-form textarea {
             min-height: 130px;
@@ -765,8 +915,13 @@
             font-size: 0.95rem;
             line-height: 2;
         }
+        .footer a {
+            transition: color var(--transition), transform var(--transition);
+            display: inline-block;
+        }
         .footer a:hover {
             color: var(--color-primary);
+            transform: translateX(3px);
         }
 
         .footer-socials {
@@ -783,13 +938,13 @@
             background: rgba(255, 255, 255, 0.06);
             border-radius: 12px;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .footer-socials a:hover {
             background: var(--color-primary);
             color: var(--color-white);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .footer-bottom {
@@ -831,6 +986,12 @@
             .hero-buttons {
                 justify-content: center;
             }
+            .recrutement-box {
+                padding: 40px 30px;
+            }
+            .recrutement-box h2 {
+                font-size: 2.2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -859,7 +1020,7 @@
                 padding: 30px 20px;
                 gap: 18px;
                 transform: translateY(-120%);
-                transition: var(--transition);
+                transition: all var(--transition);
                 box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
                 border-top: 1px solid rgba(255, 255, 255, 0.05);
             }
@@ -898,14 +1059,29 @@
                 padding: 50px 0;
             }
 
+            .recrutement-section {
+                padding: 60px 0;
+                background-attachment: scroll;
+            }
             .recrutement-box {
                 padding: 30px 20px;
             }
             .recrutement-box h2 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
+            }
+            .recrutement-box p {
+                font-size: 1rem;
+            }
+            .recrutement-box .btn {
+                padding: 14px 32px;
+                font-size: 0.95rem;
             }
 
             .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .services-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -939,6 +1115,13 @@
             }
             .card-image {
                 height: 180px;
+            }
+            .recrutement-box h2 {
+                font-size: 1.5rem;
+            }
+            .btn-devis {
+                font-size: 0.85rem;
+                padding: 10px 18px;
             }
         }
     </style>
@@ -1033,7 +1216,7 @@
     <!-- ============================================================
     À PROPOS
     ============================================================ -->
-    <section class="section" id="a-propos">
+    <section class="section" id="a-propos" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Qui sommes-<span>nous</span></h2>
             <p class="section-subtitle">
@@ -1042,7 +1225,7 @@
             </p>
 
             <div class="about-grid">
-                <div class="about-text">
+                <div class="about-text" data-aos="fade-right">
                     <h3>Une force pour votre <span>tranquillité</span></h3>
                     <p>
                         <strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè,
@@ -1056,7 +1239,7 @@
                     </p>
                     <a href="#contact" class="btn btn-primary">Travailler avec nous</a>
                 </div>
-                <div class="about-image">
+                <div class="about-image" data-aos="fade-left">
                     <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" />
                 </div>
             </div>
@@ -1064,90 +1247,123 @@
     </section>
 
     <!-- ============================================================
-    SERVICES (PREMIUM - SIMPLE & ÉLÉGANT)
+    SERVICES (AVEC VOS IMAGES)
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
-            <div class="services-header">
+            <div class="services-header" data-aos="fade-up">
                 <h2>Nos <span>services</span></h2>
                 <p>Des solutions complètes pour tous vos besoins en sécurité.</p>
             </div>
 
             <div class="services-grid">
-                <!-- SERVICE 1 -->
-                <div class="service-card">
+                <!-- SERVICE 1 : Sécurité générale (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=500&q=80" alt="Activité de sécurité">
+                        <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-shield-alt service-icon"></i>
-                        <h3>Activité de sécurité</h3>
-                        <p>Gestion globale, audit des risques et mise en place de stratégies de sécurité adaptées à vos infrastructures.</p>
+                        <h3>Sécurité générale</h3>
+                        <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels. Prévention des risques et contrôle des accès.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
 
-                <!-- SERVICE 2 -->
-                <div class="service-card">
+                <!-- SERVICE 2 : Vigile (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="150">
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=500&q=80" alt="Vigile">
+                        <img src="gsecurite/vigile.jpg" alt="Vigile">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-user-shield service-icon"></i>
                         <h3>Vigile</h3>
-                        <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance de vos sites 24h/7.</p>
+                        <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels. Prévention des risques et contrôle des accès.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
 
-                <!-- SERVICE 3 -->
-                <div class="service-card">
+                <!-- SERVICE 3 : Sécurité incendie (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=500&q=80" alt="Sécurité incendie">
+                        <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-fire-extinguisher service-icon"></i>
                         <h3>Sécurité incendie</h3>
-                        <p>Prévention des risques d'incendie, intervention rapide et vérification de la conformité de vos installations.</p>
+                        <p>Dispositifs de prévention et d'intervention contre les risques d'incendie. Agents formés à la détection, l'alerte et la lutte incendie.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
 
-                <!-- SERVICE 4 -->
-                <div class="service-card">
+                <!-- SERVICE 4 : Sécurité électronique (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=500&q=80" alt="Surveillance">
+                        <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-video service-icon"></i>
-                        <h3>Surveillance</h3>
-                        <p>Vigilance continue et patrouilles régulières pour dissuader toute tentative d'intrusion ou de malveillance.</p>
+                        <h3>Sécurité électronique</h3>
+                        <p>Vidéosurveillance, systèmes d'alarme, contrôle d'accès et détection intrusion. Supervision en temps réel et intervention rapide.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
 
-                <!-- SERVICE 5 -->
-                <div class="service-card">
+                <!-- SERVICE 5 : Escortage & Protection rapprochée (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1519074002996-a69e7ac46a42?auto=format&fit=crop&w=500&q=80" alt="Convoie sécurisé">
+                        <img src="gsecurite/escortage.png" alt="Escortage & Protection rapprochée">
+                    </div>
+                    <div class="card-content">
+                        <i class="fas fa-crown service-icon"></i>
+                        <h3>Escortage &amp; Protection rapprochée</h3>
+                        <p>Services d'escortage sécuritaire pour personnalités et dirigeants lors de déplacements sur le territoire national.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SERVICE 6 : Convoie sécurisé (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="card-image">
+                        <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-truck service-icon"></i>
                         <h3>Convoie sécurisé</h3>
                         <p>Transport et acheminement hautement sécurisés de vos fonds, valeurs et équipements sensibles.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
 
-                <!-- SERVICE 6 -->
-                <div class="service-card">
+                <!-- SERVICE 7 : Vente d'accessoires (AVEC VOTRE IMAGE) -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=500&q=80" alt="Vente d'accessoires de sécurité">
+                        <img src="gsecurite/accessoires.png" alt="Vente d'accessoires de sécurité">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-store service-icon"></i>
                         <h3>Vente d'accessoires de sécurité</h3>
                         <p>Fourniture de matériel de protection individuel et d'équipements de sécurité de première qualité.</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
 
-                <!-- SERVICE 7 -->
-                <div class="service-card">
+                <!-- SERVICE 8 : Recherche et investigation -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="450">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=500&q=80" alt="Recherche et investigation">
                     </div>
@@ -1155,18 +1371,9 @@
                         <i class="fas fa-search service-icon"></i>
                         <h3>Recherche et investigation</h3>
                         <p>Enquêtes, collectes d'informations et levées de doutes menées en toute confidentialité par nos experts.</p>
-                    </div>
-                </div>
-
-                <!-- SERVICE 8 -->
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=500&q=80" alt="Garde rapprochée">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-crown service-icon"></i>
-                        <h3>Garde rapprochée</h3>
-                        <p>Protection rapprochée et accompagnement personnalisé pour la sécurité des hautes personnalités (VIP).</p>
+                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                            <i class="fab fa-whatsapp"></i> Demander un devis
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1176,7 +1383,7 @@
     <!-- ============================================================
     ZONES D'INTERVENTION
     ============================================================ -->
-    <section class="section" id="zones">
+    <section class="section" id="zones" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Nos zones <span>d'intervention</span></h2>
             <p class="section-subtitle">
@@ -1201,7 +1408,7 @@
     <!-- ============================================================
     RÉALISATIONS
     ============================================================ -->
-    <section class="section section-alt" id="realisations">
+    <section class="section section-alt" id="realisations" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Nos <span>réalisations</span></h2>
             <p class="section-subtitle">
@@ -1209,22 +1416,22 @@
             </p>
 
             <div class="realisations-grid">
-                <div class="realisation-card">
+                <div class="realisation-card" data-aos="flip-up" data-aos-delay="100">
                     <i class="fas fa-industry"></i>
                     <h4>Sécurisation site minier</h4>
                     <p>Mise en place d'un dispositif complet pour une mine à Bobo-Dioulasso.</p>
                 </div>
-                <div class="realisation-card">
+                <div class="realisation-card" data-aos="flip-up" data-aos-delay="200">
                     <i class="fas fa-university"></i>
                     <h4>Protection d'institution</h4>
                     <p>Surveillance rapprochée d'un siège social à Ouagadougou.</p>
                 </div>
-                <div class="realisation-card">
+                <div class="realisation-card" data-aos="flip-up" data-aos-delay="300">
                     <i class="fas fa-calendar-check"></i>
                     <h4>Événementiel</h4>
                     <p>Sécurisation d'un grand festival culturel à Koudougou.</p>
                 </div>
-                <div class="realisation-card">
+                <div class="realisation-card" data-aos="flip-up" data-aos-delay="400">
                     <i class="fas fa-hotel"></i>
                     <h4>Sécurisation hôtelière</h4>
                     <p>Protection d'un complexe hôtelier 5 étoiles à Ouagadougou.</p>
@@ -1236,22 +1443,22 @@
     <!-- ============================================================
     TÉMOIGNAGES
     ============================================================ -->
-    <section class="section" id="temoignages">
+    <section class="section" id="temoignages" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Ils nous font <span>confiance</span></h2>
             <p class="section-subtitle">
                 Ce que nos clients disent de nos services.
             </p>
             <div class="testimonials-grid">
-                <div class="testimonial-card">
+                <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
                     <p>“Un professionnalisme exemplaire et une réactivité sans faille. G-SÉCURITÉ est notre partenaire de confiance pour la sécurité de nos sites.”</p>
                     <div class="author">Jean M. <span>Directeur, Société Minière</span></div>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
                     <p>“Les agents sont compétents et discrets. La sécurité électronique installée est de très haute qualité. Je recommande vivement G-SÉCURITÉ.”</p>
                     <div class="author">Alassane Z. <span>Directeur Général d'Institution</span></div>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
                     <p>“Une équipe à l'écoute, qui a su comprendre nos besoins spécifiques pour un événement de grande envergure. Tout était parfait.”</p>
                     <div class="author">Issouf Z. <span>Organisateur d'événements</span></div>
                 </div>
@@ -1260,9 +1467,9 @@
     </section>
 
     <!-- ============================================================
-    RECRUTEMENT
+    RECRUTEMENT (AVEC IMAGE EQUIPE EN FOND)
     ============================================================ -->
-    <section class="section section-alt" id="recrutement">
+    <section class="recrutement-section" id="recrutement" data-aos="zoom-in">
         <div class="container">
             <div class="recrutement-box">
                 <h2>Rejoignez notre <span>équipe</span></h2>
@@ -1279,7 +1486,7 @@
     <!-- ============================================================
     CONTACT / DEVIS
     ============================================================ -->
-    <section class="section" id="contact">
+    <section class="section" id="contact" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Demandez un <span>devis</span></h2>
             <p class="section-subtitle">
@@ -1289,7 +1496,7 @@
 
             <div class="contact-grid">
                 <!-- Infos contact -->
-                <div class="contact-info">
+                <div class="contact-info" data-aos="fade-right">
                     <h3>Nos coordonnées</h3>
                     <div class="contact-info-item">
                         <i class="fas fa-map-marker-alt"></i>
@@ -1302,7 +1509,7 @@
                         <i class="fas fa-phone-alt"></i>
                         <div>
                             <strong>Téléphone</strong>
-                            <span>+226 XX XX XX XX</span>
+                            <span>+226 63 90 79 79</span>
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -1316,7 +1523,7 @@
                         <i class="fas fa-clock"></i>
                         <div>
                             <strong>Urgence 24h/24</strong>
-                            <span>+226 XX XX XX XX</span>
+                            <span>+226 63 90 79 79</span>
                         </div>
                     </div>
                     <div style="margin-top: 20px;">
@@ -1330,7 +1537,7 @@
                 </div>
 
                 <!-- Formulaire -->
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" data-aos="fade-left">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
                         <input type="text" placeholder="Nom complet" required />
                         <input type="email" placeholder="Email" required />
@@ -1338,14 +1545,14 @@
                     <input type="tel" placeholder="Téléphone" />
                     <select required>
                         <option value="">Service souhaité</option>
-                        <option>Activité de sécurité</option>
+                        <option>Sécurité générale</option>
                         <option>Vigile</option>
                         <option>Sécurité incendie</option>
-                        <option>Surveillance</option>
+                        <option>Sécurité électronique</option>
+                        <option>Escortage &amp; Protection rapprochée</option>
                         <option>Convoie sécurisé</option>
                         <option>Vente d'accessoires de sécurité</option>
                         <option>Recherche et investigation</option>
-                        <option>Garde rapprochée</option>
                         <option>Recrutement / Candidature</option>
                         <option>Autre</option>
                     </select>
@@ -1375,7 +1582,7 @@
                 </div>
                 <div>
                     <h4>Contact</h4>
-                    <p>+226 XX XX XX XX</p>
+                    <p>+226 63 90 79 79</p>
                     <p>contact@g-securite.bf</p>
                     <p>Ouagadougou, Burkina Faso</p>
                 </div>
@@ -1397,21 +1604,43 @@
     <!-- ============================================================
     JAVASCRIPT
     ============================================================ -->
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
+            // ---------- INITIALISATION AOS ----------
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
 
             // ---------- MENU HAMBURGER ----------
             const hamburger = document.getElementById('hamburger');
             const nav = document.getElementById('nav');
 
             hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
                 nav.classList.toggle('open');
             });
 
             document.querySelectorAll('.nav a').forEach(function(link) {
                 link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
                     nav.classList.remove('open');
                 });
+            });
+
+            // ---------- HEADER SCROLL EFFECT ----------
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             });
 
             // ---------- LIEN ACTIF ----------
@@ -1457,26 +1686,22 @@
                 goToSlide(next);
             }
 
-            // Démarrer le slider automatique
             function startSlider() {
                 interval = setInterval(nextSlide, 3000);
             }
 
-            // Arrêter le slider
             function stopSlider() {
                 clearInterval(interval);
             }
 
-            // Clic sur les dots
             dots.forEach(function(dot, index) {
                 dot.addEventListener('click', function() {
                     stopSlider();
                     goToSlide(index);
-                    startSlider(); // Redémarrer après interaction
+                    startSlider();
                 });
             });
 
-            // Démarrer automatiquement
             startSlider();
 
             // ---------- FORMULAIRE ----------
