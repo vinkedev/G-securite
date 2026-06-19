@@ -81,7 +81,7 @@
             width: 100%;
             background-color: var(--color-secondary);
             color: var(--color-white);
-            padding: 12px 0;
+            padding: 8px 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             transition: var(--transition);
@@ -95,9 +95,17 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: 1px;
+        }
+        .logo img {
+            height: 45px;
+            width: auto;
+            border-radius: 4px;
         }
         .logo span {
             color: var(--color-primary);
@@ -267,6 +275,41 @@
         }
 
         /* ============================================================
+               À PROPOS (avec image)
+               ============================================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image img {
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            color: var(--color-secondary);
+        }
+        .about-text h3 span {
+            color: var(--color-primary);
+        }
+        .about-text p {
+            color: var(--color-text-muted);
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+        .about-text .btn {
+            margin-top: 10px;
+        }
+
+        /* ============================================================
                SERVICES
                ============================================================ */
         .services-grid {
@@ -319,28 +362,6 @@
             font-size: 0.9rem;
             margin-left: 4px;
             color: var(--color-primary);
-        }
-
-        /* ============================================================
-               CHIFFRES CLÉS
-               ============================================================ */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            text-align: center;
-        }
-
-        .stat-item .number {
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            line-height: 1.2;
-        }
-        .stat-item .label {
-            font-size: 1rem;
-            color: var(--color-text-muted);
-            font-weight: 500;
         }
 
         /* ============================================================
@@ -408,6 +429,42 @@
             font-weight: 400;
             color: var(--color-text-muted);
             font-size: 0.9rem;
+        }
+
+        /* ============================================================
+               RÉALISATIONS
+               ============================================================ */
+        .realisations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .realisation-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 30px 24px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+        }
+        .realisation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+            border-color: var(--color-primary);
+        }
+        .realisation-card i {
+            font-size: 2.4rem;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+        .realisation-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .realisation-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
         }
 
         /* ============================================================
@@ -583,6 +640,17 @@
             .contact-grid {
                 grid-template-columns: 1fr;
             }
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-image {
+                order: -1;
+            }
+            .about-image img {
+                max-height: 350px;
+                object-fit: cover;
+            }
             .hero h1 {
                 font-size: 2.8rem;
             }
@@ -595,6 +663,13 @@
 
             .header .container {
                 flex-wrap: nowrap;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+            .logo img {
+                height: 35px;
             }
 
             .nav {
@@ -636,10 +711,6 @@
                 padding: 50px 0;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .recrutement-box {
                 padding: 30px 20px;
             }
@@ -660,15 +731,18 @@
                 width: 100%;
                 text-align: center;
             }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
             .footer-grid {
                 grid-template-columns: 1fr;
             }
             .zone-tag {
                 padding: 6px 16px;
                 font-size: 0.9rem;
+            }
+            .about-grid {
+                gap: 20px;
+            }
+            .about-image img {
+                max-height: 220px;
             }
         }
     </style>
@@ -680,7 +754,10 @@
     ============================================================ -->
     <header class="header" id="header">
         <div class="container">
-            <a href="#accueil" class="logo">G-<span>SÉCURITÉ</span></a>
+            <a href="#accueil" class="logo">
+                <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ Logo" />
+                G-<span>SÉCURITÉ</span>
+            </a>
 
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
@@ -720,7 +797,7 @@
     </section>
 
     <!-- ============================================================
-    À PROPOS
+    À PROPOS (avec image)
     ============================================================ -->
     <section class="section" id="a-propos">
         <div class="container">
@@ -729,17 +806,25 @@
                 Une société de sécurité privée burkinabè, engagée pour la
                 tranquillité de nos clients.
             </p>
-            <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.05rem; color: var(--color-text-muted);">
-                <p style="margin-bottom: 16px;">
-                    <strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè,
-                    spécialisée dans la sécurité des personnes et des biens. Forts
-                    de notre expérience et de notre ancrage local, nous proposons
-                    des solutions sur mesure adaptées à chaque besoin.
-                </p>
-                <p>
-                    Certifiés ISO 9001, nos agents sont formés selon les standards
-                    les plus exigeants pour vous offrir un service d'excellence.
-                </p>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Une force pour votre <span>tranquillité</span></h3>
+                    <p>
+                        <strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè,
+                        spécialisée dans la sécurité des personnes et des biens. Forts
+                        de notre expérience et de notre ancrage local, nous proposons
+                        des solutions sur mesure adaptées à chaque besoin.
+                    </p>
+                    <p>
+                        Certifiés ISO 9001, nos agents sont formés selon les standards
+                        les plus exigeants pour vous offrir un service d'excellence.
+                    </p>
+                    <a href="#contact" class="btn btn-primary">Travailler avec nous</a>
+                </div>
+                <div class="about-image">
+                    <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" />
+                </div>
             </div>
         </div>
     </section>
@@ -796,39 +881,9 @@
     </section>
 
     <!-- ============================================================
-    CHIFFRES CLÉS
-    ============================================================ -->
-    <section class="section" id="chiffres">
-        <div class="container">
-            <h2 class="section-title">Quelques <span>chiffres</span></h2>
-            <p class="section-subtitle">
-                Ils parlent de notre engagement et de notre expertise.
-            </p>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="number" data-count="15">15</div>
-                    <div class="label">Ans d'expérience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number" data-count="120">120</div>
-                    <div class="label">Agents certifiés</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number" data-count="50">50</div>
-                    <div class="label">Sites sécurisés</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number" data-count="10">10</div>
-                    <div class="label">Villes couvertes</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
     ZONES D'INTERVENTION
     ============================================================ -->
-    <section class="section section-alt" id="zones">
+    <section class="section" id="zones">
         <div class="container">
             <h2 class="section-title">Nos zones <span>d'intervention</span></h2>
             <p class="section-subtitle">
@@ -853,27 +908,33 @@
     <!-- ============================================================
     RÉALISATIONS
     ============================================================ -->
-    <section class="section" id="realisations">
+    <section class="section section-alt" id="realisations">
         <div class="container">
             <h2 class="section-title">Nos <span>réalisations</span></h2>
             <p class="section-subtitle">
                 Des missions menées avec succès dans divers secteurs d'activité.
             </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
-                <div style="background: var(--color-bg-light); border-radius: 12px; padding: 24px; text-align: center; border: 1px solid var(--color-border);">
-                    <i class="fas fa-industry" style="font-size: 2.4rem; color: var(--color-primary); margin-bottom: 12px;"></i>
+
+            <div class="realisations-grid">
+                <div class="realisation-card">
+                    <i class="fas fa-industry"></i>
                     <h4>Sécurisation site minier</h4>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">Mise en place d'un dispositif complet pour une mine à Bobo-Dioulasso.</p>
+                    <p>Mise en place d'un dispositif complet pour une mine à Bobo-Dioulasso.</p>
                 </div>
-                <div style="background: var(--color-bg-light); border-radius: 12px; padding: 24px; text-align: center; border: 1px solid var(--color-border);">
-                    <i class="fas fa-university" style="font-size: 2.4rem; color: var(--color-primary); margin-bottom: 12px;"></i>
+                <div class="realisation-card">
+                    <i class="fas fa-university"></i>
                     <h4>Protection d'institution</h4>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">Surveillance rapprochée d'un siège social à Ouagadougou.</p>
+                    <p>Surveillance rapprochée d'un siège social à Ouagadougou.</p>
                 </div>
-                <div style="background: var(--color-bg-light); border-radius: 12px; padding: 24px; text-align: center; border: 1px solid var(--color-border);">
-                    <i class="fas fa-calendar-check" style="font-size: 2.4rem; color: var(--color-primary); margin-bottom: 12px;"></i>
+                <div class="realisation-card">
+                    <i class="fas fa-calendar-check"></i>
                     <h4>Événementiel</h4>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">Sécurisation d'un grand festival culturel à Koudougou.</p>
+                    <p>Sécurisation d'un grand festival culturel à Koudougou.</p>
+                </div>
+                <div class="realisation-card">
+                    <i class="fas fa-hotel"></i>
+                    <h4>Sécurisation hôtelière</h4>
+                    <p>Protection d'un complexe hôtelier 5 étoiles à Ouagadougou.</p>
                 </div>
             </div>
         </div>
@@ -882,7 +943,7 @@
     <!-- ============================================================
     TÉMOIGNAGES
     ============================================================ -->
-    <section class="section section-alt" id="temoignages">
+    <section class="section" id="temoignages">
         <div class="container">
             <h2 class="section-title">Ils nous font <span>confiance</span></h2>
             <p class="section-subtitle">
@@ -908,7 +969,7 @@
     <!-- ============================================================
     RECRUTEMENT
     ============================================================ -->
-    <section class="section" id="recrutement">
+    <section class="section section-alt" id="recrutement">
         <div class="container">
             <div class="recrutement-box">
                 <h2>Rejoignez notre <span>équipe</span></h2>
@@ -925,7 +986,7 @@
     <!-- ============================================================
     CONTACT / DEVIS
     ============================================================ -->
-    <section class="section section-alt" id="contact">
+    <section class="section" id="contact">
         <div class="container">
             <h2 class="section-title">Demandez un <span>devis</span></h2>
             <p class="section-subtitle">
@@ -1080,36 +1141,6 @@
             }
 
             window.addEventListener('scroll', updateActiveLink);
-
-            // ---------- ANIMATION DES CHIFFRES ----------
-            const statsSection = document.getElementById('chiffres');
-            const statNumbers = document.querySelectorAll('.stat-item .number');
-            let animated = false;
-
-            function animateNumbers() {
-                if (animated) return;
-                const rect = statsSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 80) {
-                    animated = true;
-                    statNumbers.forEach(function(el) {
-                        const target = parseInt(el.getAttribute('data-count'));
-                        let current = 0;
-                        const increment = Math.ceil(target / 40);
-                        const timer = setInterval(function() {
-                            current += increment;
-                            if (current >= target) {
-                                current = target;
-                                clearInterval(timer);
-                            }
-                            el.textContent = current;
-                        }, 30);
-                    });
-                }
-            }
-
-            window.addEventListener('scroll', animateNumbers);
-            // Lancer une fois au cas où la section est déjà visible
-            setTimeout(animateNumbers, 500);
 
             // ---------- FORMULAIRE ----------
             const form = document.getElementById('contactForm');
