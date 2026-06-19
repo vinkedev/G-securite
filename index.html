@@ -5,19 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>G-SÉCURITÉ - Sécurité Privée Burkina Faso</title>
 
-    <!-- ============================================================
-    POLICES GOOGLE FONTS (Premium)
-    ============================================================ -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-
     <!-- Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
     <style>
         /* ============================================================
-               ROOT VARIABLES (Typographie Premium)
+               ROOT VARIABLES
                ============================================================ */
         :root {
             --color-primary: #C1121C;
@@ -34,10 +27,7 @@
             --color-success: #198754;
             --color-warning: #FFC107;
 
-            /* === NOUVELLES POLICES PREMIUM === */
-            --font-family: 'Plus Jakarta Sans', sans-serif;
-            --font-title: 'Syne', sans-serif;
-
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             --transition: 0.3s ease;
         }
@@ -60,7 +50,7 @@
             color: var(--color-text-dark);
             background-color: var(--color-white);
             line-height: 1.6;
-            padding-top: 80px; /* pour compenser le header plus haut */
+            padding-top: 80px;
         }
 
         a {
@@ -91,15 +81,14 @@
             top: 0;
             left: 0;
             width: 100%;
-            /* === EFFET GLASSMORPHISM === */
             background-color: rgba(29, 29, 44, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: var(--color-white);
-            padding: 16px 0; /* Plus d'espace pour respirer */
+            padding: 16px 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Ligne fine élégante */
-            box-shadow: none; /* On enlève l'ombre lourde */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: none;
             transition: var(--transition);
         }
 
@@ -114,10 +103,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-family: var(--font-title);
             font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         .logo img {
             height: 45px;
@@ -164,7 +152,6 @@
             box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
         }
 
-        /* Menu hamburger (mobile) */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -187,13 +174,12 @@
                HERO (Immersif - Aligné à gauche)
                ============================================================ */
         .hero {
-            /* Dégradé plus subtil et asymétrique */
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.95) 40%, rgba(29, 29, 44, 0.4) 100%),
                         url('https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             min-height: 90vh;
             display: flex;
             align-items: center;
-            text-align: left; /* Aligné à gauche - plus corporate */
+            text-align: left;
             color: var(--color-white);
             padding: 80px 0;
         }
@@ -203,9 +189,8 @@
         }
 
         .hero h1 {
-            font-family: var(--font-title);
             font-size: 3.8rem;
-            font-weight: 800;
+            font-weight: 700;
             line-height: 1.15;
             letter-spacing: -1px;
             margin-bottom: 20px;
@@ -233,7 +218,7 @@
         .btn {
             display: inline-block;
             padding: 14px 36px;
-            border-radius: 12px; /* Un angle légèrement adouci fait plus pro */
+            border-radius: 12px;
             font-weight: 600;
             letter-spacing: 0.3px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -276,9 +261,8 @@
         }
 
         .section-title {
-            font-family: var(--font-title);
             font-size: 2.6rem;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             letter-spacing: -0.5px;
             margin-bottom: 12px;
@@ -314,7 +298,6 @@
         }
 
         .about-text h3 {
-            font-family: var(--font-title);
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 16px;
@@ -333,8 +316,44 @@
         }
 
         /* ============================================================
-               SERVICES (Cartes Premium)
+               SERVICES (NOUVEAU - AVEC IMAGES)
                ============================================================ */
+        .services-section {
+            padding: 80px 0;
+            background-color: var(--color-bg-light);
+        }
+
+        .services-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+
+        .services-subtitle {
+            color: var(--color-primary);
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .services-header h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: 20px;
+        }
+        .services-header h2 span {
+            color: var(--color-primary);
+        }
+
+        .services-header p {
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+        }
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -343,54 +362,59 @@
 
         .service-card {
             background: var(--color-white);
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(29, 29, 44, 0.03);
+            border-radius: 14px;
+            overflow: hidden;
             border: 1px solid rgba(29, 29, 44, 0.05);
-            text-align: left;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
         }
+
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: var(--color-primary);
             box-shadow: 0 20px 40px rgba(193, 18, 28, 0.08);
         }
 
-        .service-card i {
-            font-size: 2.8rem;
-            color: var(--color-primary);
-            margin-bottom: 18px;
+        .card-image {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .service-card h3 {
-            font-family: var(--font-title);
-            font-size: 1.3rem;
-            font-weight: 700;
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .card-image img {
+            transform: scale(1.06);
+        }
+
+        .card-content {
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            font-size: 1.15rem;
+            color: var(--color-secondary);
             margin-bottom: 12px;
-        }
-
-        .service-card p {
-            color: var(--color-text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 18px;
-        }
-
-        .service-card a {
-            color: var(--color-primary);
             font-weight: 600;
-            transition: var(--transition);
+            line-height: 1.4;
         }
-        .service-card a:hover {
-            color: var(--color-primary-dark);
-        }
-        .service-card a i {
+
+        .card-content p {
             font-size: 0.9rem;
-            margin-left: 4px;
-            color: var(--color-primary);
-            transition: var(--transition);
-        }
-        .service-card a:hover i {
-            transform: translateX(4px);
+            color: var(--color-text-muted);
+            line-height: 1.6;
+            margin: 0;
         }
 
         /* ============================================================
@@ -496,7 +520,6 @@
             margin-bottom: 12px;
         }
         .realisation-card h4 {
-            font-family: var(--font-title);
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 8px;
@@ -520,9 +543,8 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .recrutement-box h2 {
-            font-family: var(--font-title);
             font-size: 2.2rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 12px;
         }
         .recrutement-box h2 span {
@@ -556,7 +578,6 @@
         }
 
         .contact-info h3 {
-            font-family: var(--font-title);
             font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 24px;
@@ -636,7 +657,6 @@
         }
 
         .footer h4 {
-            font-family: var(--font-title);
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 18px;
@@ -776,6 +796,13 @@
                 padding: 50px 0;
             }
 
+            .services-header h2 {
+                font-size: 2rem;
+            }
+            .services-section {
+                padding: 50px 0;
+            }
+
             .recrutement-box {
                 padding: 30px 20px;
             }
@@ -787,12 +814,8 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            .service-card {
+            .card-content {
                 text-align: center;
-            }
-            .service-card i {
-                margin-left: auto;
-                margin-right: auto;
             }
         }
 
@@ -819,6 +842,12 @@
             }
             .testimonials-grid {
                 grid-template-columns: 1fr;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-image {
+                height: 160px;
             }
         }
     </style>
@@ -906,51 +935,103 @@
     </section>
 
     <!-- ============================================================
-    SERVICES
+    SERVICES (NOUVEAU - AVEC IMAGES)
     ============================================================ -->
-    <section class="section section-alt" id="services">
+    <section class="services-section" id="services">
         <div class="container">
-            <h2 class="section-title">Nos <span>services</span></h2>
-            <p class="section-subtitle">
-                Des solutions complètes pour tous vos besoins en sécurité.
-            </p>
+            <div class="services-header">
+                <span class="services-subtitle">Nos Prestations</span>
+                <h2>Nos Services de <span>Sécurité &amp; Protection</span></h2>
+                <p>Découvrez l'ensemble des solutions professionnelles proposées par G-SÉCURITÉ pour garantir votre sérénité.</p>
+            </div>
 
             <div class="services-grid">
+                <!-- SERVICE 1 -->
                 <div class="service-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Gardiennage &amp; Surveillance</h3>
-                    <p>Sécurisation de sites industriels, miniers et résidentiels par des agents qualifiés.</p>
-                    <a href="#contact">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=500&q=80" alt="Activité de sécurité">
+                    </div>
+                    <div class="card-content">
+                        <h3>Activité de sécurité</h3>
+                        <p>Gestion globale, audit des risques et mise en place de stratégies de sécurité adaptées à vos infrastructures.</p>
+                    </div>
                 </div>
+
+                <!-- SERVICE 2 -->
                 <div class="service-card">
-                    <i class="fas fa-video"></i>
-                    <h3>Sécurité Électronique</h3>
-                    <p>Vidéoprotection, contrôle d'accès et systèmes d'alarme connectés 24h/7.</p>
-                    <a href="#contact">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&w=500&q=80" alt="Vigile">
+                    </div>
+                    <div class="card-content">
+                        <h3>Vigile</h3>
+                        <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance de vos sites 24h/7.</p>
+                    </div>
                 </div>
+
+                <!-- SERVICE 3 -->
                 <div class="service-card">
-                    <i class="fas fa-truck"></i>
-                    <h3>Transport de Fonds</h3>
-                    <p>Solutions sécurisées pour le transport de valeurs et l'escorte de convois.</p>
-                    <a href="#contact">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=500&q=80" alt="Sécurité incendie">
+                    </div>
+                    <div class="card-content">
+                        <h3>Sécurité incendie</h3>
+                        <p>Prévention des risques d'incendie, intervention rapide et vérification de la conformité de vos installations.</p>
+                    </div>
                 </div>
+
+                <!-- SERVICE 4 -->
                 <div class="service-card">
-                    <i class="fas fa-user-shield"></i>
-                    <h3>Protection Rapprochée</h3>
-                    <p>Garde du corps et protection de hautes personnalités (VIP/VVIP).</p>
-                    <a href="#contact">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=500&q=80" alt="Surveillance">
+                    </div>
+                    <div class="card-content">
+                        <h3>Surveillance</h3>
+                        <p>Vigilance continue et patrouilles régulières pour dissuader toute tentative d'intrusion ou de malveillance.</p>
+                    </div>
                 </div>
+
+                <!-- SERVICE 5 -->
                 <div class="service-card">
-                    <i class="fas fa-dog"></i>
-                    <h3>Unité Cynophile</h3>
-                    <p>Brigades canines spécialisées pour la détection et l'intervention rapide.</p>
-                    <a href="#contact">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1519074002996-a69e7ac46a42?auto=format&fit=crop&w=500&q=80" alt="Convoie sécurisé">
+                    </div>
+                    <div class="card-content">
+                        <h3>Convoie sécurisé</h3>
+                        <p>Transport et acheminement hautement sécurisés de vos fonds, valeurs et équipements sensibles.</p>
+                    </div>
                 </div>
+
+                <!-- SERVICE 6 -->
                 <div class="service-card">
-                    <i class="fas fa-hard-hat"></i>
-                    <h3>Sécurité Minière</h3>
-                    <p>Expertise spécifique pour la sécurisation des périmètres et infrastructures minières.</p>
-                    <a href="#contact">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=500&q=80" alt="Vente d'accessoires de sécurité">
+                    </div>
+                    <div class="card-content">
+                        <h3>Vente d'accessoires divers de sécurité</h3>
+                        <p>Fourniture de matériel de protection individuel et d'équipements de sécurité de première qualité.</p>
+                    </div>
+                </div>
+
+                <!-- SERVICE 7 -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=500&q=80" alt="Recherche et investigation">
+                    </div>
+                    <div class="card-content">
+                        <h3>Recherche et investigation</h3>
+                        <p>Enquêtes, collectes d'informations et levées de doutes menées en toute confidentialité par nos experts.</p>
+                    </div>
+                </div>
+
+                <!-- SERVICE 8 -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=500&q=80" alt="Garde rapprochée">
+                    </div>
+                    <div class="card-content">
+                        <h3>Garde rapprochée</h3>
+                        <p>Protection rapprochée et accompagnement personnalisé pour la sécurité des hautes personnalités (VIP).</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1017,7 +1098,7 @@
     </section>
 
     <!-- ============================================================
-    TÉMOIGNAGES (STRUCTURE COMPLÈTE)
+    TÉMOIGNAGES
     ============================================================ -->
     <section class="section" id="temoignages">
         <div class="container">
@@ -1121,12 +1202,14 @@
                     <input type="tel" placeholder="Téléphone" />
                     <select required>
                         <option value="">Service souhaité</option>
-                        <option>Gardiennage &amp; Surveillance</option>
-                        <option>Sécurité Électronique</option>
-                        <option>Transport de Fonds</option>
-                        <option>Protection Rapprochée</option>
-                        <option>Unité Cynophile</option>
-                        <option>Sécurité Minière</option>
+                        <option>Activité de sécurité</option>
+                        <option>Vigile</option>
+                        <option>Sécurité incendie</option>
+                        <option>Surveillance</option>
+                        <option>Convoie sécurisé</option>
+                        <option>Vente d'accessoires de sécurité</option>
+                        <option>Recherche et investigation</option>
+                        <option>Garde rapprochée</option>
                         <option>Recrutement / Candidature</option>
                         <option>Autre</option>
                     </select>
