@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>G-SÉCURITÉ - Administration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        
+        /* ============================================
+           PAGE DE CONNEXION
+           ============================================ */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1D1D2C 0%, #2B2B40 100%);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        .login-box .logo {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1D1D2C;
+            margin-bottom: 4px;
+        }
+        
+        .login-box .logo span {
+            color: #C1121C;
+        }
+        
+        .login-box .subtitle {
+            text-align: center;
+            color: #6C757D;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .login-box input:focus {
+            outline: none;
+            border-color: #C1121C;
+            box-shadow: 0 0 0 4px rgba(193, 18, 28, 0.1);
+        }
+        
+        .login-box .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #C1121C;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-box .btn-login:hover {
+            background: #A10E17;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
+        }
+        
+        .login-box .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .login-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        /* ============================================
+           DASHBOARD ADMIN
+           ============================================ */
+        .admin-container {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .admin-header .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1D1D2C;
+        }
+        
+        .admin-header .logo span {
+            color: #C1121C;
+        }
+        
+        .admin-header .logo small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #6C757D;
+            margin-left: 8px;
+        }
+        
+        .admin-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-header .user-info span {
+            color: #6C757D;
+        }
+        
+        .admin-header .btn-logout {
+            padding: 8px 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-header .btn-logout:hover {
+            background: #c82333;
+        }
+        
+        /* Statistiques */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1D1D2C;
+        }
+        
+        .stat-card .label {
+            color: #6C757D;
+            font-size: 0.9rem;
+        }
+        
+        .stat-card .icon {
+            font-size: 1.8rem;
+            color: #C1121C;
+            opacity: 0.3;
+            float: right;
+        }
+        
+        /* Filtres */
+        .filters {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .filters select,
+        .filters input {
+            padding: 10px 16px;
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .filters select:focus,
+        .filters input:focus {
+            outline: none;
+            border-color: #C1121C;
+        }
+        
+        .filters .btn-search {
+            padding: 10px 24px;
+            background: #C1121C;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .filters .btn-search:hover {
+            background: #A10E17;
+            transform: translateY(-2px);
+        }
+        
+        .filters .btn-refresh {
+            background: #28a745;
+        }
+        
+        .filters .btn-refresh:hover {
+            background: #218838;
+        }
+        
+        /* Tableau */
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .table-container th {
+            background: #f8f9fa;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #1D1D2C;
+            border-bottom: 2px solid #E9ECEF;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .table-container td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #E9ECEF;
+            vertical-align: middle;
+        }
+        
+        .table-container tr:hover td {
+            background: #f8f9fa;
+        }
+        
+        .table-container .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-en_attente {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-valide {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejete {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-entretien {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-action:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-download {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-download:hover {
+            background: #218838;
+        }
+        
+        .btn-view {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-view:hover {
+            background: #138496;
+        }
+        
+        .btn-edit {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-edit:hover {
+            background: #e0a800;
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background: #c82333;
+        }
+        
+        .documents-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .documents-list a {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #1D1D2C;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .documents-list a:hover {
+            background: #C1121C;
+            color: white;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6C757D;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            opacity: 0.3;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 8px;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6C757D;
+        }
+        
+        .loading i {
+            font-size: 2.5rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6C757D;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+        }
+        
+        .modal-close:hover {
+            color: #C1121C;
+            transform: rotate(90deg);
+        }
+        
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #1D1D2C;
+            font-size: 1.4rem;
+        }
+        
+        .modal-content h2 i {
+            color: #C1121C;
+            margin-right: 10px;
+        }
+        
+        .modal-content .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .modal-content .detail-label {
+            font-weight: 600;
+            width: 120px;
+            flex-shrink: 0;
+            color: #6C757D;
+        }
+        
+        .modal-content .detail-value {
+            color: #1D1D2C;
+            word-break: break-word;
+        }
+        
+        .modal-content .detail-docs {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .modal-content .detail-docs a {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #C1121C;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-content .detail-docs a:hover {
+            background: #A10E17;
+            transform: scale(1.05);
+        }
+        
+        /* Edit modal */
+        .edit-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-form select:focus {
+            outline: none;
+            border-color: #C1121C;
+        }
+        
+        .edit-form .btn-save {
+            width: 100%;
+            padding: 14px;
+            background: #C1121C;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-form .btn-save:hover {
+            background: #A10E17;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
+        }
+        
+        .edit-form .btn-save:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Notification toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background: #28a745;
+        }
+        
+        .toast.error {
+            background: #dc3545;
+        }
+        
+        .toast.info {
+            background: #17a2b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .filters select,
+            .filters input,
+            .filters .btn-search {
+                width: 100%;
+            }
+            
+            .table-wrapper {
+                overflow-x: auto;
+            }
+            
+            .modal-content {
+                padding: 25px 20px;
+                margin: 10px;
+            }
+            
+            .modal-content .detail-row {
+                flex-direction: column;
+            }
+            
+            .modal-content .detail-label {
+                width: 100%;
+                margin-bottom: 4px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-header .logo {
+                font-size: 1.2rem;
+            }
+            
+            .admin-header .user-info {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    PAGE DE CONNEXION
+    ============================================ -->
+    <div class="login-page" id="loginPage">
+        <div class="login-box">
+            <div class="logo">G-<span>SÉCURITÉ</span></div>
+            <p class="subtitle">Espace Administration</p>
+            
+            <div class="login-error" id="loginError">
+                <i class="fas fa-exclamation-circle"></i> Identifiants incorrects
+            </div>
+            
+            <input type="email" id="loginEmail" placeholder="Email" value="admin@gsecurite.bf">
+            <input type="password" id="loginPassword" placeholder="Mot de passe" value="admin123">
+            
+            <button class="btn-login" id="loginBtn">
+                <i class="fas fa-lock"></i> Se connecter
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================
+    DASHBOARD ADMIN
+    ============================================ -->
+    <div class="admin-container" id="adminDashboard">
+        
+        <!-- En-tête -->
+        <div class="admin-header">
+            <div class="logo">
+                G-<span>SÉCURITÉ</span> <small>Administration</small>
+            </div>
+            <div class="user-info">
+                <span><i class="fas fa-user"></i> <span id="adminEmail">admin@gsecurite.bf</span></span>
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </button>
+            </div>
+        </div>
+        
+        <!-- Statistiques -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <span class="icon"><i class="fas fa-users"></i></span>
+                <div class="number" id="totalCandidatures">0</div>
+                <div class="label">Total candidatures</div>
+            </div>
+            <div class="stat-card">
+                <span class="icon"><i class="fas fa-clock"></i></span>
+                <div class="number" id="enAttente">0</div>
+                <div class="label">En attente</div>
+            </div>
+            <div class="stat-card">
+                <span class="icon"><i class="fas fa-check-circle"></i></span>
+                <div class="number" id="validees">0</div>
+                <div class="label">Validées</div>
+            </div>
+            <div class="stat-card">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <div class="number" id="totalDocuments">0</div>
+                <div class="label">Documents déposés</div>
+            </div>
+        </div>
+        
+        <!-- Filtres -->
+        <div class="filters">
+            <select id="filterStatus">
+                <option value="">Tous les statuts</option>
+                <option value="en_attente">En attente</option>
+                <option value="valide">Validée</option>
+                <option value="rejete">Rejetée</option>
+                <option value="entretien">Entretien</option>
+            </select>
+            <input type="text" id="filterSearch" placeholder="Rechercher par nom, email ou téléphone...">
+            <button class="btn-search" id="searchBtn">
+                <i class="fas fa-search"></i> Rechercher
+            </button>
+            <button class="btn-search btn-refresh" id="refreshBtn">
+                <i class="fas fa-sync"></i> Rafraîchir
+            </button>
+        </div>
+        
+        <!-- Tableau -->
+        <div class="table-container">
+            <div id="loadingState" class="loading">
+                <i class="fas fa-spinner"></i>
+                <p style="margin-top:12px;">Chargement des candidatures...</p>
+            </div>
+            <div id="tableContent" style="display:none;">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Candidat</th>
+                                <th>Contact</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Documents</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidaturesTableBody">
+                            <!-- Rempli par JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="emptyState" class="empty-state" style="display:none;">
+                    <i class="fas fa-inbox"></i>
+                    <h3>Aucune candidature</h3>
+                    <p>Les candidatures apparaîtront ici dès qu'elles seront soumises via le formulaire de recrutement.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    MODAL DETAILS
+    ============================================ -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2><i class="fas fa-user-circle"></i> Détails de la candidature</h2>
+            <div id="modalBody">
+                <!-- Rempli par JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    MODAL EDITION STATUT
+    ============================================ -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <button class="modal-close" id="editModalClose">&times;</button>
+            <h2><i class="fas fa-edit"></i> Modifier le statut</h2>
+            <form class="edit-form" id="editForm">
+                <input type="hidden" id="editId">
+                <label style="display:block; margin-bottom:6px; font-weight:600; color:#1D1D2C;">Statut</label>
+                <select id="editStatus">
+                    <option value="en_attente">En attente</option>
+                    <option value="valide">Validée</option>
+                    <option value="rejete">Rejetée</option>
+                    <option value="entretien">Entretien</option>
+                </select>
+                <button type="submit" class="btn-save" id="editSaveBtn">
+                    <i class="fas fa-save"></i> Mettre à jour
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================
+    TOAST NOTIFICATION
+    ============================================ -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ============================================
+    JAVASCRIPT
+    ============================================ -->
+    <script>
+        // ============================================================
+        // CONFIGURATION SUPABASE
+        // ============================================================
+        const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ============================================================
+        // ÉLÉMENTS DOM
+        // ============================================================
+        const loginPage = document.getElementById('loginPage');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginError = document.getElementById('loginError');
+        const loginEmail = document.getElementById('loginEmail');
+        const loginPassword = document.getElementById('loginPassword');
+
+        // ============================================================
+        // AUTHENTIFICATION
+        // ============================================================
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                showDashboard(session.user.email);
+            }
+        }
+
+        loginBtn.addEventListener('click', async function() {
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value;
+            
+            loginError.style.display = 'none';
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
+                showDashboard(email);
+                showToast('Connexion réussie !', 'success');
+            } catch (error) {
+                loginError.style.display = 'block';
+                loginError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${error.message || 'Identifiants incorrects'}`;
+                this.disabled = false;
+                this.innerHTML = '<i class="fas fa-lock"></i> Se connecter';
+            }
+        });
+
+        logoutBtn.addEventListener('click', async function() {
+            await supabase.auth.signOut();
+            loginPage.style.display = 'flex';
+            adminDashboard.style.display = 'none';
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '<i class="fas fa-lock"></i> Se connecter';
+            showToast('Déconnexion réussie', 'info');
+        });
+
+        loginPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+
+        function showDashboard(email) {
+            loginPage.style.display = 'none';
+            adminDashboard.style.display = 'block';
+            document.getElementById('adminEmail').textContent = email;
+            loadCandidatures();
+        }
+
+        // ============================================================
+        // TOAST NOTIFICATION
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============================================================
+        // CHARGEMENT DES CANDIDATURES - TABLE gsecurite
+        // ============================================================
+        let allCandidatures = [];
+
+        async function loadCandidatures() {
+            const loadingState = document.getElementById('loadingState');
+            const tableContent = document.getElementById('tableContent');
+            const emptyState = document.getElementById('emptyState');
+            const tbody = document.getElementById('candidaturesTableBody');
+            
+            loadingState.style.display = 'block';
+            tableContent.style.display = 'none';
+            emptyState.style.display = 'none';
+            tbody.innerHTML = '';
+            
+            try {
+                const { data, error } = await supabase
+                    .from('gsecurite')  // ← TABLE gsecurite
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                allCandidatures = data || [];
+                updateStats();
+                renderCandidatures(allCandidatures);
+                
+                loadingState.style.display = 'none';
+                tableContent.style.display = 'block';
+                
+                if (allCandidatures.length === 0) {
+                    emptyState.style.display = 'block';
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                loadingState.innerHTML = `
+                    <i class="fas fa-exclamation-circle" style="color:#dc3545;"></i>
+                    <p style="margin-top:12px; color:#dc3545;">Erreur: ${error.message}</p>
+                    <button onclick="loadCandidatures()" style="margin-top:16px; padding:10px 24px; background:#C1121C; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:500;">
+                        <i class="fas fa-sync"></i> Réessayer
+                    </button>
+                `;
+            }
+        }
+
+        // ============================================================
+        // AFFICHAGE DES CANDIDATURES
+        // ============================================================
+        function renderCandidatures(candidatures) {
+            const tbody = document.getElementById('candidaturesTableBody');
+            tbody.innerHTML = '';
+            
+            if (candidatures.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('emptyState').style.display = 'none';
+            
+            candidatures.forEach((c, index) => {
+                const tr = document.createElement('tr');
+                
+                // Numéro
+                const tdNum = document.createElement('td');
+                tdNum.textContent = index + 1;
+                tdNum.style.fontWeight = '600';
+                tdNum.style.color = '#6C757D';
+                tr.appendChild(tdNum);
+                
+                // Nom
+                const tdNom = document.createElement('td');
+                tdNom.innerHTML = `<strong>${c.nom_complet || 'N/A'}</strong>`;
+                tr.appendChild(tdNom);
+                
+                // Contact
+                const tdContact = document.createElement('td');
+                tdContact.innerHTML = `
+                    <div style="font-size:0.85rem; color:#6C757D;">${c.email || 'N/A'}</div>
+                    <div style="font-size:0.85rem; color:#1D1D2C;">${c.telephone || 'N/A'}</div>
+                `;
+                tr.appendChild(tdContact);
+                
+                // Date
+                const tdDate = document.createElement('td');
+                tdDate.textContent = c.created_at ? new Date(c.created_at).toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'}) : 'N/A';
+                tdDate.style.fontSize = '0.85rem';
+                tdDate.style.color = '#6C757D';
+                tr.appendChild(tdDate);
+                
+                // Statut
+                const tdStatus = document.createElement('td');
+                const statusMap = {
+                    'en_attente': 'En attente',
+                    'valide': 'Validée',
+                    'rejete': 'Rejetée',
+                    'entretien': 'Entretien'
+                };
+                const statusClass = `status-${c.statut || 'en_attente'}`;
+                tdStatus.innerHTML = `<span class="status ${statusClass}">${statusMap[c.statut] || 'En attente'}</span>`;
+                tr.appendChild(tdStatus);
+                
+                // Documents
+                const tdDocs = document.createElement('td');
+                const docs = c.documents || [];
+                if (docs.length > 0) {
+                    const docDiv = document.createElement('div');
+                    docDiv.className = 'documents-list';
+                    docs.forEach((docUrl, i) => {
+                        const a = document.createElement('a');
+                        a.href = docUrl;
+                        a.target = '_blank';
+                        a.innerHTML = `<i class="fas fa-file"></i> Doc ${i+1}`;
+                        a.style.cssText = 'padding:4px 10px; font-size:0.7rem; background:#e9ecef; color:#1D1D2C; border-radius:4px; text-decoration:none;';
+                        a.addEventListener('mouseenter', () => {
+                            a.style.background = '#C1121C';
+                            a.style.color = 'white';
+                        });
+                        a.addEventListener('mouseleave', () => {
+                            a.style.background = '#e9ecef';
+                            a.style.color = '#1D1D2C';
+                        });
+                        docDiv.appendChild(a);
+                    });
+                    tdDocs.appendChild(docDiv);
+                } else {
+                    tdDocs.textContent = 'Aucun';
+                    tdDocs.style.color = '#6C757D';
+                    tdDocs.style.fontSize = '0.85rem';
+                }
+                tr.appendChild(tdDocs);
+                
+                // Actions
+                const tdActions = document.createElement('td');
+                tdActions.innerHTML = `
+                    <button class="btn-action btn-view" onclick="viewDetails('${c.id}')" title="Voir les détails">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action btn-edit" onclick="openEditModal('${c.id}', '${c.statut || 'en_attente'}')" title="Modifier le statut">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteCandidature('${c.id}')" title="Supprimer">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                tr.appendChild(tdActions);
+                
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ============================================================
+        // STATISTIQUES
+        // ============================================================
+        function updateStats() {
+            const total = allCandidatures.length;
+            const enAttente = allCandidatures.filter(c => c.statut === 'en_attente' || !c.statut).length;
+            const validees = allCandidatures.filter(c => c.statut === 'valide').length;
+            const totalDocs = allCandidatures.reduce((acc, c) => acc + (c.documents ? c.documents.length : 0), 0);
+            
+            document.getElementById('totalCandidatures').textContent = total;
+            document.getElementById('enAttente').textContent = enAttente;
+            document.getElementById('validees').textContent = validees;
+            document.getElementById('totalDocuments').textContent = totalDocs;
+        }
+
+        // ============================================================
+        // FILTRES
+        // ============================================================
+        document.getElementById('searchBtn').addEventListener('click', applyFilters);
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterSearch').value = '';
+            applyFilters();
+            loadCandidatures();
+            showToast('Liste rafraîchie', 'info');
+        });
+        
+        function applyFilters() {
+            const status = document.getElementById('filterStatus').value;
+            const search = document.getElementById('filterSearch').value.toLowerCase().trim();
+            
+            let filtered = allCandidatures;
+            
+            if (status) {
+                filtered = filtered.filter(c => (c.statut || 'en_attente') === status);
+            }
+            
+            if (search) {
+                filtered = filtered.filter(c => 
+                    (c.nom_complet || '').toLowerCase().includes(search) ||
+                    (c.email || '').toLowerCase().includes(search) ||
+                    (c.telephone || '').includes(search)
+                );
+            }
+            
+            renderCandidatures(filtered);
+            
+            if (filtered.length === 0 && allCandidatures.length > 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('emptyState').innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <h3>Aucun résultat</h3>
+                    <p>Aucune candidature ne correspond à vos critères de recherche.</p>
+                `;
+            }
+        }
+
+        // ============================================================
+        // MODAL DETAILS
+        // ============================================================
+        const detailModal = document.getElementById('detailModal');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+
+        window.viewDetails = function(id) {
+            const candidature = allCandidatures.find(c => c.id == id);
+            if (!candidature) return;
+            
+            const docs = candidature.documents || [];
+            let docsHtml = '';
+            if (docs.length > 0) {
+                docsHtml = '<div class="detail-docs">';
+                docs.forEach((docUrl, i) => {
+                    docsHtml += `<a href="${docUrl}" target="_blank"><i class="fas fa-download"></i> Télécharger document ${i+1}</a>`;
+                });
+                docsHtml += '</div>';
+            } else {
+                docsHtml = '<p style="color:#6C757D; margin-top:6px;">Aucun document déposé</p>';
+            }
+            
+            const statusMap = {
+                'en_attente': 'En attente',
+                'valide': 'Validée',
+                'rejete': 'Rejetée',
+                'entretien': 'Entretien'
+            };
+            
+            modalBody.innerHTML = `
+                <div class="detail-row">
+                    <span class="detail-label">Nom complet</span>
+                    <span class="detail-value"><strong>${candidature.nom_complet || 'N/A'}</strong></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Email</span>
+                    <span class="detail-value">${candidature.email || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Téléphone</span>
+                    <span class="detail-value">${candidature.telephone || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Date de candidature</span>
+                    <span class="detail-value">${candidature.created_at ? new Date(candidature.created_at).toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'}) : 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Statut</span>
+                    <span class="detail-value"><span class="status status-${candidature.statut || 'en_attente'}">${statusMap[candidature.statut] || 'En attente'}</span></span>
+                </div>
+                <div class="detail-row" style="flex-direction:column; align-items:stretch;">
+                    <span class="detail-label" style="width:100%; margin-bottom:6px;">Message</span>
+                    <span class="detail-value" style="padding:12px; background:#f8f9fa; border-radius:8px; white-space:pre-wrap;">${candidature.message || 'Aucun message'}</span>
+                </div>
+                <div class="detail-row" style="flex-direction:column; align-items:stretch;">
+                    <span class="detail-label" style="width:100%; margin-bottom:6px;">Documents (${docs.length})</span>
+                    <div style="margin-top:4px;">${docsHtml}</div>
+                </div>
+            `;
+            
+            detailModal.classList.add('active');
+        };
+
+        modalClose.addEventListener('click', () => {
+            detailModal.classList.remove('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === detailModal) {
+                detailModal.classList.remove('active');
+            }
+        });
+
+        // ============================================================
+        // MODAL EDITION STATUT
+        // ============================================================
+        const editModal = document.getElementById('editModal');
+        const editModalClose = document.getElementById('editModalClose');
+        const editForm = document.getElementById('editForm');
+        const editId = document.getElementById('editId');
+        const editStatus = document.getElementById('editStatus');
+        const editSaveBtn = document.getElementById('editSaveBtn');
+
+        window.openEditModal = function(id, currentStatus) {
+            editId.value = id;
+            editStatus.value = currentStatus || 'en_attente';
+            editModal.classList.add('active');
+        };
+
+        editModalClose.addEventListener('click', () => {
+            editModal.classList.remove('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                editModal.classList.remove('active');
+            }
+        });
+
+        editForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const id = editId.value;
+            const newStatus = editStatus.value;
+            
+            editSaveBtn.disabled = true;
+            editSaveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mise à jour...';
+            
+            try {
+                const { data, error } = await supabase
+                    .from('gsecurite')  // ← TABLE gsecurite
+                    .update({ statut: newStatus })
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
+                // Mettre à jour localement
+                const candidature = allCandidatures.find(c => c.id == id);
+                if (candidature) {
+                    candidature.statut = newStatus;
+                }
+                
+                renderCandidatures(allCandidatures);
+                updateStats();
+                
+                editModal.classList.remove('active');
+                showToast('Statut mis à jour avec succès !', 'success');
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                showToast('Erreur: ' + error.message, 'error');
+            } finally {
+                editSaveBtn.disabled = false;
+                editSaveBtn.innerHTML = '<i class="fas fa-save"></i> Mettre à jour';
+            }
+        });
+
+        // ============================================================
+        // SUPPRESSION D'UNE CANDIDATURE
+        // ============================================================
+        window.deleteCandidature = async function(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette candidature ? Cette action est irréversible.')) {
+                return;
+            }
+            
+            try {
+                const { data, error } = await supabase
+                    .from('gsecurite')  // ← TABLE gsecurite
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
+                // Supprimer de la liste locale
+                allCandidatures = allCandidatures.filter(c => c.id != id);
+                renderCandidatures(allCandidatures);
+                updateStats();
+                
+                showToast('Candidature supprimée avec succès', 'success');
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                showToast('Erreur: ' + error.message, 'error');
+            }
+        };
+
+        // ============================================================
+        // INITIALISATION
+        // ============================================================
+        checkSession();
+    </script>
+
+</body>
+</html>
