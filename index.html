@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>G-SÉCURITÉ - Sécurité Privée Burkina Faso</title>
 
-    <!-- Font Awesome pour les icônes -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
-    <!-- AOS Animation Library -->
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         /* ============================================================
@@ -82,7 +85,7 @@
         }
 
         /* ============================================================
-               HEADER / NAVIGATION (Glassmorphism)
+               HEADER / NAVIGATION
                ============================================================ */
         .header {
             position: fixed;
@@ -218,7 +221,7 @@
         }
 
         /* ============================================================
-               HERO SLIDER (AVEC VOS 3 IMAGES)
+               HERO SLIDER
                ============================================================ */
         .hero-slider {
             position: relative;
@@ -486,7 +489,7 @@
         }
 
         /* ============================================================
-               SERVICES (HAUTEUR DES IMAGES AUGMENTÉE)
+               SERVICES
                ============================================================ */
         .services-section {
             padding: 80px 0;
@@ -540,7 +543,7 @@
 
         .card-image {
             width: 100%;
-            height: 260px; /* AUGMENTÉ DE 200px À 260px */
+            height: 260px;
             overflow: hidden;
             position: relative;
         }
@@ -620,79 +623,295 @@
         }
 
         /* ============================================================
-               RECRUTEMENT (AVEC IMAGE EQUIPE EN FOND)
+               RECRUTEMENT
                ============================================================ */
         .recrutement-section {
             padding: 100px 0;
-            background: linear-gradient(135deg, rgba(29, 29, 44, 0.85) 40%, rgba(29, 29, 44, 0.5) 100%),
+            background: linear-gradient(135deg, rgba(29, 29, 44, 0.92) 40%, rgba(29, 29, 44, 0.6) 100%),
                         url('gsecurite/equipe.jpg') center/cover no-repeat;
             background-attachment: fixed;
             position: relative;
         }
 
         .recrutement-box {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 60px 50px;
-            background: rgba(29, 29, 44, 0.70);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            padding: 50px 45px;
+            background: rgba(29, 29, 44, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
             color: var(--color-white);
             transition: all var(--transition-slow);
         }
 
         .recrutement-box:hover {
-            background: rgba(29, 29, 44, 0.80);
+            background: rgba(29, 29, 44, 0.85);
             border-color: rgba(255, 255, 255, 0.15);
-            transform: scale(1.01);
         }
 
         .recrutement-box h2 {
-            font-size: 2.6rem;
+            font-size: 2.4rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
+            text-align: center;
         }
 
         .recrutement-box h2 span {
             color: var(--color-primary);
         }
 
-        .recrutement-box p {
-            opacity: 0.9;
-            margin-bottom: 32px;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .recrutement-box .subtitle {
+            text-align: center;
+            opacity: 0.85;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
         }
 
-        .btn-facebook {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background-color: #1877F2;
-            color: var(--color-white);
-            padding: 16px 40px;
+        .docs-required {
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all var(--transition);
-            border: none;
+            padding: 20px 24px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .docs-required h4 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--color-primary-light);
+        }
+
+        .docs-required ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+        }
+
+        .docs-required ul li {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .docs-required ul li i {
+            color: var(--color-primary);
+            font-size: 0.7rem;
+        }
+
+        .recrutement-form input,
+        .recrutement-form textarea,
+        .recrutement-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--color-white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .recrutement-form input::placeholder,
+        .recrutement-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .recrutement-form input:focus,
+        .recrutement-form textarea:focus,
+        .recrutement-form select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 3px rgba(193, 18, 28, 0.15);
+        }
+
+        .recrutement-form select option {
+            background: var(--color-secondary);
+            color: white;
+        }
+
+        .drop-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
             cursor: pointer;
         }
 
-        .btn-facebook i {
-            font-size: 1.4rem;
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: var(--color-primary);
+            background: rgba(193, 18, 28, 0.08);
         }
 
-        .btn-facebook:hover {
-            background-color: #166FE5;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(24, 119, 242, 0.3);
+        .drop-zone i {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .drop-zone p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+        }
+
+        .drop-zone .btn-browse {
+            display: inline-block;
+            padding: 8px 24px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone .btn-browse:hover {
+            background: var(--color-primary-dark);
+            transform: scale(1.05);
+        }
+
+        .drop-zone .hint {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 8px;
+        }
+
+        .file-list {
+            margin-top: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .file-item .file-name {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+        }
+
+        .file-item .file-size {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .file-item .btn-remove {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0 6px;
+        }
+
+        .file-item .btn-remove:hover {
+            transform: scale(1.2);
+            color: #ff6b6b;
+        }
+
+        .btn-submit-candidature {
+            width: 100%;
+            padding: 14px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+
+        .btn-submit-candidature:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
+        }
+
+        .btn-submit-candidature:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .recrutement-status {
+            margin-top: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .recrutement-status.success {
+            display: block;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+        }
+
+        .recrutement-status.error {
+            display: block;
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #f44336;
+        }
+
+        .recrutement-status.loading {
+            display: block;
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid #ffc107;
+            color: #ffc107;
+        }
+
+        .recrutement-success {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: 12px;
+            border: 1px solid #4CAF50;
+            text-align: center;
+        }
+
+        .recrutement-success i {
+            font-size: 2.5rem;
+            color: #4CAF50;
+        }
+
+        .recrutement-success h3 {
+            color: white;
+            margin: 10px 0 6px;
+        }
+
+        .recrutement-success p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
         }
 
         /* ============================================================
@@ -967,6 +1186,34 @@
         }
 
         /* ============================================================
+               ADMIN LINK
+               ============================================================ */
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--color-secondary);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-link:hover {
+            background: var(--color-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
+        }
+
+        /* ============================================================
                RESPONSIVE
                ============================================================ */
         @media (max-width: 992px) {
@@ -998,10 +1245,13 @@
                 justify-content: center;
             }
             .recrutement-box {
-                padding: 40px 30px;
+                padding: 35px 25px;
             }
             .recrutement-box h2 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+            .docs-required ul {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1075,13 +1325,10 @@
                 background-attachment: scroll;
             }
             .recrutement-box {
-                padding: 30px 20px;
+                padding: 25px 18px;
             }
             .recrutement-box h2 {
-                font-size: 1.8rem;
-            }
-            .recrutement-box p {
-                font-size: 1rem;
+                font-size: 1.6rem;
             }
 
             .footer-grid {
@@ -1090,6 +1337,16 @@
 
             .services-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .admin-link {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 14px;
+                font-size: 0.7rem;
+            }
+            .admin-link span {
+                display: none;
             }
         }
 
@@ -1121,18 +1378,20 @@
                 grid-template-columns: 1fr;
             }
             .card-image {
-                height: 200px; /* Un peu plus petite sur mobile mais toujours plus grande qu'avant */
+                height: 200px;
             }
             .recrutement-box h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             .btn-devis {
                 font-size: 0.85rem;
                 padding: 10px 18px;
             }
-            .btn-facebook {
-                font-size: 0.9rem;
-                padding: 14px 24px;
+            .drop-zone {
+                padding: 20px 15px;
+            }
+            .drop-zone i {
+                font-size: 2rem;
             }
         }
     </style>
@@ -1168,7 +1427,7 @@
     </header>
 
     <!-- ============================================================
-    HERO SLIDER (3 SLIDES)
+    HERO SLIDER
     ============================================================ -->
     <section class="hero-slider" id="accueil">
         <div class="slide slide-1 active">
@@ -1254,7 +1513,7 @@
     </section>
 
     <!-- ============================================================
-    SERVICES (AVEC HAUTEUR 260px)
+    SERVICES
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
@@ -1264,7 +1523,6 @@
             </div>
 
             <div class="services-grid">
-                <!-- Sécurité générale -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-image">
                         <img src="gsecurite/securite-generale.png" alt="Sécurité générale" style="object-position: center;">
@@ -1272,14 +1530,13 @@
                     <div class="card-content">
                         <i class="fas fa-shield-alt service-icon"></i>
                         <h3>Sécurité générale</h3>
-                        <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels. Prévention des risques et contrôle des accès.</p>
+                        <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
                     </div>
                 </div>
 
-                <!-- Vigile -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="150">
                     <div class="card-image">
                         <img src="gsecurite/vigile.jpg" alt="Vigile" style="object-position: center 20%;">
@@ -1287,14 +1544,13 @@
                     <div class="card-content">
                         <i class="fas fa-user-shield service-icon"></i>
                         <h3>Vigile</h3>
-                        <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance de vos sites 24h/7.</p>
+                        <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance 24h/7.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
                     </div>
                 </div>
 
-                <!-- Sécurité incendie -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-image">
                         <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie" style="object-position: center;">
@@ -1302,14 +1558,13 @@
                     <div class="card-content">
                         <i class="fas fa-fire-extinguisher service-icon"></i>
                         <h3>Sécurité incendie</h3>
-                        <p>Dispositifs de prévention et d'intervention contre les risques d'incendie. Agents formés à la détection, l'alerte et la lutte incendie.</p>
+                        <p>Dispositifs de prévention et d'intervention contre les risques d'incendie.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
                     </div>
                 </div>
 
-                <!-- Sécurité électronique -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="card-image">
                         <img src="gsecurite/camera.jpg" alt="Sécurité électronique" style="object-position: center;">
@@ -1317,29 +1572,27 @@
                     <div class="card-content">
                         <i class="fas fa-video service-icon"></i>
                         <h3>Sécurité électronique</h3>
-                        <p>Vidéosurveillance, systèmes d'alarme, contrôle d'accès et détection intrusion. Supervision en temps réel et intervention rapide.</p>
+                        <p>Vidéosurveillance, systèmes d'alarme, contrôle d'accès et détection intrusion.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
                     </div>
                 </div>
 
-                <!-- Escortage & Protection rapprochée -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-image">
-                        <img src="gsecurite/escortage.png" alt="Escortage & Protection rapprochée" style="object-position: center 20%;">
+                        <img src="gsecurite/escortage.png" alt="Escortage" style="object-position: center 20%;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-crown service-icon"></i>
-                        <h3>Escortage &amp; Protection rapprochée</h3>
-                        <p>Services d'escortage sécuritaire pour personnalités et dirigeants lors de déplacements sur le territoire national.</p>
+                        <h3>Escortage &amp; Protection</h3>
+                        <p>Services d'escortage sécuritaire pour personnalités et dirigeants.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
                     </div>
                 </div>
 
-                <!-- Convoie sécurisé -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="350">
                     <div class="card-image">
                         <img src="gsecurite/convoyage.png" alt="Convoie sécurisé" style="object-position: center;">
@@ -1347,22 +1600,21 @@
                     <div class="card-content">
                         <i class="fas fa-truck service-icon"></i>
                         <h3>Convoie sécurisé</h3>
-                        <p>Transport et acheminement hautement sécurisés de vos fonds, valeurs et équipements sensibles.</p>
+                        <p>Transport et acheminement hautement sécurisés de vos fonds et valeurs.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
                     </div>
                 </div>
 
-                <!-- Vente d'accessoires -->
                 <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-image">
-                        <img src="gsecurite/accessoires.png" alt="Vente d'accessoires de sécurité" style="object-position: center;">
+                        <img src="gsecurite/accessoires.png" alt="Accessoires" style="object-position: center;">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-store service-icon"></i>
-                        <h3>Vente d'accessoires de sécurité</h3>
-                        <p>Fourniture de matériel de protection individuel et d'équipements de sécurité de première qualité.</p>
+                        <h3>Vente d'accessoires</h3>
+                        <p>Fourniture de matériel de protection individuel et d'équipements de sécurité.</p>
                         <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
                             <i class="fab fa-whatsapp"></i> Demander un devis
                         </a>
@@ -1443,15 +1695,15 @@
             </p>
             <div class="testimonials-grid">
                 <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
-                    <p>“Un professionnalisme exemplaire et une réactivité sans faille. G-SÉCURITÉ est notre partenaire de confiance pour la sécurité de nos sites.”</p>
+                    <p>“Un professionnalisme exemplaire et une réactivité sans faille. G-SÉCURITÉ est notre partenaire de confiance.”</p>
                     <div class="author">Jean M. <span>Directeur, Société Minière</span></div>
                 </div>
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                    <p>“Les agents sont compétents et discrets. La sécurité électronique installée est de très haute qualité. Je recommande vivement G-SÉCURITÉ.”</p>
-                    <div class="author">Alassane Z. <span>Directeur Général d'Institution</span></div>
+                    <p>“Les agents sont compétents et discrets. La sécurité électronique installée est de très haute qualité.”</p>
+                    <div class="author">Alassane Z. <span>Directeur Général</span></div>
                 </div>
                 <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
-                    <p>“Une équipe à l'écoute, qui a su comprendre nos besoins spécifiques pour un événement de grande envergure. Tout était parfait.”</p>
+                    <p>“Une équipe à l'écoute, qui a su comprendre nos besoins spécifiques pour un événement de grande envergure.”</p>
                     <div class="author">Issouf Z. <span>Organisateur d'événements</span></div>
                 </div>
             </div>
@@ -1459,19 +1711,70 @@
     </section>
 
     <!-- ============================================================
-    RECRUTEMENT (AVEC IMAGE EQUIPE EN FOND)
+    RECRUTEMENT
     ============================================================ -->
     <section class="recrutement-section" id="recrutement" data-aos="zoom-in">
         <div class="container">
             <div class="recrutement-box">
                 <h2>Rejoignez notre <span>équipe</span></h2>
-                <p>
-                    Vous êtes rigoureux, motivé et souhaitez évoluer dans un
-                    secteur exigeant ? Rejoignez-nous et faites partie de notre équipe.
+                <p class="subtitle">
+                    Agents de sécurité dynamiques et motivés recherchés
                 </p>
-                <a href="https://web.facebook.com/G.SecuriteBurkina" target="_blank" class="btn-facebook">
-                    <i class="fab fa-facebook-f"></i> Visiter notre page Facebook
-                </a>
+
+                <!-- Documents requis -->
+                <div class="docs-required">
+                    <h4><i class="fas fa-list"></i> Dossier requis</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Extrait d'acte de naissance</li>
+                        <li><i class="fas fa-check-circle"></i> Photocopie légalisée CNIB</li>
+                        <li><i class="fas fa-check-circle"></i> Extrait du bulletin N°3 du casier judiciaire</li>
+                        <li><i class="fas fa-check-circle"></i> Certificat de nationalité</li>
+                        <li><i class="fas fa-check-circle"></i> Curriculum Vitae</li>
+                        <li><i class="fas fa-check-circle"></i> Photo entière + 4 photos d'identité</li>
+                        <li><i class="fas fa-check-circle"></i> Certificat de résidence</li>
+                    </ul>
+                </div>
+
+                <!-- Formulaire -->
+                <form id="recrutementForm" class="recrutement-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <input type="text" id="nomComplet" placeholder="Nom complet" required>
+                        <input type="email" id="emailRecrutement" placeholder="Email" required>
+                    </div>
+                    <input type="tel" id="telephoneRecrutement" placeholder="Téléphone" required style="margin-bottom: 15px;">
+
+                    <!-- Dépôt de documents -->
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom:8px; opacity:0.8; font-size:0.95rem;">
+                            <i class="fas fa-paperclip"></i> Déposez vos documents (PDF, DOC, JPG, PNG)
+                        </label>
+                        <div class="drop-zone" id="dropZone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Glissez vos fichiers ici ou</p>
+                            <button type="button" class="btn-browse" id="browseFiles">Parcourir</button>
+                            <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none;">
+                            <p class="hint">Taille max : 10MB par fichier</p>
+                        </div>
+                        <div class="file-list" id="fileList">
+                            <p style="color:rgba(255,255,255,0.3); font-size:0.9rem; text-align:center;">Aucun fichier sélectionné</p>
+                        </div>
+                    </div>
+
+                    <textarea id="messageRecrutement" placeholder="Parlez-nous de vous (expérience, motivations...)" style="min-height:100px; margin-bottom:15px;"></textarea>
+
+                    <button type="submit" class="btn-submit-candidature" id="submitRecrutement">
+                        <i class="fas fa-paper-plane"></i> Envoyer ma candidature
+                    </button>
+
+                    <div class="recrutement-status" id="recrutementStatus"></div>
+                </form>
+
+                <!-- Message de succès -->
+                <div class="recrutement-success" id="recrutementSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Candidature envoyée avec succès !</h3>
+                    <p>Nous avons bien reçu votre candidature et vos documents. Nous vous recontacterons prochainement.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1494,7 +1797,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <strong>Adresse</strong>
-                            <span>Ouagadougou, Zogona </span>
+                            <span>Ouagadougou, Zogona</span>
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -1592,19 +1895,39 @@
     </footer>
 
     <!-- ============================================================
+    LIEN ADMIN
+    ============================================================ -->
+    <a href="admin.html" class="admin-link" title="Accéder à l'administration">
+        <i class="fas fa-crown"></i> <span>Admin</span>
+    </a>
+
+    <!-- ============================================================
     JAVASCRIPT
     ============================================================ -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
+        // ============================================================
+        // CONFIGURATION SUPABASE
+        // ============================================================
+        const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ============================================================
+        // GESTION DU FORMULAIRE DE RECRUTEMENT
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
 
+            // AOS
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50
             });
 
+            // Hamburger
             const hamburger = document.getElementById('hamburger');
             const nav = document.getElementById('nav');
 
@@ -1620,6 +1943,7 @@
                 });
             });
 
+            // Header scroll
             const header = document.getElementById('header');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
@@ -1629,6 +1953,7 @@
                 }
             });
 
+            // Active link
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav a:not(.nav-cta)');
 
@@ -1650,6 +1975,7 @@
 
             window.addEventListener('scroll', updateActiveLink);
 
+            // Slider
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.dot');
             let currentIndex = 0;
@@ -1688,11 +2014,164 @@
 
             startSlider();
 
+            // Contact form
             const form = document.getElementById('contactForm');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
                 form.reset();
+            });
+
+            // ============================================================
+            // RECRUTEMENT - GESTION DES FICHIERS
+            // ============================================================
+            let selectedFiles = [];
+
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('fileList');
+            const browseBtn = document.getElementById('browseFiles');
+
+            // Drag & drop
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+
+            browseBtn.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+                fileInput.value = '';
+            });
+
+            function handleFiles(files) {
+                const maxSize = 10 * 1024 * 1024;
+                const allowedExts = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
+
+                for (let file of files) {
+                    const ext = '.' + file.name.split('.').pop().toLowerCase();
+                    if (!allowedExts.includes(ext)) {
+                        alert(`Format non accepté pour ${file.name}. Formats autorisés : PDF, DOC, DOCX, JPG, PNG`);
+                        continue;
+                    }
+                    if (file.size > maxSize) {
+                        alert(`Le fichier ${file.name} dépasse 10MB`);
+                        continue;
+                    }
+                    selectedFiles.push(file);
+                }
+                updateFileList();
+            }
+
+            function updateFileList() {
+                fileList.innerHTML = '';
+                if (selectedFiles.length === 0) {
+                    fileList.innerHTML = '<p style="color:rgba(255,255,255,0.3); font-size:0.9rem; text-align:center;">Aucun fichier sélectionné</p>';
+                    return;
+                }
+                selectedFiles.forEach((file, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'file-item';
+                    div.innerHTML = `
+                        <span class="file-name"><i class="fas fa-file"></i> ${file.name}</span>
+                        <span class="file-size">(${(file.size / 1024).toFixed(1)} KB)</span>
+                        <button class="btn-remove" data-index="${index}"><i class="fas fa-times"></i></button>
+                    `;
+                    div.querySelector('.btn-remove').addEventListener('click', () => {
+                        selectedFiles.splice(index, 1);
+                        updateFileList();
+                    });
+                    fileList.appendChild(div);
+                });
+            }
+
+            // ============================================================
+            // SOUMISSION DU FORMULAIRE DE RECRUTEMENT - AVEC "gsecurite"
+            // ============================================================
+            const recrutementForm = document.getElementById('recrutementForm');
+            const submitBtn = document.getElementById('submitRecrutement');
+            const statusDiv = document.getElementById('recrutementStatus');
+            const successDiv = document.getElementById('recrutementSuccess');
+
+            recrutementForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+                statusDiv.className = 'recrutement-status loading';
+                statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi de votre candidature...';
+                statusDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+
+                try {
+                    const nom = document.getElementById('nomComplet').value;
+                    const email = document.getElementById('emailRecrutement').value;
+                    const telephone = document.getElementById('telephoneRecrutement').value;
+                    const message = document.getElementById('messageRecrutement').value;
+
+                    // 1. Upload des fichiers vers le bucket "gsecurite"
+                    const fileUrls = [];
+                    for (let file of selectedFiles) {
+                        const ext = file.name.split('.').pop();
+                        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${ext}`;
+                        const filePath = `gsecurite/${fileName}`;
+
+                        const { data: uploadData, error: uploadError } = await supabase.storage
+                            .from('gsecurite')  // ← BUCKET gsecurite
+                            .upload(filePath, file);
+
+                        if (uploadError) throw uploadError;
+
+                        const { data: urlData } = supabase.storage
+                            .from('gsecurite')  // ← BUCKET gsecurite
+                            .getPublicUrl(filePath);
+
+                        fileUrls.push(urlData.publicUrl);
+                    }
+
+                    // 2. Enregistrement dans la table "gsecurite"
+                    const { data: candidatureData, error: dbError } = await supabase
+                        .from('gsecurite')  // ← TABLE gsecurite
+                        .insert([{
+                            nom_complet: nom,
+                            email: email,
+                            telephone: telephone,
+                            message: message,
+                            documents: fileUrls,
+                            statut: 'en_attente'
+                        }]);
+
+                    if (dbError) throw dbError;
+
+                    // Succès
+                    successDiv.style.display = 'block';
+                    recrutementForm.reset();
+                    selectedFiles = [];
+                    updateFileList();
+                    statusDiv.style.display = 'none';
+
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    statusDiv.className = 'recrutement-status error';
+                    statusDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> Erreur: ${error.message}`;
+                    statusDiv.style.display = 'block';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma candidature';
+                }
             });
 
         });
