@@ -1906,276 +1906,281 @@
     ============================================================ -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script>
-        // ============================================================
-        // CONFIGURATION SUPABASE
-        // ============================================================
-        const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<script>
+    // ============================================================
+    // CONFIGURATION SUPABASE
+    // ============================================================
+    const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
 
-        // ============================================================
-        // GESTION DU FORMULAIRE DE RECRUTEMENT
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', function() {
+    // ✅ Utiliser un nom unique pour éviter les conflits
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // AOS
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50
-            });
+    // ============================================================
+    // GESTION DU FORMULAIRE DE RECRUTEMENT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
 
-            // Hamburger
-            const hamburger = document.getElementById('hamburger');
-            const nav = document.getElementById('nav');
-
-            hamburger.addEventListener('click', function() {
-                this.classList.toggle('active');
-                nav.classList.toggle('open');
-            });
-
-            document.querySelectorAll('.nav a').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    hamburger.classList.remove('active');
-                    nav.classList.remove('open');
-                });
-            });
-
-            // Header scroll
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // Active link
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav a:not(.nav-cta)');
-
-            function updateActiveLink() {
-                let current = '';
-                sections.forEach(function(section) {
-                    const sectionTop = section.offsetTop - 120;
-                    if (window.scrollY >= sectionTop) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                navLinks.forEach(function(link) {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateActiveLink);
-
-            // Slider
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            let currentIndex = 0;
-            let interval;
-
-            function goToSlide(index) {
-                slides.forEach(function(slide, i) {
-                    slide.classList.toggle('active', i === index);
-                });
-                dots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === index);
-                });
-                currentIndex = index;
-            }
-
-            function nextSlide() {
-                const next = (currentIndex + 1) % slides.length;
-                goToSlide(next);
-            }
-
-            function startSlider() {
-                interval = setInterval(nextSlide, 3000);
-            }
-
-            function stopSlider() {
-                clearInterval(interval);
-            }
-
-            dots.forEach(function(dot, index) {
-                dot.addEventListener('click', function() {
-                    stopSlider();
-                    goToSlide(index);
-                    startSlider();
-                });
-            });
-
-            startSlider();
-
-            // Contact form
-            const form = document.getElementById('contactForm');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
-                form.reset();
-            });
-
-            // ============================================================
-            // RECRUTEMENT - GESTION DES FICHIERS
-            // ============================================================
-            let selectedFiles = [];
-
-            const dropZone = document.getElementById('dropZone');
-            const fileInput = document.getElementById('fileInput');
-            const fileList = document.getElementById('fileList');
-            const browseBtn = document.getElementById('browseFiles');
-
-            // Drag & drop
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('dragover');
-            });
-
-            dropZone.addEventListener('dragleave', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('dragover');
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('dragover');
-                handleFiles(e.dataTransfer.files);
-            });
-
-            browseBtn.addEventListener('click', () => fileInput.click());
-
-            fileInput.addEventListener('change', (e) => {
-                handleFiles(e.target.files);
-                fileInput.value = '';
-            });
-
-            function handleFiles(files) {
-                const maxSize = 10 * 1024 * 1024;
-                const allowedExts = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
-
-                for (let file of files) {
-                    const ext = '.' + file.name.split('.').pop().toLowerCase();
-                    if (!allowedExts.includes(ext)) {
-                        alert(`Format non accepté pour ${file.name}. Formats autorisés : PDF, DOC, DOCX, JPG, PNG`);
-                        continue;
-                    }
-                    if (file.size > maxSize) {
-                        alert(`Le fichier ${file.name} dépasse 10MB`);
-                        continue;
-                    }
-                    selectedFiles.push(file);
-                }
-                updateFileList();
-            }
-
-            function updateFileList() {
-                fileList.innerHTML = '';
-                if (selectedFiles.length === 0) {
-                    fileList.innerHTML = '<p style="color:rgba(255,255,255,0.3); font-size:0.9rem; text-align:center;">Aucun fichier sélectionné</p>';
-                    return;
-                }
-                selectedFiles.forEach((file, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'file-item';
-                    div.innerHTML = `
-                        <span class="file-name"><i class="fas fa-file"></i> ${file.name}</span>
-                        <span class="file-size">(${(file.size / 1024).toFixed(1)} KB)</span>
-                        <button class="btn-remove" data-index="${index}"><i class="fas fa-times"></i></button>
-                    `;
-                    div.querySelector('.btn-remove').addEventListener('click', () => {
-                        selectedFiles.splice(index, 1);
-                        updateFileList();
-                    });
-                    fileList.appendChild(div);
-                });
-            }
-
-            // ============================================================
-            // SOUMISSION DU FORMULAIRE DE RECRUTEMENT - AVEC "gsecurite"
-            // ============================================================
-            const recrutementForm = document.getElementById('recrutementForm');
-            const submitBtn = document.getElementById('submitRecrutement');
-            const statusDiv = document.getElementById('recrutementStatus');
-            const successDiv = document.getElementById('recrutementSuccess');
-
-            recrutementForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
-
-                statusDiv.className = 'recrutement-status loading';
-                statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi de votre candidature...';
-                statusDiv.style.display = 'block';
-                successDiv.style.display = 'none';
-
-                try {
-                    const nom = document.getElementById('nomComplet').value;
-                    const email = document.getElementById('emailRecrutement').value;
-                    const telephone = document.getElementById('telephoneRecrutement').value;
-                    const message = document.getElementById('messageRecrutement').value;
-
-                    // 1. Upload des fichiers vers le bucket "gsecurite"
-                    const fileUrls = [];
-                    for (let file of selectedFiles) {
-                        const ext = file.name.split('.').pop();
-                        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${ext}`;
-                        const filePath = `gsecurite/${fileName}`;
-
-                        const { data: uploadData, error: uploadError } = await supabase.storage
-                            .from('gsecurite')  // ← BUCKET gsecurite
-                            .upload(filePath, file);
-
-                        if (uploadError) throw uploadError;
-
-                        const { data: urlData } = supabase.storage
-                            .from('gsecurite')  // ← BUCKET gsecurite
-                            .getPublicUrl(filePath);
-
-                        fileUrls.push(urlData.publicUrl);
-                    }
-
-                    // 2. Enregistrement dans la table "gsecurite"
-                    const { data: candidatureData, error: dbError } = await supabase
-                        .from('gsecurite')  // ← TABLE gsecurite
-                        .insert([{
-                            nom_complet: nom,
-                            email: email,
-                            telephone: telephone,
-                            message: message,
-                            documents: fileUrls,
-                            statut: 'en_attente'
-                        }]);
-
-                    if (dbError) throw dbError;
-
-                    // Succès
-                    successDiv.style.display = 'block';
-                    recrutementForm.reset();
-                    selectedFiles = [];
-                    updateFileList();
-                    statusDiv.style.display = 'none';
-
-                } catch (error) {
-                    console.error('Erreur:', error);
-                    statusDiv.className = 'recrutement-status error';
-                    statusDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> Erreur: ${error.message}`;
-                    statusDiv.style.display = 'block';
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma candidature';
-                }
-            });
-
+        // AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
         });
-    </script>
+
+        // Hamburger
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            nav.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                nav.classList.remove('open');
+            });
+        });
+
+        // Header scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active link
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav a:not(.nav-cta)');
+
+        function updateActiveLink() {
+            let current = '';
+            sections.forEach(function(section) {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Slider
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let interval;
+
+        function goToSlide(index) {
+            slides.forEach(function(slide, i) {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach(function(dot, i) {
+                dot.classList.toggle('active', i === index);
+            });
+            currentIndex = index;
+        }
+
+        function nextSlide() {
+            const next = (currentIndex + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        function startSlider() {
+            interval = setInterval(nextSlide, 3000);
+        }
+
+        function stopSlider() {
+            clearInterval(interval);
+        }
+
+        dots.forEach(function(dot, index) {
+            dot.addEventListener('click', function() {
+                stopSlider();
+                goToSlide(index);
+                startSlider();
+            });
+        });
+
+        startSlider();
+
+        // Contact form
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+            form.reset();
+        });
+
+        // ============================================================
+        // RECRUTEMENT - GESTION DES FICHIERS
+        // ============================================================
+        let selectedFiles = [];
+
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const browseBtn = document.getElementById('browseFiles');
+
+        // Drag & drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        browseBtn.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        function handleFiles(files) {
+            const maxSize = 10 * 1024 * 1024;
+            const allowedExts = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
+
+            for (let file of files) {
+                const ext = '.' + file.name.split('.').pop().toLowerCase();
+                if (!allowedExts.includes(ext)) {
+                    alert(`Format non accepté pour ${file.name}. Formats autorisés : PDF, DOC, DOCX, JPG, PNG`);
+                    continue;
+                }
+                if (file.size > maxSize) {
+                    alert(`Le fichier ${file.name} dépasse 10MB`);
+                    continue;
+                }
+                selectedFiles.push(file);
+            }
+            updateFileList();
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            if (selectedFiles.length === 0) {
+                fileList.innerHTML = '<p style="color:rgba(255,255,255,0.3); font-size:0.9rem; text-align:center;">Aucun fichier sélectionné</p>';
+                return;
+            }
+            selectedFiles.forEach((file, index) => {
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.innerHTML = `
+                    <span class="file-name"><i class="fas fa-file"></i> ${file.name}</span>
+                    <span class="file-size">(${(file.size / 1024).toFixed(1)} KB)</span>
+                    <button class="btn-remove" data-index="${index}"><i class="fas fa-times"></i></button>
+                `;
+                div.querySelector('.btn-remove').addEventListener('click', () => {
+                    selectedFiles.splice(index, 1);
+                    updateFileList();
+                });
+                fileList.appendChild(div);
+            });
+        }
+
+        // ============================================================
+        // SOUMISSION DU FORMULAIRE DE RECRUTEMENT
+        // ============================================================
+        const recrutementForm = document.getElementById('recrutementForm');
+        const submitBtn = document.getElementById('submitRecrutement');
+        const statusDiv = document.getElementById('recrutementStatus');
+        const successDiv = document.getElementById('recrutementSuccess');
+
+        recrutementForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+            statusDiv.className = 'recrutement-status loading';
+            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi de votre candidature...';
+            statusDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+
+            try {
+                const nom = document.getElementById('nomComplet').value;
+                const email = document.getElementById('emailRecrutement').value;
+                const telephone = document.getElementById('telephoneRecrutement').value;
+                const message = document.getElementById('messageRecrutement').value;
+
+                // 1. Upload des fichiers vers le bucket "gsecurite"
+                const fileUrls = [];
+                for (let file of selectedFiles) {
+                    const ext = file.name.split('.').pop();
+                    const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${ext}`;
+                    const filePath = `gsecurite/${fileName}`;
+
+                    // ✅ Utiliser supabaseClient au lieu de supabase
+                    const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                        .from('gsecurite')
+                        .upload(filePath, file);
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: urlData } = supabaseClient.storage
+                        .from('gsecurite')
+                        .getPublicUrl(filePath);
+
+                    fileUrls.push(urlData.publicUrl);
+                }
+
+                // 2. Enregistrement dans la table "gsecurite"
+                // ✅ Utiliser supabaseClient au lieu de supabase
+                const { data: candidatureData, error: dbError } = await supabaseClient
+                    .from('gsecurite')
+                    .insert([{
+                        nom_complet: nom,
+                        email: email,
+                        telephone: telephone,
+                        message: message,
+                        documents: fileUrls,
+                        statut: 'en_attente'
+                    }]);
+
+                if (dbError) throw dbError;
+
+                // Succès
+                successDiv.style.display = 'block';
+                recrutementForm.reset();
+                selectedFiles = [];
+                updateFileList();
+                statusDiv.style.display = 'none';
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                statusDiv.className = 'recrutement-status error';
+                statusDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> Erreur: ${error.message}`;
+                statusDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma candidature';
+            }
+        });
+
+    });
+</script>
 
 </body>
 </html>
