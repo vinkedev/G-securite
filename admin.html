@@ -695,7 +695,7 @@
 <body>
 
     <!-- ============================================
-    PAGE DE CONNEXION
+    PAGE DE CONNEXION - SIMPLE MOT DE PASSE
     ============================================ -->
     <div class="login-page" id="loginPage">
         <div class="login-box">
@@ -703,11 +703,10 @@
             <p class="subtitle">Espace Administration</p>
             
             <div class="login-error" id="loginError">
-                <i class="fas fa-exclamation-circle"></i> Identifiants incorrects
+                <i class="fas fa-exclamation-circle"></i> Mot de passe incorrect
             </div>
             
-            <input type="email" id="loginEmail" placeholder="Email" value="admin@gsecurite.bf">
-            <input type="password" id="loginPassword" placeholder="Mot de passe" value="admin123">
+            <input type="password" id="loginPassword" placeholder="Entrez le mot de passe" value="admingsecurite2026">
             
             <button class="btn-login" id="loginBtn">
                 <i class="fas fa-lock"></i> Se connecter
@@ -726,7 +725,7 @@
                 G-<span>SÉCURITÉ</span> <small>Administration</small>
             </div>
             <div class="user-info">
-                <span><i class="fas fa-user"></i> <span id="adminEmail">admin@gsecurite.bf</span></span>
+                <span><i class="fas fa-user"></i> Administrateur</span>
                 <button class="btn-logout" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Déconnexion
                 </button>
@@ -851,7 +850,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================
-    JAVASCRIPT
+    JAVASCRIPT - SIMPLE MOT DE PASSE
     ============================================ -->
     <script>
         // ============================================================
@@ -863,6 +862,11 @@
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // ============================================================
+        // MOT DE PASSE ADMIN
+        // ============================================================
+        const ADMIN_PASSWORD = "admingsecurite2026";
+
+        // ============================================================
         // ÉLÉMENTS DOM
         // ============================================================
         const loginPage = document.getElementById('loginPage');
@@ -870,51 +874,48 @@
         const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
         const loginError = document.getElementById('loginError');
-        const loginEmail = document.getElementById('loginEmail');
         const loginPassword = document.getElementById('loginPassword');
 
         // ============================================================
-        // AUTHENTIFICATION
+        // AUTHENTIFICATION PAR MOT DE PASSE UNIQUE
         // ============================================================
-        async function checkSession() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                showDashboard(session.user.email);
+        function checkSession() {
+            const isLoggedIn = sessionStorage.getItem('admin_logged_in');
+            if (isLoggedIn === 'true') {
+                showDashboard();
             }
         }
 
-        loginBtn.addEventListener('click', async function() {
-            const email = loginEmail.value.trim();
-            const password = loginPassword.value;
+        loginBtn.addEventListener('click', function() {
+            const password = loginPassword.value.trim();
             
             loginError.style.display = 'none';
             this.disabled = true;
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
             
-            try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-                
-                if (error) throw error;
-                
-                showDashboard(email);
-                showToast('Connexion réussie !', 'success');
-            } catch (error) {
-                loginError.style.display = 'block';
-                loginError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${error.message || 'Identifiants incorrects'}`;
-                this.disabled = false;
-                this.innerHTML = '<i class="fas fa-lock"></i> Se connecter';
-            }
+            setTimeout(() => {
+                if (password === ADMIN_PASSWORD) {
+                    sessionStorage.setItem('admin_logged_in', 'true');
+                    showDashboard();
+                    showToast('Connexion réussie !', 'success');
+                    this.disabled = false;
+                    this.innerHTML = '<i class="fas fa-lock"></i> Se connecter';
+                } else {
+                    loginError.style.display = 'block';
+                    loginError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Mot de passe incorrect';
+                    this.disabled = false;
+                    this.innerHTML = '<i class="fas fa-lock"></i> Se connecter';
+                    loginPassword.value = '';
+                    loginPassword.focus();
+                }
+            }, 500);
         });
 
-        logoutBtn.addEventListener('click', async function() {
-            await supabase.auth.signOut();
+        logoutBtn.addEventListener('click', function() {
+            sessionStorage.removeItem('admin_logged_in');
             loginPage.style.display = 'flex';
             adminDashboard.style.display = 'none';
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = '<i class="fas fa-lock"></i> Se connecter';
+            loginPassword.value = '';
             showToast('Déconnexion réussie', 'info');
         });
 
@@ -922,10 +923,9 @@
             if (e.key === 'Enter') loginBtn.click();
         });
 
-        function showDashboard(email) {
+        function showDashboard() {
             loginPage.style.display = 'none';
             adminDashboard.style.display = 'block';
-            document.getElementById('adminEmail').textContent = email;
             loadCandidatures();
         }
 
@@ -943,7 +943,7 @@
         }
 
         // ============================================================
-        // CHARGEMENT DES CANDIDATURES - TABLE gsecurite
+        // CHARGEMENT DES CANDIDATURES
         // ============================================================
         let allCandidatures = [];
 
@@ -960,7 +960,7 @@
             
             try {
                 const { data, error } = await supabase
-                    .from('gsecurite')  // ← TABLE gsecurite
+                    .from('gsecurite')
                     .select('*')
                     .order('created_at', { ascending: false });
                 
@@ -1006,19 +1006,16 @@
             candidatures.forEach((c, index) => {
                 const tr = document.createElement('tr');
                 
-                // Numéro
                 const tdNum = document.createElement('td');
                 tdNum.textContent = index + 1;
                 tdNum.style.fontWeight = '600';
                 tdNum.style.color = '#6C757D';
                 tr.appendChild(tdNum);
                 
-                // Nom
                 const tdNom = document.createElement('td');
                 tdNom.innerHTML = `<strong>${c.nom_complet || 'N/A'}</strong>`;
                 tr.appendChild(tdNom);
                 
-                // Contact
                 const tdContact = document.createElement('td');
                 tdContact.innerHTML = `
                     <div style="font-size:0.85rem; color:#6C757D;">${c.email || 'N/A'}</div>
@@ -1026,14 +1023,12 @@
                 `;
                 tr.appendChild(tdContact);
                 
-                // Date
                 const tdDate = document.createElement('td');
                 tdDate.textContent = c.created_at ? new Date(c.created_at).toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'}) : 'N/A';
                 tdDate.style.fontSize = '0.85rem';
                 tdDate.style.color = '#6C757D';
                 tr.appendChild(tdDate);
                 
-                // Statut
                 const tdStatus = document.createElement('td');
                 const statusMap = {
                     'en_attente': 'En attente',
@@ -1045,7 +1040,6 @@
                 tdStatus.innerHTML = `<span class="status ${statusClass}">${statusMap[c.statut] || 'En attente'}</span>`;
                 tr.appendChild(tdStatus);
                 
-                // Documents
                 const tdDocs = document.createElement('td');
                 const docs = c.documents || [];
                 if (docs.length > 0) {
@@ -1075,7 +1069,6 @@
                 }
                 tr.appendChild(tdDocs);
                 
-                // Actions
                 const tdActions = document.createElement('td');
                 tdActions.innerHTML = `
                     <button class="btn-action btn-view" onclick="viewDetails('${c.id}')" title="Voir les détails">
@@ -1262,13 +1255,12 @@
             
             try {
                 const { data, error } = await supabase
-                    .from('gsecurite')  // ← TABLE gsecurite
+                    .from('gsecurite')
                     .update({ statut: newStatus })
                     .eq('id', id);
                 
                 if (error) throw error;
                 
-                // Mettre à jour localement
                 const candidature = allCandidatures.find(c => c.id == id);
                 if (candidature) {
                     candidature.statut = newStatus;
@@ -1299,13 +1291,12 @@
             
             try {
                 const { data, error } = await supabase
-                    .from('gsecurite')  // ← TABLE gsecurite
+                    .from('gsecurite')
                     .delete()
                     .eq('id', id);
                 
                 if (error) throw error;
                 
-                // Supprimer de la liste locale
                 allCandidatures = allCandidatures.filter(c => c.id != id);
                 renderCandidatures(allCandidatures);
                 updateStats();
