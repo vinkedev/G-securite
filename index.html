@@ -11,8 +11,8 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase SDK - comme Clinique WENDTOIN -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
     <style>
         /* ============================================================
@@ -1991,6 +1991,8 @@
         // ============================================================
         const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
+
+        // Utilisation de l'objet global supabase (chargé depuis unpkg)
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const MAX_FILE_MB = 5;
