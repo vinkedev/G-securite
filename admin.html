@@ -850,7 +850,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================
-    JAVASCRIPT - SIMPLE MOT DE PASSE
+    JAVASCRIPT - SIMPLE MOT DE PASSE (CORRIGÉ)
     ============================================ -->
     <script>
         // ============================================================
@@ -858,8 +858,6 @@
         // ============================================================
         const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
-
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // ============================================================
         // MOT DE PASSE ADMIN
@@ -959,6 +957,9 @@
             tbody.innerHTML = '';
             
             try {
+                // Créer le client Supabase ici pour éviter le conflit
+                const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
                 const { data, error } = await supabase
                     .from('gsecurite')
                     .select('*')
@@ -1254,6 +1255,9 @@
             editSaveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mise à jour...';
             
             try {
+                // Créer le client Supabase ici
+                const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
                 const { data, error } = await supabase
                     .from('gsecurite')
                     .update({ statut: newStatus })
@@ -1290,6 +1294,9 @@
             }
             
             try {
+                // Créer le client Supabase ici
+                const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
                 const { data, error } = await supabase
                     .from('gsecurite')
                     .delete()
