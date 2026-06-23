@@ -30,7 +30,6 @@
             --color-border: #E9ECEF;
             --color-text-dark: #1D1D2C;
             --color-text-muted: #6C757D;
-
             --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --transition-slow: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -44,40 +43,27 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         body {
             font-family: var(--font-family);
             color: var(--color-text-dark);
             background-color: var(--color-white);
             line-height: 1.6;
             padding-top: 80px;
-            opacity: 0;
-            animation: fadeInBody 0.8s ease forwards;
         }
-
-        @keyframes fadeInBody {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         a {
             text-decoration: none;
             color: inherit;
         }
-
         ul {
             list-style: none;
         }
-
         img {
             max-width: 100%;
             display: block;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -85,48 +71,37 @@
         }
 
         /* ============================================================
-               HEADER / NAVIGATION
+               HEADER
                ============================================================ */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(29, 29, 44, 0.85);
+            background: rgba(29, 29, 44, 0.85);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             color: var(--color-white);
             padding: 16px 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: none;
             transition: all var(--transition);
-            transform: translateY(0);
         }
-
         .header.scrolled {
-            background-color: rgba(29, 29, 44, 0.95);
+            background: rgba(29, 29, 44, 0.95);
             padding: 12px 0;
         }
-
         .header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
         }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 1.6rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            transition: transform var(--transition);
-        }
-        .logo:hover {
-            transform: scale(1.02);
         }
         .logo img {
             height: 45px;
@@ -136,63 +111,37 @@
         .logo span {
             color: var(--color-primary);
         }
-
         .nav {
             display: flex;
             align-items: center;
             gap: 28px;
         }
-
         .nav a {
             font-size: 0.95rem;
             font-weight: 500;
             padding: 6px 0;
+            color: var(--color-white);
             border-bottom: 2px solid transparent;
             transition: all var(--transition);
-            color: var(--color-white);
-            position: relative;
         }
-
-        .nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: width var(--transition);
-        }
-
-        .nav a:hover::after,
-        .nav a.active::after {
-            width: 100%;
-        }
-
         .nav a:hover,
         .nav a.active {
             color: var(--color-primary);
         }
-
+        .nav a.active {
+            border-bottom-color: var(--color-primary);
+        }
         .nav-cta {
-            background-color: var(--color-primary);
-            color: var(--color-white) !important;
+            background: var(--color-primary);
             padding: 8px 22px !important;
             border-radius: 12px;
-            border-bottom: none !important;
             font-weight: 600;
-            transition: all var(--transition);
-        }
-        .nav-cta::after {
-            display: none !important;
+            border-bottom: none !important;
         }
         .nav-cta:hover {
-            background-color: var(--color-primary-dark);
+            background: var(--color-primary-dark);
             transform: scale(1.05);
-            color: var(--color-white) !important;
-            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
         }
-
         .hamburger {
             display: none;
             flex-direction: column;
@@ -206,7 +155,7 @@
             display: block;
             width: 28px;
             height: 3px;
-            background-color: var(--color-white);
+            background: var(--color-white);
             border-radius: 3px;
             transition: all var(--transition);
         }
@@ -229,7 +178,6 @@
             min-height: 90vh;
             overflow: hidden;
         }
-
         .slide {
             position: absolute;
             top: 0;
@@ -240,98 +188,72 @@
             align-items: center;
             padding: 80px 0;
             opacity: 0;
-            transition: opacity 1.2s ease, transform 1.2s ease;
+            transition: opacity 1.2s ease;
             background-size: cover;
             background-position: center;
-            transform: scale(1.02);
         }
-
         .slide.active {
             opacity: 1;
-            transform: scale(1);
         }
-
         .slide-1 {
-            background: linear-gradient(135deg, rgba(29, 29, 44, 0.75) 40%, rgba(29, 29, 44, 0.3) 100%),
+            background: linear-gradient(135deg, rgba(29, 29, 44, 0.8) 40%, rgba(29, 29, 44, 0.4) 100%),
                         url('gsecurite/slide1.jpg') center 40%/cover no-repeat;
         }
-
         .slide-2 {
-            background: linear-gradient(135deg, rgba(29, 29, 44, 0.75) 40%, rgba(29, 29, 44, 0.3) 100%),
+            background: linear-gradient(135deg, rgba(29, 29, 44, 0.8) 40%, rgba(29, 29, 44, 0.4) 100%),
                         url('gsecurite/slide2.jpg') center 30%/cover no-repeat;
         }
-
         .slide-3 {
-            background: linear-gradient(135deg, rgba(29, 29, 44, 0.75) 40%, rgba(29, 29, 44, 0.3) 100%),
+            background: linear-gradient(135deg, rgba(29, 29, 44, 0.8) 40%, rgba(29, 29, 44, 0.4) 100%),
                         url('gsecurite/slide3.jpg') center/cover no-repeat;
         }
-
         .slide-content {
             max-width: 700px;
             color: var(--color-white);
-            animation: fadeInUp 1s ease;
         }
-
         .slide-content .badge {
             display: inline-block;
-            background-color: var(--color-primary);
+            background: var(--color-primary);
             color: var(--color-white);
             padding: 6px 20px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
-            letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 16px;
-            animation: pulseBadge 2s infinite;
         }
-
-        @keyframes pulseBadge {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
         .slide-content h1 {
             font-size: 4rem;
             font-weight: 700;
             line-height: 1.1;
-            letter-spacing: -1px;
             margin-bottom: 16px;
         }
-
         .slide-content h1 span {
             color: var(--color-primary);
         }
-
         .slide-content p {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
             max-width: 550px;
         }
-
         .slide-content .btn {
             display: inline-block;
             padding: 14px 36px;
             border-radius: 12px;
             font-weight: 600;
-            letter-spacing: 0.3px;
             transition: all var(--transition);
             border: none;
             cursor: pointer;
-            text-align: center;
         }
-
         .slide-content .btn-primary {
-            background-color: var(--color-primary);
+            background: var(--color-primary);
             color: var(--color-white);
         }
         .slide-content .btn-primary:hover {
-            background-color: var(--color-primary-dark);
+            background: var(--color-primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(193, 18, 28, 0.25);
         }
-
         .slide-content .btn-outline {
             background: transparent;
             color: var(--color-white);
@@ -341,15 +263,12 @@
             background: var(--color-white);
             color: var(--color-secondary);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.15);
         }
-
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
         }
-
         .slider-dots {
             position: absolute;
             bottom: 40px;
@@ -359,7 +278,6 @@
             gap: 12px;
             z-index: 10;
         }
-
         .slider-dots .dot {
             width: 12px;
             height: 12px;
@@ -369,52 +287,30 @@
             transition: all var(--transition);
             border: none;
         }
-
         .slider-dots .dot.active {
             background: var(--color-primary);
             transform: scale(1.3);
         }
 
-        .slider-dots .dot:hover {
-            background: var(--color-primary-light);
-            transform: scale(1.2);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* ============================================================
-               SECTION : GÉNÉRIQUE
+               SECTIONS
                ============================================================ */
         .section {
             padding: 80px 0;
             position: relative;
-            overflow: hidden;
         }
-
         .section-alt {
-            background-color: var(--color-bg-light);
+            background: var(--color-bg-light);
         }
-
         .section-title {
             font-size: 2.6rem;
             font-weight: 700;
             text-align: center;
-            letter-spacing: -0.5px;
             margin-bottom: 12px;
         }
         .section-title span {
             color: var(--color-primary);
         }
-
         .section-subtitle {
             text-align: center;
             font-size: 1.1rem;
@@ -432,30 +328,19 @@
             gap: 50px;
             align-items: center;
         }
-
         .about-image {
-            overflow: hidden;
             border-radius: 16px;
+            overflow: hidden;
         }
-
         .about-image img {
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(29, 29, 44, 0.08);
             width: 100%;
             height: auto;
-            object-fit: cover;
-            transition: transform var(--transition-slow);
         }
-
-        .about-image:hover img {
-            transform: scale(1.03);
-        }
-
         .about-text h3 {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 16px;
-            color: var(--color-secondary);
         }
         .about-text h3 span {
             color: var(--color-primary);
@@ -465,25 +350,21 @@
             margin-bottom: 16px;
             font-size: 1.05rem;
         }
-
         .btn {
             display: inline-block;
             padding: 14px 36px;
             border-radius: 12px;
             font-weight: 600;
-            letter-spacing: 0.3px;
             transition: all var(--transition);
             border: none;
             cursor: pointer;
-            text-align: center;
         }
-
         .btn-primary {
-            background-color: var(--color-primary);
+            background: var(--color-primary);
             color: var(--color-white);
         }
         .btn-primary:hover {
-            background-color: var(--color-primary-dark);
+            background: var(--color-primary-dark);
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(193, 18, 28, 0.25);
         }
@@ -493,107 +374,87 @@
                ============================================================ */
         .services-section {
             padding: 80px 0;
-            background-color: var(--color-bg-light);
+            background: var(--color-bg-light);
         }
-
         .services-header {
             text-align: center;
             max-width: 700px;
             margin: 0 auto 60px auto;
         }
-
         .services-header h2 {
             font-size: 2.6rem;
             font-weight: 700;
-            color: var(--color-secondary);
             margin-bottom: 12px;
         }
         .services-header h2 span {
             color: var(--color-primary);
         }
-
         .services-header p {
             color: var(--color-text-muted);
             font-size: 1.05rem;
         }
-
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-
         .service-card {
             background: var(--color-white);
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(29, 29, 44, 0.06);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
             transition: all var(--transition-slow);
             display: flex;
             flex-direction: column;
-            transform: translateY(0);
         }
-
         .service-card:hover {
             transform: translateY(-10px);
             border-color: var(--color-primary);
             box-shadow: 0 25px 50px rgba(193, 18, 28, 0.10);
         }
-
         .card-image {
             width: 100%;
             height: 260px;
             overflow: hidden;
-            position: relative;
         }
-
         .card-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.8s ease;
         }
-
         .service-card:hover .card-image img {
             transform: scale(1.10);
         }
-
         .card-content {
             padding: 28px 24px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
-
         .card-content h3 {
             font-size: 1.3rem;
-            color: var(--color-secondary);
-            margin-bottom: 10px;
             font-weight: 700;
-            line-height: 1.3;
+            margin-bottom: 10px;
         }
-
         .card-content p {
             font-size: 0.92rem;
             color: var(--color-text-muted);
             line-height: 1.7;
-            margin: 0 0 20px 0;
+            margin-bottom: 20px;
             flex-grow: 1;
         }
-
         .card-content .service-icon {
             font-size: 1.6rem;
             color: var(--color-primary);
             margin-bottom: 12px;
         }
-
         .btn-devis {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background-color: var(--color-primary);
+            background: var(--color-primary);
             color: var(--color-white);
             padding: 12px 24px;
             border-radius: 50px;
@@ -602,67 +463,46 @@
             transition: all var(--transition);
             border: none;
             cursor: pointer;
-            text-align: center;
             width: 100%;
-            margin-top: auto;
         }
-
-        .btn-devis i {
-            font-size: 1.2rem;
-            transition: transform var(--transition);
-        }
-
         .btn-devis:hover {
-            background-color: var(--color-primary-dark);
+            background: var(--color-primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
-        }
-
-        .btn-devis:hover i {
-            transform: scale(1.2);
         }
 
         /* ============================================================
-               RECRUTEMENT - SECTION INTACTE AVEC BOUTON MODIFIÉ
+               RECRUTEMENT
                ============================================================ */
         .recrutement-section {
             padding: 100px 0;
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.85) 40%, rgba(29, 29, 44, 0.5) 100%),
                         url('gsecurite/equipe.jpg') center/cover no-repeat;
             background-attachment: fixed;
-            position: relative;
         }
-
         .recrutement-box {
             max-width: 800px;
             margin: 0 auto;
             padding: 60px 50px;
-            background: rgba(29, 29, 44, 0.70);
+            background: rgba(29, 29, 44, 0.7);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             text-align: center;
             color: var(--color-white);
             transition: all var(--transition-slow);
         }
-
         .recrutement-box:hover {
-            background: rgba(29, 29, 44, 0.80);
+            background: rgba(29, 29, 44, 0.8);
             border-color: rgba(255, 255, 255, 0.15);
-            transform: scale(1.01);
         }
-
         .recrutement-box h2 {
             font-size: 2.6rem;
             font-weight: 700;
             margin-bottom: 16px;
         }
-
         .recrutement-box h2 span {
             color: var(--color-primary);
         }
-
         .recrutement-box p {
             opacity: 0.9;
             margin-bottom: 32px;
@@ -671,14 +511,12 @@
             margin-left: auto;
             margin-right: auto;
         }
-
-        /* ✅ Nouveau bouton de candidature */
         .btn-candidature {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background-color: var(--color-primary);
+            background: var(--color-primary);
             color: var(--color-white);
             padding: 16px 40px;
             border-radius: 12px;
@@ -689,19 +527,14 @@
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(193, 18, 28, 0.3);
         }
-
-        .btn-candidature i {
-            font-size: 1.2rem;
-        }
-
         .btn-candidature:hover {
-            background-color: var(--color-primary-dark);
+            background: var(--color-primary-dark);
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(193, 18, 28, 0.4);
         }
 
         /* ============================================================
-               ZONES D'INTERVENTION
+               ZONES
                ============================================================ */
         .zones-grid {
             display: flex;
@@ -711,13 +544,11 @@
             max-width: 900px;
             margin: 0 auto;
         }
-
         .zone-tag {
             background: var(--color-white);
             padding: 10px 24px;
             border-radius: 12px;
             font-weight: 500;
-            box-shadow: 0 4px 15px rgba(29, 29, 44, 0.04);
             border: 1px solid var(--color-border);
             transition: all var(--transition);
             display: flex;
@@ -726,16 +557,11 @@
         }
         .zone-tag i {
             color: var(--color-primary);
-            font-size: 0.9rem;
-            transition: transform var(--transition);
         }
         .zone-tag:hover {
             transform: translateY(-3px);
             border-color: var(--color-primary);
             box-shadow: 0 8px 25px rgba(193, 18, 28, 0.08);
-        }
-        .zone-tag:hover i {
-            transform: scale(1.2);
         }
 
         /* ============================================================
@@ -746,12 +572,10 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
-
         .testimonial-card {
             background: var(--color-white);
             padding: 32px 28px;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(29, 29, 44, 0.03);
             border: 1px solid rgba(29, 29, 44, 0.05);
             border-left: 5px solid var(--color-primary);
             transition: all var(--transition);
@@ -760,17 +584,13 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(29, 29, 44, 0.06);
         }
-
         .testimonial-card p {
             font-style: italic;
-            color: var(--color-text-dark);
             margin-bottom: 16px;
             font-size: 1.05rem;
         }
-
         .testimonial-card .author {
             font-weight: 600;
-            color: var(--color-secondary);
         }
         .testimonial-card .author span {
             font-weight: 400;
@@ -786,7 +606,6 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 24px;
         }
-
         .realisation-card {
             background: var(--color-white);
             border-radius: 16px;
@@ -794,21 +613,16 @@
             text-align: center;
             border: 1px solid rgba(29, 29, 44, 0.05);
             transition: all var(--transition-slow);
-            box-shadow: 0 10px 30px rgba(29, 29, 44, 0.02);
         }
         .realisation-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(193, 18, 28, 0.06);
             border-color: var(--color-primary);
+            box-shadow: 0 20px 40px rgba(193, 18, 28, 0.06);
         }
         .realisation-card i {
             font-size: 2.4rem;
             color: var(--color-primary);
             margin-bottom: 12px;
-            transition: transform var(--transition);
-        }
-        .realisation-card:hover i {
-            transform: scale(1.2) rotate(-5deg);
         }
         .realisation-card h4 {
             font-size: 1.1rem;
@@ -829,22 +643,16 @@
             gap: 50px;
             align-items: start;
         }
-
         .contact-info h3 {
             font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 24px;
         }
-
         .contact-info-item {
             display: flex;
             align-items: center;
             gap: 14px;
             margin-bottom: 18px;
-            transition: transform var(--transition);
-        }
-        .contact-info-item:hover {
-            transform: translateX(5px);
         }
         .contact-info-item i {
             width: 44px;
@@ -857,10 +665,6 @@
             justify-content: center;
             font-size: 1.1rem;
             flex-shrink: 0;
-            transition: transform var(--transition);
-        }
-        .contact-info-item:hover i {
-            transform: scale(1.1);
         }
         .contact-info-item strong {
             display: block;
@@ -871,7 +675,6 @@
         .contact-info-item span {
             font-weight: 600;
         }
-
         .contact-form input,
         .contact-form textarea,
         .contact-form select {
@@ -891,7 +694,6 @@
             outline: none;
             border-color: var(--color-primary);
             box-shadow: 0 0 0 4px rgba(193, 18, 28, 0.08);
-            transform: translateY(-2px);
         }
         .contact-form textarea {
             min-height: 130px;
@@ -910,36 +712,27 @@
             color: var(--color-white);
             padding: 50px 0 30px;
         }
-
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
-
         .footer h4 {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 18px;
             color: var(--color-primary);
         }
-
         .footer p,
         .footer a {
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             line-height: 2;
         }
-        .footer a {
-            transition: color var(--transition), transform var(--transition);
-            display: inline-block;
-        }
         .footer a:hover {
             color: var(--color-primary);
-            transform: translateX(3px);
         }
-
         .footer-socials {
             display: flex;
             gap: 14px;
@@ -962,7 +755,6 @@
             color: var(--color-white);
             transform: translateY(-3px);
         }
-
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             padding-top: 24px;
@@ -972,7 +764,7 @@
         }
 
         /* ============================================================
-               MODAL RECRUTEMENT
+               MODAL RECRUTEMENT - CORRIGÉ
                ============================================================ */
         .modal-overlay {
             display: none;
@@ -981,48 +773,49 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            z-index: 2000;
+            z-index: 9999;
             justify-content: center;
             align-items: center;
-            animation: fadeInOverlay 0.4s ease;
+            padding: 20px;
         }
-
         .modal-overlay.active {
-            display: flex;
+            display: flex !important;
         }
-
-        @keyframes fadeInOverlay {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .modal-content {
             background: var(--color-white);
             border-radius: 24px;
             max-width: 750px;
-            width: 95%;
+            width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             padding: 40px 45px;
             position: relative;
-            animation: slideUp 0.4s ease;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.4s ease;
         }
-
-        @keyframes slideUp {
+        @keyframes modalSlideIn {
             from {
-                transform: translateY(40px);
+                transform: translateY(50px) scale(0.95);
                 opacity: 0;
             }
             to {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
                 opacity: 1;
             }
         }
-
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 10px;
+        }
         .modal-close {
             position: absolute;
             top: 16px;
@@ -1036,30 +829,24 @@
             padding: 0 8px;
             line-height: 1;
         }
-
         .modal-close:hover {
             color: var(--color-primary);
             transform: rotate(90deg);
         }
-
-        .modal-content .modal-title {
+        .modal-title {
             font-size: 2rem;
             font-weight: 700;
             color: var(--color-secondary);
             margin-bottom: 4px;
         }
-
-        .modal-content .modal-title span {
+        .modal-title span {
             color: var(--color-primary);
         }
-
-        .modal-content .modal-subtitle {
+        .modal-subtitle {
             color: var(--color-text-muted);
             margin-bottom: 25px;
             font-size: 0.95rem;
         }
-
-        /* Documents requis dans le modal */
         .modal-docs-required {
             background: var(--color-bg-light);
             border-radius: 12px;
@@ -1067,19 +854,16 @@
             margin-bottom: 25px;
             border-left: 4px solid var(--color-primary);
         }
-
         .modal-docs-required h4 {
             font-size: 0.9rem;
             color: var(--color-secondary);
             margin-bottom: 8px;
         }
-
         .modal-docs-required ul {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4px 16px;
         }
-
         .modal-docs-required ul li {
             font-size: 0.85rem;
             color: var(--color-text-muted);
@@ -1088,7 +872,6 @@
             gap: 8px;
             padding: 3px 0;
         }
-
         .modal-docs-required ul li i {
             color: var(--color-primary);
             font-size: 0.65rem;
@@ -1101,11 +884,9 @@
             gap: 16px;
             margin-bottom: 14px;
         }
-
         .modal-form .form-group {
             margin-bottom: 14px;
         }
-
         .modal-form .form-group label {
             display: block;
             font-weight: 600;
@@ -1113,18 +894,15 @@
             color: var(--color-secondary);
             margin-bottom: 5px;
         }
-
         .modal-form .form-group label .required {
             color: var(--color-primary);
         }
-
         .modal-form .form-group label .file-hint {
             font-weight: 400;
             color: var(--color-text-muted);
             font-size: 0.75rem;
             margin-left: 6px;
         }
-
         .modal-form input,
         .modal-form textarea,
         .modal-form select {
@@ -1137,7 +915,6 @@
             transition: all 0.3s ease;
             background: var(--color-white);
         }
-
         .modal-form input:focus,
         .modal-form textarea:focus,
         .modal-form select:focus {
@@ -1145,34 +922,28 @@
             border-color: var(--color-primary);
             box-shadow: 0 0 0 4px rgba(193, 18, 28, 0.08);
         }
-
         .modal-form input[type="file"] {
             padding: 10px 12px;
             border: 2px dashed var(--color-border);
             background: var(--color-bg-light);
             cursor: pointer;
         }
-
         .modal-form input[type="file"]:hover {
             border-color: var(--color-primary);
             background: rgba(193, 18, 28, 0.04);
         }
-
         .modal-form textarea {
             min-height: 90px;
             resize: vertical;
         }
-
         .modal-form .file-upload-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
         }
-
         .modal-form .file-upload-group .form-group {
             margin-bottom: 0;
         }
-
         .modal-form .btn-submit {
             width: 100%;
             padding: 16px;
@@ -1186,19 +957,16 @@
             transition: all 0.3s ease;
             margin-top: 8px;
         }
-
         .modal-form .btn-submit:hover {
             background: var(--color-primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(193, 18, 28, 0.3);
         }
-
         .modal-form .btn-submit:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-
         .modal-status {
             margin-top: 14px;
             padding: 12px 16px;
@@ -1207,44 +975,37 @@
             text-align: center;
             font-weight: 500;
         }
-
         .modal-status.success {
             display: block;
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-
         .modal-status.error {
             display: block;
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-
         .modal-status.loading {
             display: block;
             background: #cce5ff;
             color: #004085;
             border: 1px solid #b8daff;
         }
-
         .modal-success {
             display: none;
             text-align: center;
             padding: 20px 0 10px;
         }
-
         .modal-success i {
             font-size: 3.5rem;
             color: #28a745;
         }
-
         .modal-success h3 {
             color: var(--color-secondary);
             margin: 12px 0 6px;
         }
-
         .modal-success p {
             color: var(--color-text-muted);
         }
@@ -1262,15 +1023,14 @@
             border-radius: 50px;
             font-size: 0.8rem;
             z-index: 999;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
         .admin-link:hover {
             background: var(--color-primary);
             transform: translateY(-3px);
@@ -1281,9 +1041,6 @@
                RESPONSIVE
                ============================================================ */
         @media (max-width: 992px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
             .about-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -1308,11 +1065,11 @@
             .hero-buttons {
                 justify-content: center;
             }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
             .recrutement-box {
                 padding: 40px 30px;
-            }
-            .recrutement-box h2 {
-                font-size: 2.2rem;
             }
             .modal-content {
                 padding: 30px 25px;
@@ -1329,18 +1086,12 @@
             body {
                 padding-top: 72px;
             }
-
-            .header .container {
-                flex-wrap: nowrap;
-            }
-
             .logo {
                 font-size: 1.2rem;
             }
             .logo img {
                 height: 35px;
             }
-
             .nav {
                 position: fixed;
                 top: 72px;
@@ -1358,11 +1109,9 @@
             .nav.open {
                 transform: translateY(0);
             }
-
             .hamburger {
                 display: flex;
             }
-
             .hero-slider {
                 min-height: 70vh;
             }
@@ -1372,24 +1121,12 @@
             .slide-content h1 {
                 font-size: 2.2rem;
             }
-            .slide-content p {
-                font-size: 1rem;
-            }
-
             .section-title {
                 font-size: 2rem;
             }
             .section {
                 padding: 50px 0;
             }
-
-            .services-header h2 {
-                font-size: 2rem;
-            }
-            .services-section {
-                padding: 50px 0;
-            }
-
             .recrutement-section {
                 padding: 60px 0;
                 background-attachment: scroll;
@@ -1400,41 +1137,20 @@
             .recrutement-box h2 {
                 font-size: 1.8rem;
             }
-            .recrutement-box p {
-                font-size: 1rem;
-            }
-            .btn-candidature {
-                padding: 14px 28px;
-                font-size: 0.95rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .services-grid {
                 grid-template-columns: 1fr 1fr;
             }
-
-            .admin-link {
-                bottom: 10px;
-                right: 10px;
-                padding: 8px 14px;
-                font-size: 0.7rem;
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
             }
-            .admin-link span {
-                display: none;
-            }
-
             .modal-content {
                 padding: 25px 18px;
-                max-height: 95vh;
-            }
-            .modal-content .modal-title {
-                font-size: 1.5rem;
             }
             .modal-form .form-row {
                 grid-template-columns: 1fr;
+            }
+            .admin-link span {
+                display: none;
             }
         }
 
@@ -1446,23 +1162,10 @@
                 width: 100%;
                 text-align: center;
             }
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-            .zone-tag {
-                padding: 6px 16px;
-                font-size: 0.9rem;
-            }
-            .about-grid {
-                gap: 20px;
-            }
-            .about-image img {
-                max-height: 220px;
-            }
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
             .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
                 grid-template-columns: 1fr;
             }
             .card-image {
@@ -1471,17 +1174,17 @@
             .recrutement-box h2 {
                 font-size: 1.5rem;
             }
-            .btn-devis {
-                font-size: 0.85rem;
-                padding: 10px 18px;
-            }
             .btn-candidature {
-                padding: 12px 20px;
-                font-size: 0.85rem;
+                padding: 12px 24px;
+                font-size: 0.9rem;
                 width: 100%;
+                justify-content: center;
             }
             .modal-content {
                 padding: 20px 14px;
+            }
+            .modal-title {
+                font-size: 1.5rem;
             }
             .modal-docs-required ul li {
                 font-size: 0.8rem;
@@ -1578,27 +1281,16 @@
     <section class="section" id="a-propos" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Qui sommes-<span>nous</span></h2>
-            <p class="section-subtitle">
-                Une société de sécurité privée burkinabè, engagée pour la
-                tranquillité de nos clients.
-            </p>
+            <p class="section-subtitle">Une société de sécurité privée burkinabè, engagée pour la tranquillité de nos clients.</p>
 
             <div class="about-grid">
-                <div class="about-text" data-aos="fade-right">
+                <div class="about-text">
                     <h3>Une force pour votre <span>tranquillité</span></h3>
-                    <p>
-                        <strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè,
-                        spécialisée dans la sécurité des personnes et des biens. Forts
-                        de notre expérience et de notre ancrage local, nous proposons
-                        des solutions sur mesure adaptées à chaque besoin.
-                    </p>
-                    <p>
-                        Nos agents sont rigoureusement formés selon les standards
-                        les plus exigeants pour vous offrir un service d'excellence.
-                    </p>
+                    <p><strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè, spécialisée dans la sécurité des personnes et des biens.</p>
+                    <p>Nos agents sont rigoureusement formés selon les standards les plus exigeants pour vous offrir un service d'excellence.</p>
                     <a href="#contact" class="btn btn-primary">Travailler avec nous</a>
                 </div>
-                <div class="about-image" data-aos="fade-left">
+                <div class="about-image">
                     <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" />
                 </div>
             </div>
@@ -1610,15 +1302,15 @@
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
-            <div class="services-header" data-aos="fade-up">
+            <div class="services-header">
                 <h2>Nos <span>services</span></h2>
                 <p>Des solutions complètes pour tous vos besoins en sécurité.</p>
             </div>
 
             <div class="services-grid">
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/securite-generale.png" alt="Sécurité générale" style="object-position: center;">
+                        <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-shield-alt service-icon"></i>
@@ -1630,9 +1322,9 @@
                     </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/vigile.jpg" alt="Vigile" style="object-position: center 20%;">
+                        <img src="gsecurite/vigile.jpg" alt="Vigile">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-user-shield service-icon"></i>
@@ -1644,9 +1336,9 @@
                     </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie" style="object-position: center;">
+                        <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-fire-extinguisher service-icon"></i>
@@ -1658,9 +1350,9 @@
                     </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/camera.jpg" alt="Sécurité électronique" style="object-position: center;">
+                        <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-video service-icon"></i>
@@ -1672,9 +1364,9 @@
                     </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/escortage.png" alt="Escortage" style="object-position: center 20%;">
+                        <img src="gsecurite/escortage.png" alt="Escortage">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-crown service-icon"></i>
@@ -1686,9 +1378,9 @@
                     </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="350">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/convoyage.png" alt="Convoie sécurisé" style="object-position: center;">
+                        <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-truck service-icon"></i>
@@ -1700,9 +1392,9 @@
                     </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-card">
                     <div class="card-image">
-                        <img src="gsecurite/accessoires.png" alt="Accessoires" style="object-position: center;">
+                        <img src="gsecurite/accessoires.png" alt="Accessoires">
                     </div>
                     <div class="card-content">
                         <i class="fas fa-store service-icon"></i>
@@ -1723,10 +1415,7 @@
     <section class="section" id="zones" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Nos zones <span>d'intervention</span></h2>
-            <p class="section-subtitle">
-                Nous intervenons dans tout le Burkina Faso, avec des équipes
-                déployées dans les principales villes.
-            </p>
+            <p class="section-subtitle">Nous intervenons dans tout le Burkina Faso, avec des équipes déployées dans les principales villes.</p>
             <div class="zones-grid">
                 <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ouagadougou</span>
                 <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Bobo-Dioulasso</span>
@@ -1748,27 +1437,25 @@
     <section class="section section-alt" id="realisations" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Nos <span>réalisations</span></h2>
-            <p class="section-subtitle">
-                Des missions menées avec succès dans divers secteurs d'activité.
-            </p>
+            <p class="section-subtitle">Des missions menées avec succès dans divers secteurs d'activité.</p>
 
             <div class="realisations-grid">
-                <div class="realisation-card" data-aos="flip-up" data-aos-delay="100">
+                <div class="realisation-card">
                     <i class="fas fa-industry"></i>
                     <h4>Sécurisation site minier</h4>
                     <p>Mise en place d'un dispositif complet pour une mine à Bobo-Dioulasso.</p>
                 </div>
-                <div class="realisation-card" data-aos="flip-up" data-aos-delay="200">
+                <div class="realisation-card">
                     <i class="fas fa-university"></i>
                     <h4>Protection d'institution</h4>
                     <p>Surveillance rapprochée d'un siège social à Ouagadougou.</p>
                 </div>
-                <div class="realisation-card" data-aos="flip-up" data-aos-delay="300">
+                <div class="realisation-card">
                     <i class="fas fa-calendar-check"></i>
                     <h4>Événementiel</h4>
                     <p>Sécurisation d'un grand festival culturel à Koudougou.</p>
                 </div>
-                <div class="realisation-card" data-aos="flip-up" data-aos-delay="400">
+                <div class="realisation-card">
                     <i class="fas fa-hotel"></i>
                     <h4>Sécurisation hôtelière</h4>
                     <p>Protection d'un complexe hôtelier 5 étoiles à Ouagadougou.</p>
@@ -1783,19 +1470,17 @@
     <section class="section" id="temoignages" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Ils nous font <span>confiance</span></h2>
-            <p class="section-subtitle">
-                Ce que nos clients disent de nos services.
-            </p>
+            <p class="section-subtitle">Ce que nos clients disent de nos services.</p>
             <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
+                <div class="testimonial-card">
                     <p>“Un professionnalisme exemplaire et une réactivité sans faille. G-SÉCURITÉ est notre partenaire de confiance.”</p>
                     <div class="author">Jean M. <span>Directeur, Société Minière</span></div>
                 </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card">
                     <p>“Les agents sont compétents et discrets. La sécurité électronique installée est de très haute qualité.”</p>
                     <div class="author">Alassane Z. <span>Directeur Général</span></div>
                 </div>
-                <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
+                <div class="testimonial-card">
                     <p>“Une équipe à l'écoute, qui a su comprendre nos besoins spécifiques pour un événement de grande envergure.”</p>
                     <div class="author">Issouf Z. <span>Organisateur d'événements</span></div>
                 </div>
@@ -1804,7 +1489,7 @@
     </section>
 
     <!-- ============================================================
-    RECRUTEMENT - SECTION INTACTE AVEC BOUTON MODIFIÉ
+    RECRUTEMENT - AVEC BOUTON "DÉPOSER MA CANDIDATURE"
     ============================================================ -->
     <section class="recrutement-section" id="recrutement" data-aos="zoom-in">
         <div class="container">
@@ -1814,8 +1499,7 @@
                     Vous êtes rigoureux, motivé et souhaitez évoluer dans un
                     secteur exigeant ? Rejoignez-nous et faites partie de notre équipe.
                 </p>
-                <!-- ✅ Bouton modifié : au lieu de Facebook, ouvre le modal -->
-                <button class="btn-candidature" id="openRecrutementBtnSection">
+                <button class="btn-candidature" id="btnCandidature">
                     <i class="fas fa-paper-plane"></i> Déposer ma candidature
                 </button>
             </div>
@@ -1828,13 +1512,10 @@
     <section class="section" id="contact" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Demandez un <span>devis</span></h2>
-            <p class="section-subtitle">
-                Une question ? Un projet ? Contactez-nous, nous vous répondons
-                dans les plus brefs délais.
-            </p>
+            <p class="section-subtitle">Une question ? Un projet ? Contactez-nous, nous vous répondons dans les plus brefs délais.</p>
 
             <div class="contact-grid">
-                <div class="contact-info" data-aos="fade-right">
+                <div class="contact-info">
                     <h3>Nos coordonnées</h3>
                     <div class="contact-info-item">
                         <i class="fas fa-map-marker-alt"></i>
@@ -1874,7 +1555,7 @@
                     </div>
                 </div>
 
-                <form class="contact-form" id="contactForm" data-aos="fade-left">
+                <form class="contact-form" id="contactForm">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
                         <input type="text" placeholder="Nom complet" required />
                         <input type="email" placeholder="Email" required />
@@ -1947,9 +1628,8 @@
             <h2 class="modal-title">Rejoignez notre <span>équipe</span></h2>
             <p class="modal-subtitle">Agents de sécurité dynamiques et motivés recherchés</p>
 
-            <!-- Documents requis -->
             <div class="modal-docs-required">
-                <h4><i class="fas fa-list" style="color:var(--color-primary);"></i> Dossier requis</h4>
+                <h4><i class="fas fa-list"></i> Dossier requis</h4>
                 <ul>
                     <li><i class="fas fa-check-circle"></i> Extrait d'acte de naissance</li>
                     <li><i class="fas fa-check-circle"></i> Photocopie légalisée CNIB</li>
@@ -1961,9 +1641,7 @@
                 </ul>
             </div>
 
-            <!-- Formulaire -->
             <form class="modal-form" id="recrutementForm">
-                <!-- Infos personnelles -->
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nom complet <span class="required">*</span></label>
@@ -1980,7 +1658,6 @@
                     <input type="tel" id="telephoneRecrutement" placeholder="+226 XX XX XX XX" required>
                 </div>
 
-                <!-- Champs pour chaque document -->
                 <div class="file-upload-group">
                     <div class="form-group">
                         <label>Extrait d'acte de naissance <span class="required">*</span> <span class="file-hint">(PDF, JPG, PNG)</span></label>
@@ -2031,7 +1708,6 @@
                 <div class="modal-status" id="recrutementStatus"></div>
             </form>
 
-            <!-- Message de succès -->
             <div class="modal-success" id="recrutementSuccess">
                 <i class="fas fa-check-circle"></i>
                 <h3>Candidature envoyée avec succès !</h3>
@@ -2062,11 +1738,12 @@
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // ============================================================
+        // INIT
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
 
-            // ============================================================
             // AOS
-            // ============================================================
             AOS.init({
                 duration: 800,
                 once: true,
@@ -2104,30 +1781,6 @@
             });
 
             // ============================================================
-            // ACTIVE LINK
-            // ============================================================
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav a:not(.nav-cta)');
-
-            function updateActiveLink() {
-                let current = '';
-                sections.forEach(function(section) {
-                    const sectionTop = section.offsetTop - 120;
-                    if (window.scrollY >= sectionTop) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                navLinks.forEach(function(link) {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateActiveLink);
-
-            // ============================================================
             // SLIDER
             // ============================================================
             const slides = document.querySelectorAll('.slide');
@@ -2146,21 +1799,16 @@
             }
 
             function nextSlide() {
-                const next = (currentIndex + 1) % slides.length;
-                goToSlide(next);
+                goToSlide((currentIndex + 1) % slides.length);
             }
 
             function startSlider() {
-                interval = setInterval(nextSlide, 3000);
-            }
-
-            function stopSlider() {
-                clearInterval(interval);
+                interval = setInterval(nextSlide, 4000);
             }
 
             dots.forEach(function(dot, index) {
                 dot.addEventListener('click', function() {
-                    stopSlider();
+                    clearInterval(interval);
                     goToSlide(index);
                     startSlider();
                 });
@@ -2171,24 +1819,22 @@
             // ============================================================
             // CONTACT FORM
             // ============================================================
-            const contactForm = document.getElementById('contactForm');
-            contactForm.addEventListener('submit', function(e) {
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
-                contactForm.reset();
+                this.reset();
             });
 
             // ============================================================
             // MODAL RECRUTEMENT
             // ============================================================
             const modal = document.getElementById('recrutementModal');
+            const btnCandidature = document.getElementById('btnCandidature');
             const modalClose = document.getElementById('modalClose');
-            const sectionBtn = document.getElementById('openRecrutementBtnSection');
             const closeSuccessBtn = document.getElementById('closeSuccessBtn');
 
             // Ouvrir le modal
-            function openModal(e) {
-                if (e) e.preventDefault();
+            function openModal() {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
@@ -2197,7 +1843,7 @@
             function closeModal() {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
-                // Réinitialiser le formulaire
+                // Réinitialiser
                 document.getElementById('recrutementForm').reset();
                 document.getElementById('recrutementStatus').className = 'modal-status';
                 document.getElementById('recrutementStatus').style.display = 'none';
@@ -2205,9 +1851,7 @@
                 document.getElementById('recrutementForm').style.display = 'block';
             }
 
-            // ✅ Bouton dans la section recrutement
-            sectionBtn.addEventListener('click', openModal);
-
+            btnCandidature.addEventListener('click', openModal);
             modalClose.addEventListener('click', closeModal);
             closeSuccessBtn.addEventListener('click', closeModal);
 
@@ -2219,7 +1863,7 @@
             });
 
             // ============================================================
-            // SOUMISSION DU FORMULAIRE DE RECRUTEMENT
+            // SOUMISSION FORMULAIRE
             // ============================================================
             const recrutementForm = document.getElementById('recrutementForm');
             const submitBtn = document.getElementById('submitRecrutement');
@@ -2238,13 +1882,11 @@
                 successDiv.style.display = 'none';
 
                 try {
-                    // Récupérer les valeurs
                     const nom = document.getElementById('nomComplet').value;
                     const email = document.getElementById('emailRecrutement').value;
                     const telephone = document.getElementById('telephoneRecrutement').value;
                     const message = document.getElementById('messageRecrutement').value;
 
-                    // Récupérer tous les fichiers
                     const fileInputs = [
                         document.getElementById('docActeNaissance'),
                         document.getElementById('docCNIB'),
@@ -2256,18 +1898,12 @@
                     ];
 
                     const fileNames = [
-                        'acte_naissance',
-                        'cnib',
-                        'casier_judiciaire',
-                        'nationalite',
-                        'cv',
-                        'photos',
-                        'residence'
+                        'acte_naissance', 'cnib', 'casier_judiciaire',
+                        'nationalite', 'cv', 'photos', 'residence'
                     ];
 
                     const fileUrls = [];
 
-                    // Upload de chaque fichier
                     for (let i = 0; i < fileInputs.length; i++) {
                         const input = fileInputs[i];
                         if (input.files && input.files.length > 0) {
@@ -2276,7 +1912,7 @@
                             const fileName = `${Date.now()}_${fileNames[i]}.${ext}`;
                             const filePath = `gsecurite/${fileName}`;
 
-                            const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                            const { error: uploadError } = await supabaseClient.storage
                                 .from('gsecurite')
                                 .upload(filePath, file);
 
@@ -2292,8 +1928,7 @@
                         }
                     }
 
-                    // Enregistrement dans la table
-                    const { data: candidatureData, error: dbError } = await supabaseClient
+                    const { error: dbError } = await supabaseClient
                         .from('gsecurite')
                         .insert([{
                             nom_complet: nom,
@@ -2306,13 +1941,11 @@
 
                     if (dbError) throw dbError;
 
-                    // Succès
                     recrutementForm.style.display = 'none';
                     statusDiv.style.display = 'none';
                     successDiv.style.display = 'block';
 
                 } catch (error) {
-                    console.error('Erreur:', error);
                     statusDiv.className = 'modal-status error';
                     statusDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> Erreur: ${error.message}`;
                     statusDiv.style.display = 'block';
