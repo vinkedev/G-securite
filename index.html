@@ -16,7 +16,7 @@
 
     <style>
         /* ============================================================
-               ROOT VARIABLES
+               ROOT VARIABLES (inchangé)
                ============================================================ */
         :root {
             --color-primary: #C1121C;
@@ -36,7 +36,7 @@
         }
 
         /* ============================================================
-               RESET & BASE
+               RESET & BASE (inchangé)
                ============================================================ */
         * {
             margin: 0;
@@ -52,6 +52,7 @@
             background-color: var(--color-white);
             line-height: 1.6;
             padding-top: 80px;
+            margin: 0;
         }
         a {
             text-decoration: none;
@@ -71,7 +72,65 @@
         }
 
         /* ============================================================
-               HEADER
+               MAINTENANCE OVERLAY (nouveau)
+               ============================================================ */
+        #maintenance {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            font-family: var(--font-family);
+        }
+        #maintenance .box {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            max-width: 550px;
+            text-align: center;
+        }
+        #maintenance .box .icone {
+            font-size: 52px;
+            margin-bottom: 10px;
+        }
+        #maintenance .box h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--color-secondary);
+        }
+        #maintenance .box p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3d4a5a;
+        }
+        #maintenance .box .encadre {
+            background: #eef4fa;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #1a3a5e;
+            margin-top: 24px;
+            border-left: 5px solid var(--color-primary);
+        }
+
+        /* ============================================================
+               TOUT LE RESTE DU STYLE (inchangé)
+               ============================================================ */
+        /* ... (tout le CSS original que tu avais, à l'exception de ce qui est au-dessus) ... */
+        /* Pour gagner de la place, je ne répète pas tout le CSS ici, 
+           mais dans le fichier final, il est bien présent. Je l'ai intégralement copié. */
+        /* Ci-dessous, je donne un aperçu, mais le code final contient tout le CSS original. */
+        /* ... */
+
+        /* ============================================================
+               HEADER (inchangé)
                ============================================================ */
         .header {
             position: fixed;
@@ -170,7 +229,7 @@
         }
 
         /* ============================================================
-               HERO SLIDER
+               HERO SLIDER (inchangé)
                ============================================================ */
         .hero-slider {
             position: relative;
@@ -293,7 +352,7 @@
         }
 
         /* ============================================================
-               SECTIONS
+               SECTIONS (inchangé)
                ============================================================ */
         .section {
             padding: 80px 0;
@@ -320,7 +379,7 @@
         }
 
         /* ============================================================
-               À PROPOS
+               À PROPOS (inchangé)
                ============================================================ */
         .about-grid {
             display: grid;
@@ -370,7 +429,7 @@
         }
 
         /* ============================================================
-               SERVICES
+               SERVICES (inchangé)
                ============================================================ */
         .services-section {
             padding: 80px 0;
@@ -471,7 +530,7 @@
         }
 
         /* ============================================================
-               RECRUTEMENT
+               RECRUTEMENT (inchangé)
                ============================================================ */
         .recrutement-section {
             padding: 100px 0;
@@ -512,7 +571,6 @@
             margin-right: auto;
         }
 
-        /* Liste des documents requis dans la section recrutement */
         .recrutement-docs {
             background: rgba(255, 255, 255, 0.06);
             border-radius: 16px;
@@ -571,7 +629,7 @@
         }
 
         /* ============================================================
-               ZONES
+               ZONES (inchangé)
                ============================================================ */
         .zones-grid {
             display: flex;
@@ -602,7 +660,7 @@
         }
 
         /* ============================================================
-               TÉMOIGNAGES
+               TÉMOIGNAGES (inchangé)
                ============================================================ */
         .testimonials-grid {
             display: grid;
@@ -636,7 +694,7 @@
         }
 
         /* ============================================================
-               RÉALISATIONS
+               RÉALISATIONS (inchangé)
                ============================================================ */
         .realisations-grid {
             display: grid;
@@ -672,7 +730,7 @@
         }
 
         /* ============================================================
-               CONTACT
+               CONTACT (inchangé)
                ============================================================ */
         .contact-grid {
             display: grid;
@@ -742,7 +800,7 @@
         }
 
         /* ============================================================
-               FOOTER
+               FOOTER (inchangé)
                ============================================================ */
         .footer {
             background: var(--color-secondary-dark);
@@ -807,7 +865,6 @@
             gap: 10px;
         }
 
-        /* Bouton Admin dans le footer */
         .footer-admin-link {
             display: inline-flex;
             align-items: center;
@@ -827,7 +884,7 @@
         }
 
         /* ============================================================
-               MODAL RECRUTEMENT - VERSION 3 ÉTAPES
+               MODAL RECRUTEMENT - VERSION 3 ÉTAPES (inchangé)
                ============================================================ */
         .modal-overlay {
             display: none;
@@ -911,7 +968,6 @@
             font-size: 0.95rem;
         }
 
-        /* ---------- Barre de progression ---------- */
         .step-indicator {
             font-size: 0.8rem;
             font-weight: 600;
@@ -936,7 +992,6 @@
             background: var(--color-primary);
         }
 
-        /* ---------- Étapes ---------- */
         .form-step {
             display: none;
         }
@@ -999,7 +1054,6 @@
             transform: none;
         }
 
-        /* ---------- Étape 1 : Coordonnées stylisées ---------- */
         .modal-form .form-group {
             margin-bottom: 16px;
         }
@@ -1048,7 +1102,6 @@
             gap: 16px;
         }
 
-        /* ---------- Étape 2 : upload progressif ---------- */
         .doc-list {
             display: flex;
             flex-direction: column;
@@ -1137,7 +1190,6 @@
             color: var(--color-primary);
         }
 
-        /* ---------- Upload en cours ---------- */
         .upload-progress-wrap {
             text-align: center;
             padding: 30px 0 10px;
@@ -1206,7 +1258,7 @@
         }
 
         /* ============================================================
-               RESPONSIVE
+               RESPONSIVE (inchangé)
                ============================================================ */
         @media (max-width: 992px) {
             .about-grid {
@@ -1388,374 +1440,428 @@
 <body>
 
     <!-- ============================================================
-    HEADER
+    MAINTENANCE OVERLAY (affiché si SITE_ACCESS = false)
     ============================================================ -->
-    <header class="header" id="header">
-        <div class="container">
-            <a href="#accueil" class="logo">
-                <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ Logo" />
-                G-<span>SÉCURITÉ</span>
-            </a>
-
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <nav class="nav" id="nav">
-                <a href="#accueil" class="active">Accueil</a>
-                <a href="#a-propos">À propos</a>
-                <a href="#services">Services</a>
-                <a href="#zones">Zones</a>
-                <a href="#realisations">Réalisations</a>
-                <a href="#recrutement">Recrutement</a>
-                <a href="#contact" class="nav-cta">Devis / Contact</a>
-            </nav>
+    <div id="maintenance">
+        <div class="box">
+            <div class="icone">⚙️</div>
+            <h2>Accès momentanément restreint</h2>
+            <p>L'accès est momentanément restreint dans le cadre des derniers ajustements.</p>
+            <div class="encadre">
+                <strong>🔐 Porteur du projet ?</strong><br>
+                Merci de contacter votre développeur pour la réactivation de l'environnement.
+            </div>
         </div>
-    </header>
+    </div>
 
     <!-- ============================================================
-    HERO SLIDER
+    SITE COMPLET (contenu original, masqué si SITE_ACCESS = false)
     ============================================================ -->
-    <section class="hero-slider" id="accueil">
-        <div class="slide slide-1 active">
+    <div id="site-content" style="display:none;">
+
+        <!-- HEADER -->
+        <header class="header" id="header">
             <div class="container">
-                <div class="slide-content">
-                    <span class="badge">Expert en sécurité</span>
-                    <h1>Votre sécurité, <span>notre priorité</span></h1>
-                    <p>Force, compétence et rigueur pour protéger vos biens et vos personnes, partout au Burkina Faso.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Demander un devis</a>
-                        <a href="#services" class="btn btn-outline">Nos services</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <a href="#accueil" class="logo">
+                    <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ Logo" />
+                    G-<span>SÉCURITÉ</span>
+                </a>
 
-        <div class="slide slide-2">
-            <div class="container">
-                <div class="slide-content">
-                    <span class="badge">Protection 24h/7</span>
-                    <h1>Surveillance <span>continue</span></h1>
-                    <p>Des équipes dédiées et des technologies de pointe pour une sécurité sans faille.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Demander un devis</a>
-                        <a href="#services" class="btn btn-outline">Nos services</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide slide-3">
-            <div class="container">
-                <div class="slide-content">
-                    <span class="badge">Présence nationale</span>
-                    <h1>Nous intervenons <span>partout</span></h1>
-                    <p>De Ouagadougou à Bobo-Dioulasso, en passant par Kaya et Fada N'Gourma, nous sommes à vos côtés.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Demander un devis</a>
-                        <a href="#zones" class="btn btn-outline">Nos zones</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slider-dots">
-            <button class="dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="dot" data-index="2" aria-label="Slide 3"></button>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    À PROPOS
-    ============================================================ -->
-    <section class="section" id="a-propos" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Qui sommes-<span>nous</span></h2>
-            <p class="section-subtitle">Une société de sécurité privée burkinabè, engagée pour la tranquillité de nos clients.</p>
-
-            <div class="about-grid">
-                <div class="about-text">
-                    <h3>Une force pour votre <span>tranquillité</span></h3>
-                    <p><strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè, spécialisée dans la sécurité des personnes et des biens.</p>
-                    <p>Nos agents sont rigoureusement formés selon les standards les plus exigeants pour vous offrir un service d'excellence.</p>
-                    <a href="#contact" class="btn btn-primary">Travailler avec nous</a>
-                </div>
-                <div class="about-image">
-                    <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    SERVICES
-    ============================================================ -->
-    <section class="services-section" id="services">
-        <div class="container">
-            <div class="services-header">
-                <h2>Nos <span>services</span></h2>
-                <p>Des solutions complètes pour tous vos besoins en sécurité.</p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-shield-alt service-icon"></i>
-                        <h3>Sécurité générale</h3>
-                        <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/vigile.jpg" alt="Vigile">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-user-shield service-icon"></i>
-                        <h3>Vigile</h3>
-                        <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance 24h/7.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-fire-extinguisher service-icon"></i>
-                        <h3>Sécurité incendie</h3>
-                        <p>Dispositifs de prévention et d'intervention contre les risques d'incendie.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-video service-icon"></i>
-                        <h3>Sécurité électronique</h3>
-                        <p>Vidéosurveillance, systèmes d'alarme, contrôle d'accès et détection intrusion.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/escortage.png" alt="Escortage">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-crown service-icon"></i>
-                        <h3>Escortage &amp; Protection</h3>
-                        <p>Services d'escortage sécuritaire pour personnalités et dirigeants.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-truck service-icon"></i>
-                        <h3>Convoie sécurisé</h3>
-                        <p>Transport et acheminement hautement sécurisés de vos fonds et valeurs.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="card-image">
-                        <img src="gsecurite/accessoires.png" alt="Accessoires">
-                    </div>
-                    <div class="card-content">
-                        <i class="fas fa-store service-icon"></i>
-                        <h3>Vente d'accessoires</h3>
-                        <p>Fourniture de matériel de protection individuel et d'équipements de sécurité.</p>
-                        <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                            <i class="fab fa-whatsapp"></i> Demander un devis
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ZONES D'INTERVENTION
-    ============================================================ -->
-    <section class="section" id="zones" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Nos zones <span>d'intervention</span></h2>
-            <p class="section-subtitle">Nous intervenons dans tout le Burkina Faso, avec des équipes déployées dans les principales villes.</p>
-            <div class="zones-grid">
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ouagadougou</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Bobo-Dioulasso</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ziniaré</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Kaya</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Koudougou</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Fada N'Gourma</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ouahigouya</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Banfora</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Gaoua</span>
-                <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Tenkodogo</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    RÉALISATIONS
-    ============================================================ -->
-    <section class="section section-alt" id="realisations" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Nos <span>réalisations</span></h2>
-            <p class="section-subtitle">Des missions menées avec succès dans divers secteurs d'activité.</p>
-
-            <div class="realisations-grid">
-                <div class="realisation-card">
-                    <i class="fas fa-industry"></i>
-                    <h4>Sécurisation site minier</h4>
-                    <p>Mise en place d'un dispositif complet pour une mine à Bobo-Dioulasso.</p>
-                </div>
-                <div class="realisation-card">
-                    <i class="fas fa-university"></i>
-                    <h4>Protection d'institution</h4>
-                    <p>Surveillance rapprochée d'un siège social à Ouagadougou.</p>
-                </div>
-                <div class="realisation-card">
-                    <i class="fas fa-calendar-check"></i>
-                    <h4>Événementiel</h4>
-                    <p>Sécurisation d'un grand festival culturel à Koudougou.</p>
-                </div>
-                <div class="realisation-card">
-                    <i class="fas fa-hotel"></i>
-                    <h4>Sécurisation hôtelière</h4>
-                    <p>Protection d'un complexe hôtelier 5 étoiles à Ouagadougou.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    TÉMOIGNAGES
-    ============================================================ -->
-    <section class="section" id="temoignages" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Ils nous font <span>confiance</span></h2>
-            <p class="section-subtitle">Ce que nos clients disent de nos services.</p>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p>“Un professionnalisme exemplaire et une réactivité sans faille. G-SÉCURITÉ est notre partenaire de confiance.”</p>
-                    <div class="author">Jean M. <span>Directeur, Société Minière</span></div>
-                </div>
-                <div class="testimonial-card">
-                    <p>“Les agents sont compétents et discrets. La sécurité électronique installée est de très haute qualité.”</p>
-                    <div class="author">Alassane Z. <span>Directeur Général</span></div>
-                </div>
-                <div class="testimonial-card">
-                    <p>“Une équipe à l'écoute, qui a su comprendre nos besoins spécifiques pour un événement de grande envergure.”</p>
-                    <div class="author">Issouf Z. <span>Organisateur d'événements</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    RECRUTEMENT - AVEC LISTE DES DOCUMENTS ET BOUTON
-    ============================================================ -->
-    <section class="recrutement-section" id="recrutement" data-aos="zoom-in">
-        <div class="container">
-            <div class="recrutement-box">
-                <h2>Rejoignez notre <span>équipe</span></h2>
-                <p>
-                    Vous êtes rigoureux, motivé et souhaitez évoluer dans un
-                    secteur exigeant ? Rejoignez-nous et faites partie de notre équipe.
-                </p>
-
-                <!-- Liste des documents requis -->
-                <div class="recrutement-docs">
-                    <h4><i class="fas fa-file-alt"></i> Documents requis</h4>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Extrait d'acte de naissance</li>
-                        <li><i class="fas fa-check-circle"></i> Photocopie légalisée CNIB</li>
-                        <li><i class="fas fa-check-circle"></i> Casier judiciaire N°3</li>
-                        <li><i class="fas fa-check-circle"></i> Certificat de nationalité</li>
-                        <li><i class="fas fa-check-circle"></i> Curriculum Vitae</li>
-                        <li><i class="fas fa-check-circle"></i> Photos (entière + 4 identité)</li>
-                        <li><i class="fas fa-check-circle"></i> Certificat de résidence</li>
-                    </ul>
-                </div>
-
-                <button class="btn-candidature" id="btnCandidature">
-                    <i class="fas fa-paper-plane"></i> Déposer ma candidature
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
+
+                <nav class="nav" id="nav">
+                    <a href="#accueil" class="active">Accueil</a>
+                    <a href="#a-propos">À propos</a>
+                    <a href="#services">Services</a>
+                    <a href="#zones">Zones</a>
+                    <a href="#realisations">Réalisations</a>
+                    <a href="#recrutement">Recrutement</a>
+                    <a href="#contact" class="nav-cta">Devis / Contact</a>
+                </nav>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- ============================================================
-    CONTACT / DEVIS
-    ============================================================ -->
-    <section class="section" id="contact" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Demandez un <span>devis</span></h2>
-            <p class="section-subtitle">Une question ? Un projet ? Contactez-nous, nous vous répondons dans les plus brefs délais.</p>
+        <!-- HERO SLIDER -->
+        <section class="hero-slider" id="accueil">
+            <div class="slide slide-1 active">
+                <div class="container">
+                    <div class="slide-content">
+                        <span class="badge">Expert en sécurité</span>
+                        <h1>Votre sécurité, <span>notre priorité</span></h1>
+                        <p>Force, compétence et rigueur pour protéger vos biens et vos personnes, partout au Burkina Faso.</p>
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn btn-primary">Demander un devis</a>
+                            <a href="#services" class="btn btn-outline">Nos services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Nos coordonnées</h3>
-                    <div class="contact-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <strong>Adresse</strong>
-                            <span>Ouagadougou, Zogona</span>
+            <div class="slide slide-2">
+                <div class="container">
+                    <div class="slide-content">
+                        <span class="badge">Protection 24h/7</span>
+                        <h1>Surveillance <span>continue</span></h1>
+                        <p>Des équipes dédiées et des technologies de pointe pour une sécurité sans faille.</p>
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn btn-primary">Demander un devis</a>
+                            <a href="#services" class="btn btn-outline">Nos services</a>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <strong>Téléphone</strong>
-                            <span>+226 63 90 79 79</span>
+                </div>
+            </div>
+
+            <div class="slide slide-3">
+                <div class="container">
+                    <div class="slide-content">
+                        <span class="badge">Présence nationale</span>
+                        <h1>Nous intervenons <span>partout</span></h1>
+                        <p>De Ouagadougou à Bobo-Dioulasso, en passant par Kaya et Fada N'Gourma, nous sommes à vos côtés.</p>
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn btn-primary">Demander un devis</a>
+                            <a href="#zones" class="btn btn-outline">Nos zones</a>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <strong>Email</strong>
-                            <span>gsecuritebf@gmail.com</span>
+                </div>
+            </div>
+
+            <div class="slider-dots">
+                <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+                <button class="dot" data-index="1" aria-label="Slide 2"></button>
+                <button class="dot" data-index="2" aria-label="Slide 3"></button>
+            </div>
+        </section>
+
+        <!-- À PROPOS -->
+        <section class="section" id="a-propos" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Qui sommes-<span>nous</span></h2>
+                <p class="section-subtitle">Une société de sécurité privée burkinabè, engagée pour la tranquillité de nos clients.</p>
+
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h3>Une force pour votre <span>tranquillité</span></h3>
+                        <p><strong>G-SÉCURITÉ</strong> est une entreprise 100 % burkinabè, spécialisée dans la sécurité des personnes et des biens.</p>
+                        <p>Nos agents sont rigoureusement formés selon les standards les plus exigeants pour vous offrir un service d'excellence.</p>
+                        <a href="#contact" class="btn btn-primary">Travailler avec nous</a>
+                    </div>
+                    <div class="about-image">
+                        <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="services-section" id="services">
+            <div class="container">
+                <div class="services-header">
+                    <h2>Nos <span>services</span></h2>
+                    <p>Des solutions complètes pour tous vos besoins en sécurité.</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-shield-alt service-icon"></i>
+                            <h3>Sécurité générale</h3>
+                            <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <strong>Urgence 24h/24</strong>
-                            <span>+226 63 90 79 79</span>
+
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/vigile.jpg" alt="Vigile">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-user-shield service-icon"></i>
+                            <h3>Vigile</h3>
+                            <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance 24h/7.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
                         </div>
                     </div>
-                    <div style="margin-top: 20px;">
-                        <p style="font-weight: 600; margin-bottom: 8px;">Suivez-nous</p>
-                        <div class="footer-socials" style="justify-content: flex-start;">
+
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-fire-extinguisher service-icon"></i>
+                            <h3>Sécurité incendie</h3>
+                            <p>Dispositifs de prévention et d'intervention contre les risques d'incendie.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-video service-icon"></i>
+                            <h3>Sécurité électronique</h3>
+                            <p>Vidéosurveillance, systèmes d'alarme, contrôle d'accès et détection intrusion.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/escortage.png" alt="Escortage">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-crown service-icon"></i>
+                            <h3>Escortage &amp; Protection</h3>
+                            <p>Services d'escortage sécuritaire pour personnalités et dirigeants.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-truck service-icon"></i>
+                            <h3>Convoie sécurisé</h3>
+                            <p>Transport et acheminement hautement sécurisés de vos fonds et valeurs.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="card-image">
+                            <img src="gsecurite/accessoires.png" alt="Accessoires">
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-store service-icon"></i>
+                            <h3>Vente d'accessoires</h3>
+                            <p>Fourniture de matériel de protection individuel et d'équipements de sécurité.</p>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
+                                <i class="fab fa-whatsapp"></i> Demander un devis
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ZONES D'INTERVENTION -->
+        <section class="section" id="zones" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Nos zones <span>d'intervention</span></h2>
+                <p class="section-subtitle">Nous intervenons dans tout le Burkina Faso, avec des équipes déployées dans les principales villes.</p>
+                <div class="zones-grid">
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ouagadougou</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Bobo-Dioulasso</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ziniaré</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Kaya</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Koudougou</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Fada N'Gourma</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Ouahigouya</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Banfora</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Gaoua</span>
+                    <span class="zone-tag"><i class="fas fa-map-marker-alt"></i> Tenkodogo</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RÉALISATIONS -->
+        <section class="section section-alt" id="realisations" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Nos <span>réalisations</span></h2>
+                <p class="section-subtitle">Des missions menées avec succès dans divers secteurs d'activité.</p>
+
+                <div class="realisations-grid">
+                    <div class="realisation-card">
+                        <i class="fas fa-industry"></i>
+                        <h4>Sécurisation site minier</h4>
+                        <p>Mise en place d'un dispositif complet pour une mine à Bobo-Dioulasso.</p>
+                    </div>
+                    <div class="realisation-card">
+                        <i class="fas fa-university"></i>
+                        <h4>Protection d'institution</h4>
+                        <p>Surveillance rapprochée d'un siège social à Ouagadougou.</p>
+                    </div>
+                    <div class="realisation-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h4>Événementiel</h4>
+                        <p>Sécurisation d'un grand festival culturel à Koudougou.</p>
+                    </div>
+                    <div class="realisation-card">
+                        <i class="fas fa-hotel"></i>
+                        <h4>Sécurisation hôtelière</h4>
+                        <p>Protection d'un complexe hôtelier 5 étoiles à Ouagadougou.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TÉMOIGNAGES -->
+        <section class="section" id="temoignages" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Ils nous font <span>confiance</span></h2>
+                <p class="section-subtitle">Ce que nos clients disent de nos services.</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>“Un professionnalisme exemplaire et une réactivité sans faille. G-SÉCURITÉ est notre partenaire de confiance.”</p>
+                        <div class="author">Jean M. <span>Directeur, Société Minière</span></div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>“Les agents sont compétents et discrets. La sécurité électronique installée est de très haute qualité.”</p>
+                        <div class="author">Alassane Z. <span>Directeur Général</span></div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>“Une équipe à l'écoute, qui a su comprendre nos besoins spécifiques pour un événement de grande envergure.”</p>
+                        <div class="author">Issouf Z. <span>Organisateur d'événements</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECRUTEMENT -->
+        <section class="recrutement-section" id="recrutement" data-aos="zoom-in">
+            <div class="container">
+                <div class="recrutement-box">
+                    <h2>Rejoignez notre <span>équipe</span></h2>
+                    <p>Vous êtes rigoureux, motivé et souhaitez évoluer dans un secteur exigeant ? Rejoignez-nous et faites partie de notre équipe.</p>
+
+                    <div class="recrutement-docs">
+                        <h4><i class="fas fa-file-alt"></i> Documents requis</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Extrait d'acte de naissance</li>
+                            <li><i class="fas fa-check-circle"></i> Photocopie légalisée CNIB</li>
+                            <li><i class="fas fa-check-circle"></i> Casier judiciaire N°3</li>
+                            <li><i class="fas fa-check-circle"></i> Certificat de nationalité</li>
+                            <li><i class="fas fa-check-circle"></i> Curriculum Vitae</li>
+                            <li><i class="fas fa-check-circle"></i> Photos (entière + 4 identité)</li>
+                            <li><i class="fas fa-check-circle"></i> Certificat de résidence</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn-candidature" id="btnCandidature">
+                        <i class="fas fa-paper-plane"></i> Déposer ma candidature
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section" id="contact" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Demandez un <span>devis</span></h2>
+                <p class="section-subtitle">Une question ? Un projet ? Contactez-nous, nous vous répondons dans les plus brefs délais.</p>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Nos coordonnées</h3>
+                        <div class="contact-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Adresse</strong>
+                                <span>Ouagadougou, Zogona</span>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <strong>Téléphone</strong>
+                                <span>+226 63 90 79 79</span>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <span>gsecuritebf@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Urgence 24h/24</strong>
+                                <span>+226 63 90 79 79</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: 600; margin-bottom: 8px;">Suivez-nous</p>
+                            <div class="footer-socials" style="justify-content: flex-start;">
+                                <a href="https://web.facebook.com/G.SecuriteBurkina" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contactForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+                            <input type="text" placeholder="Nom complet" required />
+                            <input type="email" placeholder="Email" required />
+                        </div>
+                        <input type="tel" placeholder="Téléphone" />
+                        <select required>
+                            <option value="">Service souhaité</option>
+                            <option>Sécurité générale</option>
+                            <option>Vigile</option>
+                            <option>Sécurité incendie</option>
+                            <option>Sécurité électronique</option>
+                            <option>Escortage &amp; Protection rapprochée</option>
+                            <option>Convoie sécurisé</option>
+                            <option>Vente d'accessoires de sécurité</option>
+                            <option>Recrutement / Candidature</option>
+                            <option>Autre</option>
+                        </select>
+                        <textarea placeholder="Votre message..." required></textarea>
+                        <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div>
+                        <h4>G-SÉCURITÉ</h4>
+                        <p>Force, compétence et rigueur pour votre sécurité au Burkina Faso.</p>
+                    </div>
+                    <div>
+                        <h4>Liens utiles</h4>
+                        <a href="#accueil">Accueil</a><br />
+                        <a href="#services">Services</a><br />
+                        <a href="#zones">Zones d'intervention</a><br />
+                        <a href="#recrutement">Recrutement</a>
+                    </div>
+                    <div>
+                        <h4>Contact</h4>
+                        <p>+226 63 90 79 79</p>
+                        <p>gsecuritebf@gmail.com</p>
+                        <p>Ouagadougou, Burkina Faso</p>
+                    </div>
+                    <div>
+                        <h4>Suivez-nous</h4>
+                        <div class="footer-socials">
                             <a href="https://web.facebook.com/G.SecuriteBurkina" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -1763,222 +1869,162 @@
                     </div>
                 </div>
 
-                <form class="contact-form" id="contactForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
-                        <input type="text" placeholder="Nom complet" required />
-                        <input type="email" placeholder="Email" required />
-                    </div>
-                    <input type="tel" placeholder="Téléphone" />
-                    <select required>
-                        <option value="">Service souhaité</option>
-                        <option>Sécurité générale</option>
-                        <option>Vigile</option>
-                        <option>Sécurité incendie</option>
-                        <option>Sécurité électronique</option>
-                        <option>Escortage &amp; Protection rapprochée</option>
-                        <option>Convoie sécurisé</option>
-                        <option>Vente d'accessoires de sécurité</option>
-                        <option>Recrutement / Candidature</option>
-                        <option>Autre</option>
-                    </select>
-                    <textarea placeholder="Votre message..." required></textarea>
-                    <button type="submit" class="btn btn-primary">Envoyer la demande</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FOOTER - AVEC BOUTON ADMIN EN BAS
-    ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>G-SÉCURITÉ</h4>
-                    <p>Force, compétence et rigueur pour votre sécurité au Burkina Faso.</p>
-                </div>
-                <div>
-                    <h4>Liens utiles</h4>
-                    <a href="#accueil">Accueil</a><br />
-                    <a href="#services">Services</a><br />
-                    <a href="#zones">Zones d'intervention</a><br />
-                    <a href="#recrutement">Recrutement</a>
-                </div>
-                <div>
-                    <h4>Contact</h4>
-                    <p>+226 63 90 79 79</p>
-                    <p>gsecuritebf@gmail.com</p>
-                    <p>Ouagadougou, Burkina Faso</p>
-                </div>
-                <div>
-                    <h4>Suivez-nous</h4>
-                    <div class="footer-socials">
-                        <a href="https://web.facebook.com/G.SecuriteBurkina" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    </div>
+                <div class="footer-bottom">
+                    <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés.</span>
+                    <a href="admin.html" class="footer-admin-link">
+                        <i class="fas fa-crown"></i> Administration
+                    </a>
                 </div>
             </div>
+        </footer>
 
-            <div class="footer-bottom">
-                <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés.</span>
-                <a href="admin.html" class="footer-admin-link">
-                    <i class="fas fa-crown"></i> Administration
-                </a>
-            </div>
-        </div>
-    </footer>
+        <!-- MODAL RECRUTEMENT -->
+        <div class="modal-overlay" id="recrutementModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">&times;</button>
 
-    <!-- ============================================================
-    MODAL RECRUTEMENT - VERSION 3 ÉTAPES
-    ============================================================ -->
-    <div class="modal-overlay" id="recrutementModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">&times;</button>
+                <!-- ÉTAPE 1 -->
+                <div class="form-step active" data-step="1">
+                    <p class="step-indicator">Étape 1 sur 3</p>
+                    <h2 class="modal-title">Rejoignez notre <span>équipe</span></h2>
+                    <p class="modal-subtitle">Vos coordonnées d'abord, les documents ensuite</p>
 
-            <!-- ÉTAPE 1 — Coordonnées (champs stylisés) -->
-            <div class="form-step active" data-step="1">
-                <p class="step-indicator">Étape 1 sur 3</p>
-                <h2 class="modal-title">Rejoignez notre <span>équipe</span></h2>
-                <p class="modal-subtitle">Vos coordonnées d'abord, les documents ensuite</p>
-
-                <div class="progress-bar">
-                    <div class="seg done"></div>
-                    <div class="seg"></div>
-                    <div class="seg"></div>
-                </div>
-
-                <div class="modal-form">
-                    <div class="form-group">
-                        <label>Nom complet <span class="required">*</span></label>
-                        <input type="text" id="nomComplet" placeholder="Ex: Jean OUEDRAOGO" required>
+                    <div class="progress-bar">
+                        <div class="seg done"></div>
+                        <div class="seg"></div>
+                        <div class="seg"></div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="modal-form">
                         <div class="form-group">
-                            <label>Téléphone <span class="required">*</span></label>
-                            <input type="tel" id="telephoneRecrutement" placeholder="+226 XX XX XX XX" required>
+                            <label>Nom complet <span class="required">*</span></label>
+                            <input type="text" id="nomComplet" placeholder="Ex: Jean OUEDRAOGO" required>
                         </div>
-                        <div class="form-group">
-                            <label>Email <span class="required">*</span></label>
-                            <input type="email" id="emailRecrutement" placeholder="jean@email.com" required>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Téléphone <span class="required">*</span></label>
+                                <input type="tel" id="telephoneRecrutement" placeholder="+226 XX XX XX XX" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email <span class="required">*</span></label>
+                                <input type="email" id="emailRecrutement" placeholder="jean@email.com" required>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="step-nav">
-                    <button type="button" class="btn-next" id="toStep2">
-                        Continuer <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <p style="text-align:center; font-size:0.8rem; color:var(--color-text-muted); margin-top:12px;">
-                    7 documents à fournir à l'étape suivante
-                </p>
-            </div>
-
-            <!-- ÉTAPE 2 — Documents -->
-            <div class="form-step" data-step="2">
-                <p class="step-indicator">Étape 2 sur 3</p>
-                <h2 class="modal-title">Vos <span>documents</span></h2>
-                <p class="modal-subtitle">Formats acceptés : PDF, JPG, PNG (5 Mo max par fichier)</p>
-
-                <div class="progress-bar">
-                    <div class="seg done"></div>
-                    <div class="seg done"></div>
-                    <div class="seg"></div>
-                </div>
-
-                <p class="doc-counter"><strong id="docCount">0</strong> / 7 documents ajoutés</p>
-
-                <div class="doc-list" id="docList">
-                    <!-- Généré par JavaScript -->
-                </div>
-
-                <div class="modal-error-msg" id="docError"></div>
-
-                <div class="step-nav">
-                    <button type="button" class="btn-back" id="toStep1Back">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button type="button" class="btn-next" id="toStep3">
-                        Continuer <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- ÉTAPE 3 — Récapitulatif + envoi -->
-            <div class="form-step" data-step="3">
-                <p class="step-indicator">Étape 3 sur 3</p>
-                <h2 class="modal-title">Dernière <span>vérification</span></h2>
-                <p class="modal-subtitle">Vérifiez vos informations avant l'envoi</p>
-
-                <div class="progress-bar">
-                    <div class="seg done"></div>
-                    <div class="seg done"></div>
-                    <div class="seg done"></div>
-                </div>
-
-                <div style="background:var(--color-bg-light); border-radius:12px; padding:16px 20px; margin-bottom:18px;">
-                    <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                        <span style="color:var(--color-text-muted);">Nom</span>
-                        <strong id="recapNom">—</strong>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                        <span style="color:var(--color-text-muted);">Téléphone</span>
-                        <strong id="recapTel">—</strong>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                        <span style="color:var(--color-text-muted);">Email</span>
-                        <strong id="recapEmail">—</strong>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                        <span style="color:var(--color-text-muted);">Documents</span>
-                        <strong id="recapDocs">—</strong>
-                    </div>
-                </div>
-
-                <div class="modal-form">
-                    <div class="form-group">
-                        <label>Message / Expérience <span class="file-hint">(optionnel)</span></label>
-                        <textarea id="messageRecrutement" placeholder="Parlez-nous de votre expérience et de vos motivations..."></textarea>
-                    </div>
-                </div>
-
-                <!-- Vue normale : bouton d'envoi -->
-                <div id="step3FormView">
                     <div class="step-nav">
-                        <button type="button" class="btn-back" id="toStep2Back">
+                        <button type="button" class="btn-next" id="toStep2">
+                            Continuer <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <p style="text-align:center; font-size:0.8rem; color:var(--color-text-muted); margin-top:12px;">
+                        7 documents à fournir à l'étape suivante
+                    </p>
+                </div>
+
+                <!-- ÉTAPE 2 -->
+                <div class="form-step" data-step="2">
+                    <p class="step-indicator">Étape 2 sur 3</p>
+                    <h2 class="modal-title">Vos <span>documents</span></h2>
+                    <p class="modal-subtitle">Formats acceptés : PDF, JPG, PNG (5 Mo max par fichier)</p>
+
+                    <div class="progress-bar">
+                        <div class="seg done"></div>
+                        <div class="seg done"></div>
+                        <div class="seg"></div>
+                    </div>
+
+                    <p class="doc-counter"><strong id="docCount">0</strong> / 7 documents ajoutés</p>
+
+                    <div class="doc-list" id="docList">
+                        <!-- Généré par JavaScript -->
+                    </div>
+
+                    <div class="modal-error-msg" id="docError"></div>
+
+                    <div class="step-nav">
+                        <button type="button" class="btn-back" id="toStep1Back">
                             <i class="fas fa-arrow-left"></i>
                         </button>
-                        <button type="button" class="btn-submit" id="submitRecrutement">
-                            <i class="fas fa-paper-plane"></i> Envoyer ma candidature
+                        <button type="button" class="btn-next" id="toStep3">
+                            Continuer <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
-                    <div class="modal-error-msg" id="submitError"></div>
                 </div>
 
-                <!-- Vue upload en cours -->
-                <div class="upload-progress-wrap" id="uploadProgressView" style="display:none;">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <h3>Envoi de votre candidature...</h3>
-                    <p id="uploadProgressLabel">Préparation de l'envoi</p>
-                    <div class="upload-bar-track">
-                        <div class="upload-bar-fill" id="uploadBarFill"></div>
+                <!-- ÉTAPE 3 -->
+                <div class="form-step" data-step="3">
+                    <p class="step-indicator">Étape 3 sur 3</p>
+                    <h2 class="modal-title">Dernière <span>vérification</span></h2>
+                    <p class="modal-subtitle">Vérifiez vos informations avant l'envoi</p>
+
+                    <div class="progress-bar">
+                        <div class="seg done"></div>
+                        <div class="seg done"></div>
+                        <div class="seg done"></div>
                     </div>
-                    <p class="upload-bar-label" id="uploadBarPct">0 %</p>
-                </div>
-            </div>
 
-            <!-- SUCCÈS -->
-            <div class="modal-success" id="recrutementSuccess">
-                <i class="fas fa-check-circle"></i>
-                <h3>Candidature envoyée avec succès !</h3>
-                <p>Nous avons bien reçu votre candidature et vos documents. Nous vous recontacterons prochainement.</p>
-                <button class="btn btn-primary" style="margin-top:16px;" id="closeSuccessBtn">Fermer</button>
+                    <div style="background:var(--color-bg-light); border-radius:12px; padding:16px 20px; margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
+                            <span style="color:var(--color-text-muted);">Nom</span>
+                            <strong id="recapNom">—</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
+                            <span style="color:var(--color-text-muted);">Téléphone</span>
+                            <strong id="recapTel">—</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
+                            <span style="color:var(--color-text-muted);">Email</span>
+                            <strong id="recapEmail">—</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
+                            <span style="color:var(--color-text-muted);">Documents</span>
+                            <strong id="recapDocs">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="modal-form">
+                        <div class="form-group">
+                            <label>Message / Expérience <span class="file-hint">(optionnel)</span></label>
+                            <textarea id="messageRecrutement" placeholder="Parlez-nous de votre expérience et de vos motivations..."></textarea>
+                        </div>
+                    </div>
+
+                    <div id="step3FormView">
+                        <div class="step-nav">
+                            <button type="button" class="btn-back" id="toStep2Back">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <button type="button" class="btn-submit" id="submitRecrutement">
+                                <i class="fas fa-paper-plane"></i> Envoyer ma candidature
+                            </button>
+                        </div>
+                        <div class="modal-error-msg" id="submitError"></div>
+                    </div>
+
+                    <div class="upload-progress-wrap" id="uploadProgressView" style="display:none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <h3>Envoi de votre candidature...</h3>
+                        <p id="uploadProgressLabel">Préparation de l'envoi</p>
+                        <div class="upload-bar-track">
+                            <div class="upload-bar-fill" id="uploadBarFill"></div>
+                        </div>
+                        <p class="upload-bar-label" id="uploadBarPct">0 %</p>
+                    </div>
+                </div>
+
+                <!-- SUCCÈS -->
+                <div class="modal-success" id="recrutementSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Candidature envoyée avec succès !</h3>
+                    <p>Nous avons bien reçu votre candidature et vos documents. Nous vous recontacterons prochainement.</p>
+                    <button class="btn btn-primary" style="margin-top:16px;" id="closeSuccessBtn">Fermer</button>
+                </div>
             </div>
         </div>
-    </div>
+
+    </div> <!-- fin de #site-content -->
 
     <!-- ============================================================
     JAVASCRIPT
@@ -1987,18 +2033,42 @@
 
     <script>
         // ============================================================
-        // CONFIGURATION SUPABASE
+        // 🔑 INTERRUPTEUR D'ACCÈS – MODIFIER ICI POUR RÉACTIVER
+        // ============================================================
+        // Mettre à true pour réactiver le site complet.
+        // Mettre à false pour afficher la page de restriction.
+        const SITE_ACCESS = false;   // <--- Change cette valeur !
+
+        // ============================================================
+        // APPLICATION DE L'ÉTAT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const maintenance = document.getElementById('maintenance');
+            const siteContent = document.getElementById('site-content');
+
+            if (SITE_ACCESS) {
+                maintenance.style.display = 'none';
+                siteContent.style.display = 'block';
+                // Initialiser AOS et le slider (comme avant)
+                initSite();
+            } else {
+                maintenance.style.display = 'flex';
+                siteContent.style.display = 'none';
+            }
+        });
+
+        // ============================================================
+        // CONFIGURATION SUPABASE (inchangé)
         // ============================================================
         const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
 
-        // Utilisation de l'objet global supabase (chargé depuis unpkg)
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const MAX_FILE_MB = 5;
 
         // ============================================================
-        // DÉFINITION DES 7 DOCUMENTS REQUIS
+        // DÉFINITION DES 7 DOCUMENTS REQUIS (inchangé)
         // ============================================================
         const docDefinitions = [
             { id: "docActeNaissance", key: "acte_naissance", label: "Extrait d'acte de naissance",
@@ -2012,7 +2082,7 @@
         ];
 
         // ============================================================
-        // GÉNÉRATION DE LA LISTE DE DOCUMENTS
+        // GÉNÉRATION DE LA LISTE DE DOCUMENTS (inchangé)
         // ============================================================
         const docList = document.getElementById("docList");
         const selectedFiles = {};
@@ -2070,7 +2140,7 @@
         }
 
         // ============================================================
-        // NAVIGATION ENTRE ÉTAPES
+        // NAVIGATION ENTRE ÉTAPES (inchangé)
         // ============================================================
         const steps = document.querySelectorAll(".form-step");
 
@@ -2117,7 +2187,7 @@
         });
 
         // ============================================================
-        // OUVERTURE / FERMETURE DU MODAL
+        // OUVERTURE / FERMETURE DU MODAL (inchangé)
         // ============================================================
         const modal = document.getElementById("recrutementModal");
 
@@ -2163,7 +2233,7 @@
         });
 
         // ============================================================
-        // SOUMISSION FINALE — upload progressif avec barre visible
+        // SOUMISSION FINALE (inchangé)
         // ============================================================
         document.getElementById("submitRecrutement").addEventListener("click", async function() {
             const submitBtn = this;
@@ -2238,18 +2308,17 @@
         });
 
         // ============================================================
-        // AOS INIT
+        // FONCTION D'INITIALISATION DU SITE (appelée si SITE_ACCESS = true)
         // ============================================================
-        document.addEventListener('DOMContentLoaded', function() {
+        function initSite() {
+            // AOS
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50
             });
 
-            // ============================================================
             // HAMBURGER
-            // ============================================================
             const hamburger = document.getElementById('hamburger');
             const nav = document.getElementById('nav');
 
@@ -2265,9 +2334,7 @@
                 });
             });
 
-            // ============================================================
             // HEADER SCROLL
-            // ============================================================
             const header = document.getElementById('header');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
@@ -2277,9 +2344,7 @@
                 }
             });
 
-            // ============================================================
             // SLIDER
-            // ============================================================
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.dot');
             let currentIndex = 0;
@@ -2313,15 +2378,21 @@
 
             startSlider();
 
-            // ============================================================
             // CONTACT FORM
-            // ============================================================
             document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
                 this.reset();
             });
-        });
+        }
+
+        // Si le site est déjà actif au chargement, on initialise tout.
+        // Sinon, on attend que le DOM soit chargé pour appliquer l'état.
+        // Ce code est déjà exécuté dans le DOMContentLoaded ci-dessus.
+        // Mais initSite sera appelé uniquement si SITE_ACCESS est true.
+        // On peut aussi l'appeler directement si on veut.
+        // Pour plus de sécurité, on appelle initSite dans le DOMContentLoaded si SITE_ACCESS est true.
+        // On a déjà fait ça.
     </script>
 
 </body>
