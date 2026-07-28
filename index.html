@@ -11,7 +11,7 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Supabase SDK - comme Clinique WENDTOIN -->
+    <!-- Supabase SDK (pour recrutement) -->
     <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
     <style>
@@ -36,7 +36,7 @@
         }
 
         /* ============================================================
-               RESET & BASE (inchangé)
+               RESET & BASE
                ============================================================ */
         * {
             margin: 0;
@@ -72,65 +72,7 @@
         }
 
         /* ============================================================
-               MAINTENANCE OVERLAY (nouveau)
-               ============================================================ */
-        #maintenance {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #f4f7fc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            font-family: var(--font-family);
-        }
-        #maintenance .box {
-            background: white;
-            padding: 50px 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-            max-width: 550px;
-            text-align: center;
-        }
-        #maintenance .box .icone {
-            font-size: 52px;
-            margin-bottom: 10px;
-        }
-        #maintenance .box h2 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--color-secondary);
-        }
-        #maintenance .box p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #3d4a5a;
-        }
-        #maintenance .box .encadre {
-            background: #eef4fa;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 15px;
-            color: #1a3a5e;
-            margin-top: 24px;
-            border-left: 5px solid var(--color-primary);
-        }
-
-        /* ============================================================
-               TOUT LE RESTE DU STYLE (inchangé)
-               ============================================================ */
-        /* ... (tout le CSS original que tu avais, à l'exception de ce qui est au-dessus) ... */
-        /* Pour gagner de la place, je ne répète pas tout le CSS ici, 
-           mais dans le fichier final, il est bien présent. Je l'ai intégralement copié. */
-        /* Ci-dessous, je donne un aperçu, mais le code final contient tout le CSS original. */
-        /* ... */
-
-        /* ============================================================
-               HEADER (inchangé)
+               HEADER (modifié pour centrer le logo sur mobile)
                ============================================================ */
         .header {
             position: fixed;
@@ -153,23 +95,62 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            position: relative;
         }
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.6rem;
+            font-size: 1.8rem;      /* légèrement agrandi */
             font-weight: 700;
+            /* pour centrer sur mobile on utilisera un margin auto */
+            margin: 0 auto;          /* centre le logo horizontalement */
+            /* on retire le flex:1 pour ne pas prendre tout l'espace */
+            flex: 0 0 auto;
+            cursor: pointer;
         }
         .logo img {
-            height: 45px;
+            height: 65px;           /* taille augmentée */
             width: auto;
             border-radius: 4px;
+            transition: transform 0.2s ease;
         }
         .logo span {
             color: var(--color-primary);
         }
+        /* Hamburger positionné en absolu à droite sur mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--color-white);
+            border-radius: 3px;
+            transition: all var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
         .nav {
             display: flex;
             align-items: center;
@@ -201,35 +182,47 @@
             background: var(--color-primary-dark);
             transform: scale(1.05);
         }
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 5px;
-        }
-        .hamburger span {
-            display: block;
-            width: 28px;
-            height: 3px;
-            background: var(--color-white);
-            border-radius: 3px;
-            transition: all var(--transition);
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
+
+        /* ============================================================
+               RESPONSIVE HEADER (ajustements pour mobile)
+               ============================================================ */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 72px;
+            }
+            .logo {
+                font-size: 1.4rem;
+                margin: 0 auto;      /* centré */
+                flex: 0 0 auto;
+            }
+            .logo img {
+                height: 50px;        /* un peu plus petit sur mobile */
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: var(--color-secondary);
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 18px;
+                transform: translateY(-120%);
+                transition: all var(--transition);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                z-index: 999;
+            }
+            .nav.open {
+                transform: translateY(0);
+            }
         }
 
         /* ============================================================
-               HERO SLIDER (inchangé)
+               HERO SLIDER (durée modifiée dans le JS)
                ============================================================ */
         .hero-slider {
             position: relative;
@@ -800,7 +793,7 @@
         }
 
         /* ============================================================
-               FOOTER (inchangé)
+               FOOTER (bouton admin supprimé)
                ============================================================ */
         .footer {
             background: var(--color-secondary-dark);
@@ -865,26 +858,8 @@
             gap: 10px;
         }
 
-        .footer-admin-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-decoration: none;
-        }
-        .footer-admin-link:hover {
-            color: var(--color-primary);
-            border-color: var(--color-primary);
-            background: rgba(193, 18, 28, 0.1);
-        }
-
         /* ============================================================
-               MODAL RECRUTEMENT - VERSION 3 ÉTAPES (inchangé)
+               MODAL RECRUTEMENT (inchangé)
                ============================================================ */
         .modal-overlay {
             display: none;
@@ -1258,6 +1233,90 @@
         }
 
         /* ============================================================
+               MODALE DE CONNEXION (ajoutée pour le triple‑clic)
+               ============================================================ */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .login-modal.active {
+            display: flex;
+        }
+        .login-modal .login-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 35px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+        .login-modal .login-box .close-login {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+        .login-modal .login-box h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--color-secondary);
+        }
+        .login-modal .login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border 0.3s;
+        }
+        .login-modal .login-box input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        .login-modal .login-box .btn-login {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            background: var(--color-primary);
+            color: white;
+            font-weight: 700;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .login-modal .login-box .btn-login:hover {
+            background: var(--color-primary-dark);
+        }
+        .login-modal .login-box .error-login {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+        .login-modal .login-box .error-login.show {
+            display: block;
+        }
+
+        /* ============================================================
                RESPONSIVE (inchangé)
                ============================================================ */
         @media (max-width: 992px) {
@@ -1301,35 +1360,7 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-top: 72px;
-            }
-            .logo {
-                font-size: 1.2rem;
-            }
-            .logo img {
-                height: 35px;
-            }
-            .nav {
-                position: fixed;
-                top: 72px;
-                left: 0;
-                width: 100%;
-                background: var(--color-secondary);
-                flex-direction: column;
-                padding: 30px 20px;
-                gap: 18px;
-                transform: translateY(-120%);
-                transition: all var(--transition);
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            .nav.open {
-                transform: translateY(0);
-            }
-            .hamburger {
-                display: flex;
-            }
+            /* déjà géré dans le header */
             .hero-slider {
                 min-height: 70vh;
             }
@@ -1440,29 +1471,14 @@
 <body>
 
     <!-- ============================================================
-    MAINTENANCE OVERLAY (affiché si SITE_ACCESS = false)
+    SITE COMPLET
     ============================================================ -->
-    <div id="maintenance">
-        <div class="box">
-            <div class="icone">⚙️</div>
-            <h2>Accès momentanément restreint</h2>
-            <p>L'accès est momentanément restreint dans le cadre des derniers ajustements.</p>
-            <div class="encadre">
-                <strong>🔐 Porteur du projet ?</strong><br>
-                Merci de contacter votre développeur pour la réactivation de l'environnement.
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    SITE COMPLET (contenu original, masqué si SITE_ACCESS = false)
-    ============================================================ -->
-    <div id="site-content" style="display:none;">
+    <div id="site-content">
 
         <!-- HEADER -->
         <header class="header" id="header">
             <div class="container">
-                <a href="#accueil" class="logo">
+                <a href="#accueil" class="logo" id="mainLogo">
                     <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ Logo" />
                     G-<span>SÉCURITÉ</span>
                 </a>
@@ -1557,7 +1573,7 @@
         </section>
 
         <!-- SERVICES -->
-        <section class="services-section" id="services">
+        <section class="services-section" id="services" data-aos="fade-up">
             <div class="container">
                 <div class="services-header">
                     <h2>Nos <span>services</span></h2>
@@ -1838,7 +1854,7 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
+        <!-- FOOTER (sans le bouton admin) -->
         <footer class="footer">
             <div class="container">
                 <div class="footer-grid">
@@ -1871,14 +1887,12 @@
 
                 <div class="footer-bottom">
                     <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés.</span>
-                    <a href="admin.html" class="footer-admin-link">
-                        <i class="fas fa-crown"></i> Administration
-                    </a>
+                    <!-- Le lien admin a été supprimé -->
                 </div>
             </div>
         </footer>
 
-        <!-- MODAL RECRUTEMENT -->
+        <!-- MODAL RECRUTEMENT (inchangé) -->
         <div class="modal-overlay" id="recrutementModal">
             <div class="modal-content">
                 <button class="modal-close" id="modalClose">&times;</button>
@@ -2024,6 +2038,18 @@
             </div>
         </div>
 
+        <!-- MODALE DE CONNEXION (triple‑clic sur le logo) -->
+        <div class="login-modal" id="loginModal">
+            <div class="login-box">
+                <button class="close-login" id="closeLogin">&times;</button>
+                <h3><i class="fas fa-lock" style="color:var(--color-primary);"></i> Accès administrateur</h3>
+                <input type="text" id="loginUser" placeholder="Identifiant" />
+                <input type="password" id="loginPass" placeholder="Mot de passe" />
+                <button class="btn-login" id="btnLogin">Se connecter</button>
+                <div class="error-login" id="loginError">Identifiant ou mot de passe incorrect.</div>
+            </div>
+        </div>
+
     </div> <!-- fin de #site-content -->
 
     <!-- ============================================================
@@ -2033,32 +2059,7 @@
 
     <script>
         // ============================================================
-        // 🔑 INTERRUPTEUR D'ACCÈS – MODIFIER ICI POUR RÉACTIVER
-        // ============================================================
-        // Mettre à true pour réactiver le site complet.
-        // Mettre à false pour afficher la page de restriction.
-        const SITE_ACCESS = true;   // <--- Change cette valeur !
-
-        // ============================================================
-        // APPLICATION DE L'ÉTAT
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const maintenance = document.getElementById('maintenance');
-            const siteContent = document.getElementById('site-content');
-
-            if (SITE_ACCESS) {
-                maintenance.style.display = 'none';
-                siteContent.style.display = 'block';
-                // Initialiser AOS et le slider (comme avant)
-                initSite();
-            } else {
-                maintenance.style.display = 'flex';
-                siteContent.style.display = 'none';
-            }
-        });
-
-        // ============================================================
-        // CONFIGURATION SUPABASE (inchangé)
+        // CONFIGURATION SUPABASE
         // ============================================================
         const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
@@ -2068,7 +2069,91 @@
         const MAX_FILE_MB = 5;
 
         // ============================================================
-        // DÉFINITION DES 7 DOCUMENTS REQUIS (inchangé)
+        // AOS
+        // ============================================================
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // ============================================================
+        // HAMBURGER
+        // ============================================================
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            nav.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                nav.classList.remove('open');
+            });
+        });
+
+        // ============================================================
+        // HEADER SCROLL
+        // ============================================================
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================================
+        // SLIDER (durée = 3000 ms)
+        // ============================================================
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let interval;
+
+        function goToSlide(index) {
+            slides.forEach(function(slide, i) {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach(function(dot, i) {
+                dot.classList.toggle('active', i === index);
+            });
+            currentIndex = index;
+        }
+
+        function nextSlide() {
+            goToSlide((currentIndex + 1) % slides.length);
+        }
+
+        function startSlider() {
+            interval = setInterval(nextSlide, 3000); // 3 secondes
+        }
+
+        dots.forEach(function(dot, index) {
+            dot.addEventListener('click', function() {
+                clearInterval(interval);
+                goToSlide(index);
+                startSlider();
+            });
+        });
+
+        startSlider();
+
+        // ============================================================
+        // CONTACT FORM
+        // ============================================================
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+            this.reset();
+        });
+
+        // ============================================================
+        // RECRUTEMENT – GESTION DES DOCUMENTS (inchangé)
         // ============================================================
         const docDefinitions = [
             { id: "docActeNaissance", key: "acte_naissance", label: "Extrait d'acte de naissance",
@@ -2081,9 +2166,6 @@
             { id: "docResidence", key: "residence", label: "Certificat de résidence", accept: ".pdf,.jpg,.jpeg,.png" }
         ];
 
-        // ============================================================
-        // GÉNÉRATION DE LA LISTE DE DOCUMENTS (inchangé)
-        // ============================================================
         const docList = document.getElementById("docList");
         const selectedFiles = {};
 
@@ -2102,7 +2184,6 @@
             docList.appendChild(row);
         });
 
-        // Événements sur chaque champ de fichier
         docDefinitions.forEach(function(doc) {
             const input = document.getElementById(doc.id);
             input.addEventListener("change", function() {
@@ -2140,7 +2221,7 @@
         }
 
         // ============================================================
-        // NAVIGATION ENTRE ÉTAPES (inchangé)
+        // NAVIGATION ÉTAPES RECRUTEMENT (inchangé)
         // ============================================================
         const steps = document.querySelectorAll(".form-step");
 
@@ -2187,7 +2268,7 @@
         });
 
         // ============================================================
-        // OUVERTURE / FERMETURE DU MODAL (inchangé)
+        // OUVERTURE / FERMETURE MODAL RECRUTEMENT
         // ============================================================
         const modal = document.getElementById("recrutementModal");
 
@@ -2233,7 +2314,7 @@
         });
 
         // ============================================================
-        // SOUMISSION FINALE (inchangé)
+        // SOUMISSION RECRUTEMENT (inchangé)
         // ============================================================
         document.getElementById("submitRecrutement").addEventListener("click", async function() {
             const submitBtn = this;
@@ -2308,91 +2389,87 @@
         });
 
         // ============================================================
-        // FONCTION D'INITIALISATION DU SITE (appelée si SITE_ACCESS = true)
+        // TRIPLE‑CLIC SUR LE LOGO -> MODALE DE CONNEXION
         // ============================================================
-        function initSite() {
-            // AOS
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50
-            });
+        const logo = document.getElementById('mainLogo');
+        let clickCount = 0;
+        let clickTimer = null;
 
-            // HAMBURGER
-            const hamburger = document.getElementById('hamburger');
-            const nav = document.getElementById('nav');
+        logo.addEventListener('click', function(e) {
+            // Empêcher le comportement par défaut du lien (navigation)
+            e.preventDefault();
 
-            hamburger.addEventListener('click', function() {
-                this.classList.toggle('active');
-                nav.classList.toggle('open');
-            });
+            clickCount++;
+            if (clickTimer) clearTimeout(clickTimer);
 
-            document.querySelectorAll('.nav a').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    hamburger.classList.remove('active');
-                    nav.classList.remove('open');
-                });
-            });
+            // Réinitialiser le compteur après 800 ms d'inactivité
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 800);
 
-            // HEADER SCROLL
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // SLIDER
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            let currentIndex = 0;
-            let interval;
-
-            function goToSlide(index) {
-                slides.forEach(function(slide, i) {
-                    slide.classList.toggle('active', i === index);
-                });
-                dots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === index);
-                });
-                currentIndex = index;
+            if (clickCount === 3) {
+                clickCount = 0; // remettre à zéro
+                clearTimeout(clickTimer);
+                // Ouvrir la modale de connexion
+                document.getElementById('loginModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // Effacer les erreurs précédentes
+                document.getElementById('loginError').classList.remove('show');
+                document.getElementById('loginUser').value = '';
+                document.getElementById('loginPass').value = '';
+                document.getElementById('loginUser').focus();
             }
+        });
 
-            function nextSlide() {
-                goToSlide((currentIndex + 1) % slides.length);
+        // Fermeture de la modale de connexion
+        document.getElementById('closeLogin').addEventListener('click', function() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = '';
             }
+        });
 
-            function startSlider() {
-                interval = setInterval(nextSlide, 4000);
+        // Gestion de la tentative de connexion
+        document.getElementById('btnLogin').addEventListener('click', function() {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+
+            // Exemple : identifiant = "admin", mot de passe = "gsecurite2026"
+            // Vous pouvez changer ces valeurs.
+            const validUser = 'admin';
+            const validPass = 'gsecurite2026';
+
+            if (user === validUser && pass === validPass) {
+                // Connexion réussie -> rediriger vers admin.html ou autre
+                // Pour l'exemple, on ouvre simplement admin.html dans la même fenêtre
+                window.location.href = 'admin.html';
+            } else {
+                document.getElementById('loginError').classList.add('show');
+                document.getElementById('loginPass').value = '';
+                document.getElementById('loginPass').focus();
             }
+        });
 
-            dots.forEach(function(dot, index) {
-                dot.addEventListener('click', function() {
-                    clearInterval(interval);
-                    goToSlide(index);
-                    startSlider();
-                });
-            });
+        // Appuyer sur Entrée dans les champs déclenche le clic sur le bouton
+        document.getElementById('loginPass').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('btnLogin').click();
+            }
+        });
+        document.getElementById('loginUser').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('btnLogin').click();
+            }
+        });
 
-            startSlider();
-
-            // CONTACT FORM
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
-                this.reset();
-            });
-        }
-
-        // Si le site est déjà actif au chargement, on initialise tout.
-        // Sinon, on attend que le DOM soit chargé pour appliquer l'état.
-        // Ce code est déjà exécuté dans le DOMContentLoaded ci-dessus.
-        // Mais initSite sera appelé uniquement si SITE_ACCESS est true.
-        // On peut aussi l'appeler directement si on veut.
-        // Pour plus de sécurité, on appelle initSite dans le DOMContentLoaded si SITE_ACCESS est true.
-        // On a déjà fait ça.
+        // ============================================================
+        // FIN DES SCRIPT
+        // ============================================================
     </script>
 
 </body>
