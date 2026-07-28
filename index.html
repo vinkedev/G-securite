@@ -11,12 +11,12 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Supabase SDK (pour recrutement) -->
+    <!-- Supabase SDK -->
     <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
     <style>
         /* ============================================================
-               ROOT VARIABLES (inchangé)
+               ROOT VARIABLES
                ============================================================ */
         :root {
             --color-primary: #C1121C;
@@ -72,7 +72,7 @@
         }
 
         /* ============================================================
-               HEADER (modifié pour centrer le logo sur mobile)
+               HEADER (modifié pour mobile : texte centré, logo à gauche)
                ============================================================ */
         .header {
             position: fixed;
@@ -97,28 +97,35 @@
             align-items: center;
             position: relative;
         }
+
+        /* --- LOGO (image + texte desktop) --- */
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.8rem;      /* légèrement agrandi */
+            font-size: 1.6rem;
             font-weight: 700;
-            /* pour centrer sur mobile on utilisera un margin auto */
-            margin: 0 auto;          /* centre le logo horizontalement */
-            /* on retire le flex:1 pour ne pas prendre tout l'espace */
-            flex: 0 0 auto;
+            flex-shrink: 0;
             cursor: pointer;
         }
         .logo img {
-            height: 65px;           /* taille augmentée */
+            height: 45px;   /* taille originale */
             width: auto;
             border-radius: 4px;
-            transition: transform 0.2s ease;
         }
         .logo span {
             color: var(--color-primary);
         }
-        /* Hamburger positionné en absolu à droite sur mobile */
+        .logo-text-desktop {
+            display: inline;
+        }
+
+        /* --- Texte mobile (centré) --- */
+        .logo-text-mobile {
+            display: none; /* caché par défaut */
+        }
+
+        /* --- Hamburger --- */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -127,11 +134,9 @@
             background: none;
             border: none;
             padding: 5px;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
             z-index: 1001;
+            flex-shrink: 0;
+            margin-left: auto;
         }
         .hamburger span {
             display: block;
@@ -184,23 +189,47 @@
         }
 
         /* ============================================================
-               RESPONSIVE HEADER (ajustements pour mobile)
+               RESPONSIVE MOBILE (modifications principales ici)
                ============================================================ */
         @media (max-width: 768px) {
             body {
                 padding-top: 72px;
             }
-            .logo {
-                font-size: 1.4rem;
-                margin: 0 auto;      /* centré */
-                flex: 0 0 auto;
-            }
+
             .logo img {
-                height: 50px;        /* un peu plus petit sur mobile */
+                height: 35px !important; /* taille originale sur mobile */
             }
+
+            /* Cacher le texte du logo desktop */
+            .logo-text-desktop {
+                display: none;
+            }
+
+            /* Afficher le texte mobile centré */
+            .logo-text-mobile {
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: var(--color-white);
+                white-space: nowrap;
+                pointer-events: none; /* pour que les clics passent (le triple-clic reste sur l'image) */
+            }
+            .logo-text-mobile span {
+                color: var(--color-primary);
+            }
+
             .hamburger {
                 display: flex;
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
             }
+
             .nav {
                 position: fixed;
                 top: 72px;
@@ -222,7 +251,7 @@
         }
 
         /* ============================================================
-               HERO SLIDER (durée modifiée dans le JS)
+               HERO SLIDER (durée 3s dans JS)
                ============================================================ */
         .hero-slider {
             position: relative;
@@ -345,7 +374,7 @@
         }
 
         /* ============================================================
-               SECTIONS (inchangé)
+               SECTIONS (toutes avec data-aos)
                ============================================================ */
         .section {
             padding: 80px 0;
@@ -372,7 +401,7 @@
         }
 
         /* ============================================================
-               À PROPOS (inchangé)
+               À PROPOS
                ============================================================ */
         .about-grid {
             display: grid;
@@ -422,7 +451,7 @@
         }
 
         /* ============================================================
-               SERVICES (inchangé)
+               SERVICES
                ============================================================ */
         .services-section {
             padding: 80px 0;
@@ -523,7 +552,7 @@
         }
 
         /* ============================================================
-               RECRUTEMENT (inchangé)
+               RECRUTEMENT
                ============================================================ */
         .recrutement-section {
             padding: 100px 0;
@@ -622,7 +651,7 @@
         }
 
         /* ============================================================
-               ZONES (inchangé)
+               ZONES
                ============================================================ */
         .zones-grid {
             display: flex;
@@ -653,7 +682,7 @@
         }
 
         /* ============================================================
-               TÉMOIGNAGES (inchangé)
+               TÉMOIGNAGES
                ============================================================ */
         .testimonials-grid {
             display: grid;
@@ -687,7 +716,7 @@
         }
 
         /* ============================================================
-               RÉALISATIONS (inchangé)
+               RÉALISATIONS
                ============================================================ */
         .realisations-grid {
             display: grid;
@@ -723,7 +752,7 @@
         }
 
         /* ============================================================
-               CONTACT (inchangé)
+               CONTACT
                ============================================================ */
         .contact-grid {
             display: grid;
@@ -793,7 +822,7 @@
         }
 
         /* ============================================================
-               FOOTER (bouton admin supprimé)
+               FOOTER (sans admin)
                ============================================================ */
         .footer {
             background: var(--color-secondary-dark);
@@ -859,7 +888,7 @@
         }
 
         /* ============================================================
-               MODAL RECRUTEMENT (inchangé)
+               MODAL RECRUTEMENT
                ============================================================ */
         .modal-overlay {
             display: none;
@@ -1233,7 +1262,7 @@
         }
 
         /* ============================================================
-               MODALE DE CONNEXION (ajoutée pour le triple‑clic)
+               MODALE DE CONNEXION (triple‑clic)
                ============================================================ */
         .login-modal {
             display: none;
@@ -1317,7 +1346,7 @@
         }
 
         /* ============================================================
-               RESPONSIVE (inchangé)
+               RESPONSIVE GÉNÉRAL
                ============================================================ */
         @media (max-width: 992px) {
             .about-grid {
@@ -1360,7 +1389,6 @@
         }
 
         @media (max-width: 768px) {
-            /* déjà géré dans le header */
             .hero-slider {
                 min-height: 70vh;
             }
@@ -1478,10 +1506,15 @@
         <!-- HEADER -->
         <header class="header" id="header">
             <div class="container">
+                <!-- Logo image (à gauche) avec le triple‑clic -->
                 <a href="#accueil" class="logo" id="mainLogo">
                     <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ Logo" />
-                    G-<span>SÉCURITÉ</span>
+                    <!-- Texte du logo visible sur desktop -->
+                    <span class="logo-text-desktop">G-<span>SÉCURITÉ</span></span>
                 </a>
+
+                <!-- Texte centré UNIQUEMENT sur mobile -->
+                <span class="logo-text-mobile">G-<span>SÉCURITÉ</span></span>
 
                 <button class="hamburger" id="hamburger" aria-label="Menu">
                     <span></span>
@@ -1854,7 +1887,7 @@
             </div>
         </section>
 
-        <!-- FOOTER (sans le bouton admin) -->
+        <!-- FOOTER (sans admin) -->
         <footer class="footer">
             <div class="container">
                 <div class="footer-grid">
@@ -1887,7 +1920,6 @@
 
                 <div class="footer-bottom">
                     <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés.</span>
-                    <!-- Le lien admin a été supprimé -->
                 </div>
             </div>
         </footer>
@@ -1897,24 +1929,20 @@
             <div class="modal-content">
                 <button class="modal-close" id="modalClose">&times;</button>
 
-                <!-- ÉTAPE 1 -->
                 <div class="form-step active" data-step="1">
                     <p class="step-indicator">Étape 1 sur 3</p>
                     <h2 class="modal-title">Rejoignez notre <span>équipe</span></h2>
                     <p class="modal-subtitle">Vos coordonnées d'abord, les documents ensuite</p>
-
                     <div class="progress-bar">
                         <div class="seg done"></div>
                         <div class="seg"></div>
                         <div class="seg"></div>
                     </div>
-
                     <div class="modal-form">
                         <div class="form-group">
                             <label>Nom complet <span class="required">*</span></label>
                             <input type="text" id="nomComplet" placeholder="Ex: Jean OUEDRAOGO" required>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Téléphone <span class="required">*</span></label>
@@ -1926,7 +1954,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="step-nav">
                         <button type="button" class="btn-next" id="toStep2">
                             Continuer <i class="fas fa-arrow-right"></i>
@@ -1937,26 +1964,18 @@
                     </p>
                 </div>
 
-                <!-- ÉTAPE 2 -->
                 <div class="form-step" data-step="2">
                     <p class="step-indicator">Étape 2 sur 3</p>
                     <h2 class="modal-title">Vos <span>documents</span></h2>
                     <p class="modal-subtitle">Formats acceptés : PDF, JPG, PNG (5 Mo max par fichier)</p>
-
                     <div class="progress-bar">
                         <div class="seg done"></div>
                         <div class="seg done"></div>
                         <div class="seg"></div>
                     </div>
-
                     <p class="doc-counter"><strong id="docCount">0</strong> / 7 documents ajoutés</p>
-
-                    <div class="doc-list" id="docList">
-                        <!-- Généré par JavaScript -->
-                    </div>
-
+                    <div class="doc-list" id="docList"></div>
                     <div class="modal-error-msg" id="docError"></div>
-
                     <div class="step-nav">
                         <button type="button" class="btn-back" id="toStep1Back">
                             <i class="fas fa-arrow-left"></i>
@@ -1967,18 +1986,15 @@
                     </div>
                 </div>
 
-                <!-- ÉTAPE 3 -->
                 <div class="form-step" data-step="3">
                     <p class="step-indicator">Étape 3 sur 3</p>
                     <h2 class="modal-title">Dernière <span>vérification</span></h2>
                     <p class="modal-subtitle">Vérifiez vos informations avant l'envoi</p>
-
                     <div class="progress-bar">
                         <div class="seg done"></div>
                         <div class="seg done"></div>
                         <div class="seg done"></div>
                     </div>
-
                     <div style="background:var(--color-bg-light); border-radius:12px; padding:16px 20px; margin-bottom:18px;">
                         <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
                             <span style="color:var(--color-text-muted);">Nom</span>
@@ -1997,14 +2013,12 @@
                             <strong id="recapDocs">—</strong>
                         </div>
                     </div>
-
                     <div class="modal-form">
                         <div class="form-group">
                             <label>Message / Expérience <span class="file-hint">(optionnel)</span></label>
                             <textarea id="messageRecrutement" placeholder="Parlez-nous de votre expérience et de vos motivations..."></textarea>
                         </div>
                     </div>
-
                     <div id="step3FormView">
                         <div class="step-nav">
                             <button type="button" class="btn-back" id="toStep2Back">
@@ -2016,7 +2030,6 @@
                         </div>
                         <div class="modal-error-msg" id="submitError"></div>
                     </div>
-
                     <div class="upload-progress-wrap" id="uploadProgressView" style="display:none;">
                         <i class="fas fa-spinner fa-spin"></i>
                         <h3>Envoi de votre candidature...</h3>
@@ -2028,7 +2041,6 @@
                     </div>
                 </div>
 
-                <!-- SUCCÈS -->
                 <div class="modal-success" id="recrutementSuccess">
                     <i class="fas fa-check-circle"></i>
                     <h3>Candidature envoyée avec succès !</h3>
@@ -2038,7 +2050,7 @@
             </div>
         </div>
 
-        <!-- MODALE DE CONNEXION (triple‑clic sur le logo) -->
+        <!-- MODALE DE CONNEXION (triple‑clic) -->
         <div class="login-modal" id="loginModal">
             <div class="login-box">
                 <button class="close-login" id="closeLogin">&times;</button>
@@ -2050,7 +2062,7 @@
             </div>
         </div>
 
-    </div> <!-- fin de #site-content -->
+    </div> <!-- fin #site-content -->
 
     <!-- ============================================================
     JAVASCRIPT
@@ -2108,7 +2120,7 @@
         });
 
         // ============================================================
-        // SLIDER (durée = 3000 ms)
+        // SLIDER (durée 3 secondes)
         // ============================================================
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
@@ -2130,7 +2142,7 @@
         }
 
         function startSlider() {
-            interval = setInterval(nextSlide, 3000); // 3 secondes
+            interval = setInterval(nextSlide, 3000);
         }
 
         dots.forEach(function(dot, index) {
@@ -2153,7 +2165,7 @@
         });
 
         // ============================================================
-        // RECRUTEMENT – GESTION DES DOCUMENTS (inchangé)
+        // RECRUTEMENT – GESTION DES DOCUMENTS
         // ============================================================
         const docDefinitions = [
             { id: "docActeNaissance", key: "acte_naissance", label: "Extrait d'acte de naissance",
@@ -2221,7 +2233,7 @@
         }
 
         // ============================================================
-        // NAVIGATION ÉTAPES RECRUTEMENT (inchangé)
+        // NAVIGATION ÉTAPES RECRUTEMENT
         // ============================================================
         const steps = document.querySelectorAll(".form-step");
 
@@ -2314,7 +2326,7 @@
         });
 
         // ============================================================
-        // SOUMISSION RECRUTEMENT (inchangé)
+        // SOUMISSION RECRUTEMENT
         // ============================================================
         document.getElementById("submitRecrutement").addEventListener("click", async function() {
             const submitBtn = this;
@@ -2389,31 +2401,27 @@
         });
 
         // ============================================================
-        // TRIPLE‑CLIC SUR LE LOGO -> MODALE DE CONNEXION
+        // TRIPLE‑CLIC SUR L'IMAGE DU LOGO -> MODALE DE CONNEXION
         // ============================================================
         const logo = document.getElementById('mainLogo');
         let clickCount = 0;
         let clickTimer = null;
 
         logo.addEventListener('click', function(e) {
-            // Empêcher le comportement par défaut du lien (navigation)
             e.preventDefault();
 
             clickCount++;
             if (clickTimer) clearTimeout(clickTimer);
 
-            // Réinitialiser le compteur après 800 ms d'inactivité
             clickTimer = setTimeout(() => {
                 clickCount = 0;
             }, 800);
 
             if (clickCount === 3) {
-                clickCount = 0; // remettre à zéro
+                clickCount = 0;
                 clearTimeout(clickTimer);
-                // Ouvrir la modale de connexion
                 document.getElementById('loginModal').classList.add('active');
                 document.body.style.overflow = 'hidden';
-                // Effacer les erreurs précédentes
                 document.getElementById('loginError').classList.remove('show');
                 document.getElementById('loginUser').value = '';
                 document.getElementById('loginPass').value = '';
@@ -2421,7 +2429,7 @@
             }
         });
 
-        // Fermeture de la modale de connexion
+        // Fermeture modale connexion
         document.getElementById('closeLogin').addEventListener('click', function() {
             document.getElementById('loginModal').classList.remove('active');
             document.body.style.overflow = '';
@@ -2434,19 +2442,15 @@
             }
         });
 
-        // Gestion de la tentative de connexion
+        // Connexion
         document.getElementById('btnLogin').addEventListener('click', function() {
             const user = document.getElementById('loginUser').value.trim();
             const pass = document.getElementById('loginPass').value.trim();
 
-            // Exemple : identifiant = "admin", mot de passe = "gsecurite2026"
-            // Vous pouvez changer ces valeurs.
             const validUser = 'admin';
             const validPass = 'gsecurite2026';
 
             if (user === validUser && pass === validPass) {
-                // Connexion réussie -> rediriger vers admin.html ou autre
-                // Pour l'exemple, on ouvre simplement admin.html dans la même fenêtre
                 window.location.href = 'admin.html';
             } else {
                 document.getElementById('loginError').classList.add('show');
@@ -2455,7 +2459,6 @@
             }
         });
 
-        // Appuyer sur Entrée dans les champs déclenche le clic sur le bouton
         document.getElementById('loginPass').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('btnLogin').click();
@@ -2466,10 +2469,6 @@
                 document.getElementById('btnLogin').click();
             }
         });
-
-        // ============================================================
-        // FIN DES SCRIPT
-        // ============================================================
     </script>
 
 </body>
