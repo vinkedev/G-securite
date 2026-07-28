@@ -5,34 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>G-SÉCURITÉ - Administration</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-    
-    <!-- Supabase SDK -->
     <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
             background: #f0f2f5;
             min-height: 100vh;
         }
-        
-        /* ============================================
-           PAGE DE CONNEXION
-           ============================================ */
+        /* Page de connexion de secours (si on arrive directement sans session) */
         .login-page {
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #1D1D2C 0%, #2B2B40 100%);
         }
-        
         .login-box {
             background: white;
             padding: 50px 40px;
@@ -41,7 +29,6 @@
             width: 100%;
             max-width: 420px;
         }
-        
         .login-box .logo {
             text-align: center;
             font-size: 1.8rem;
@@ -49,23 +36,17 @@
             color: #1D1D2C;
             margin-bottom: 4px;
         }
-        
-        .login-box .logo span {
-            color: #C1121C;
-        }
-        
+        .login-box .logo span { color: #C1121C; }
         .login-box .subtitle {
             text-align: center;
             color: #6C757D;
             margin-bottom: 30px;
             font-size: 0.95rem;
         }
-        
         .password-wrapper {
             position: relative;
             margin-bottom: 16px;
         }
-        
         .password-wrapper input {
             width: 100%;
             padding: 14px 50px 14px 16px;
@@ -74,13 +55,11 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
-        
         .password-wrapper input:focus {
             outline: none;
             border-color: #C1121C;
-            box-shadow: 0 0 0 4px rgba(193, 18, 28, 0.1);
+            box-shadow: 0 0 0 4px rgba(193,18,28,0.1);
         }
-        
         .toggle-password {
             position: absolute;
             right: 16px;
@@ -94,11 +73,7 @@
             padding: 5px;
             transition: color 0.3s ease;
         }
-        
-        .toggle-password:hover {
-            color: #C1121C;
-        }
-        
+        .toggle-password:hover { color: #C1121C; }
         .login-box .btn-login {
             width: 100%;
             padding: 14px;
@@ -111,19 +86,16 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
         .login-box .btn-login:hover {
             background: #A10E17;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(193, 18, 28, 0.3);
+            box-shadow: 0 8px 25px rgba(193,18,28,0.3);
         }
-        
         .login-box .btn-login:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-        
         .login-error {
             background: #f8d7da;
             color: #721c24;
@@ -133,17 +105,12 @@
             display: none;
             font-size: 0.9rem;
         }
-        
-        /* ============================================
-           DASHBOARD ADMIN - ULTRA SIMPLE
-           ============================================ */
         .admin-container {
             display: none;
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
         .admin-header {
             background: white;
             padding: 20px 30px;
@@ -156,34 +123,24 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-        
         .admin-header .logo {
             font-size: 1.5rem;
             font-weight: 700;
             color: #1D1D2C;
         }
-        
-        .admin-header .logo span {
-            color: #C1121C;
-        }
-        
+        .admin-header .logo span { color: #C1121C; }
         .admin-header .logo small {
             font-size: 0.8rem;
             font-weight: 400;
             color: #6C757D;
             margin-left: 8px;
         }
-        
         .admin-header .user-info {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
-        .admin-header .user-info span {
-            color: #6C757D;
-        }
-        
+        .admin-header .user-info span { color: #6C757D; }
         .admin-header .btn-logout {
             padding: 8px 20px;
             background: #dc3545;
@@ -194,72 +151,19 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
-        .admin-header .btn-logout:hover {
-            background: #c82333;
-        }
-        
-        /* Statistique unique */
-        .stats-grid {
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 20px 30px;
-            border-radius: 16px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-        
-        .stat-card .icon {
-            font-size: 2.5rem;
-            color: #C1121C;
-            opacity: 0.4;
-        }
-        
-        .stat-card .number {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #1D1D2C;
-        }
-        
-        .stat-card .label {
-            color: #6C757D;
-            font-size: 0.95rem;
-        }
-        
-        .stat-card .stat-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Tableau */
+        .admin-header .btn-logout:hover { background: #c82333; }
         .table-container {
             background: white;
             border-radius: 16px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             overflow: hidden;
         }
-        
-        .table-wrapper {
-            overflow-x: auto;
-        }
-        
+        .table-wrapper { overflow-x: auto; }
         .table-container table {
             width: 100%;
             border-collapse: collapse;
             min-width: 700px;
         }
-        
         .table-container th {
             background: #f8f9fa;
             padding: 16px 20px;
@@ -270,17 +174,12 @@
             font-size: 0.9rem;
             white-space: nowrap;
         }
-        
         .table-container td {
             padding: 16px 20px;
             border-bottom: 1px solid #E9ECEF;
             vertical-align: middle;
         }
-        
-        .table-container tr:hover td {
-            background: #f8f9fa;
-        }
-        
+        .table-container tr:hover td { background: #f8f9fa; }
         .btn-action {
             padding: 6px 12px;
             border: none;
@@ -290,35 +189,16 @@
             margin: 2px;
             transition: all 0.3s ease;
         }
-        
-        .btn-action:hover {
-            transform: scale(1.05);
-        }
-        
-        .btn-view {
-            background: #17a2b8;
-            color: white;
-        }
-        
-        .btn-view:hover {
-            background: #138496;
-        }
-        
-        .btn-delete {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .btn-delete:hover {
-            background: #c82333;
-        }
-        
+        .btn-action:hover { transform: scale(1.05); }
+        .btn-view { background: #17a2b8; color: white; }
+        .btn-view:hover { background: #138496; }
+        .btn-delete { background: #dc3545; color: white; }
+        .btn-delete:hover { background: #c82333; }
         .documents-list {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
         }
-        
         .documents-list a {
             display: inline-block;
             padding: 4px 10px;
@@ -329,45 +209,24 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
-        .documents-list a:hover {
-            background: #C1121C;
-            color: white;
-        }
-        
+        .documents-list a:hover { background: #C1121C; color: white; }
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: #6C757D;
         }
-        
-        .empty-state i {
-            font-size: 3rem;
-            opacity: 0.3;
-            margin-bottom: 15px;
-        }
-        
-        .empty-state h3 {
-            margin-bottom: 8px;
-        }
-        
+        .empty-state i { font-size: 3rem; opacity: 0.3; margin-bottom: 15px; }
+        .empty-state h3 { margin-bottom: 8px; }
         .loading {
             text-align: center;
             padding: 60px 20px;
             color: #6C757D;
         }
-        
-        .loading i {
-            font-size: 2.5rem;
-            animation: spin 1s linear infinite;
-        }
-        
+        .loading i { font-size: 2.5rem; animation: spin 1s linear infinite; }
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -381,16 +240,8 @@
             align-items: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
+        .modal.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal-content {
             background: white;
             padding: 40px;
@@ -402,18 +253,10 @@
             position: relative;
             animation: slideIn 0.3s ease;
         }
-        
         @keyframes slideIn {
-            from {
-                transform: translateY(-30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        
         .modal-close {
             position: absolute;
             top: 15px;
@@ -425,49 +268,32 @@
             background: none;
             border: none;
         }
-        
-        .modal-close:hover {
-            color: #C1121C;
-            transform: rotate(90deg);
-        }
-        
+        .modal-close:hover { color: #C1121C; transform: rotate(90deg); }
         .modal-content h2 {
             margin-bottom: 20px;
             color: #1D1D2C;
             font-size: 1.4rem;
         }
-        
-        .modal-content h2 i {
-            color: #C1121C;
-            margin-right: 10px;
-        }
-        
+        .modal-content h2 i { color: #C1121C; margin-right: 10px; }
         .modal-content .detail-row {
             display: flex;
             margin-bottom: 12px;
             padding: 8px 0;
             border-bottom: 1px solid #f0f0f0;
         }
-        
         .modal-content .detail-label {
             font-weight: 600;
             width: 120px;
             flex-shrink: 0;
             color: #6C757D;
         }
-        
-        .modal-content .detail-value {
-            color: #1D1D2C;
-            word-break: break-word;
-        }
-        
+        .modal-content .detail-value { color: #1D1D2C; word-break: break-word; }
         .modal-content .detail-docs {
             margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-        
         .modal-content .detail-docs a {
             display: inline-block;
             padding: 6px 14px;
@@ -478,13 +304,10 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
-        
         .modal-content .detail-docs a:hover {
             background: #A10E17;
             transform: scale(1.05);
         }
-        
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -499,110 +322,47 @@
             transition: all 0.5s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .toast.success {
-            background: #28a745;
-        }
-        
-        .toast.error {
-            background: #dc3545;
-        }
-        
-        .toast.info {
-            background: #17a2b8;
-        }
-        
-        /* Responsive */
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+        .toast.info { background: #17a2b8; }
         @media (max-width: 768px) {
-            .login-box {
-                padding: 30px 20px;
-                margin: 20px;
-            }
-            
-            .admin-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .stat-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            
-            .table-wrapper {
-                overflow-x: auto;
-            }
-            
-            .modal-content {
-                padding: 25px 20px;
-                margin: 10px;
-            }
-            
-            .modal-content .detail-row {
-                flex-direction: column;
-            }
-            
-            .modal-content .detail-label {
-                width: 100%;
-                margin-bottom: 4px;
-            }
+            .login-box { padding: 30px 20px; margin: 20px; }
+            .admin-header { flex-direction: column; text-align: center; }
+            .modal-content { padding: 25px 20px; margin: 10px; }
+            .modal-content .detail-row { flex-direction: column; }
+            .modal-content .detail-label { width: 100%; margin-bottom: 4px; }
         }
-        
         @media (max-width: 480px) {
-            .admin-header .logo {
-                font-size: 1.2rem;
-            }
-            
-            .admin-header .user-info {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .stat-card .number {
-                font-size: 2rem;
-            }
+            .admin-header .logo { font-size: 1.2rem; }
+            .admin-header .user-info { flex-wrap: wrap; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================
-    PAGE DE CONNEXION
-    ============================================ -->
+    <!-- PAGE DE CONNEXION DE SECOURS -->
     <div class="login-page" id="loginPage">
         <div class="login-box">
             <div class="logo">G-<span>SÉCURITÉ</span></div>
             <p class="subtitle">Espace Administration</p>
-            
             <div class="login-error" id="loginError">
                 <i class="fas fa-exclamation-circle"></i> Mot de passe incorrect
             </div>
-            
             <div class="password-wrapper">
                 <input type="password" id="loginPassword" placeholder="Entrez le mot de passe">
                 <button type="button" class="toggle-password" id="togglePasswordBtn">
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
-            
             <button class="btn-login" id="loginBtn">
                 <i class="fas fa-lock"></i> Se connecter
             </button>
         </div>
     </div>
 
-    <!-- ============================================
-    DASHBOARD ADMIN - ULTRA SIMPLE
-    ============================================ -->
+    <!-- DASHBOARD ADMIN -->
     <div class="admin-container" id="adminDashboard">
-        
-        <!-- En-tête -->
         <div class="admin-header">
             <div class="logo">
                 G-<span>SÉCURITÉ</span> <small>Administration</small>
@@ -614,19 +374,8 @@
                 </button>
             </div>
         </div>
-        
-        <!-- Statistique unique : Total -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="icon"><i class="fas fa-users"></i></span>
-                <div class="stat-info">
-                    <span class="number" id="totalCandidatures">0</span>
-                    <span class="label">Total des candidatures</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Tableau -->
+
+        <!-- Tableau des candidatures -->
         <div class="table-container">
             <div id="loadingState" class="loading">
                 <i class="fas fa-spinner"></i>
@@ -659,27 +408,18 @@
         </div>
     </div>
 
-    <!-- ============================================
-    MODAL DETAILS
-    ============================================ -->
+    <!-- MODAL DÉTAILS -->
     <div class="modal" id="detailModal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">&times;</button>
             <h2><i class="fas fa-user-circle"></i> Détails du dossier</h2>
-            <div id="modalBody">
-                <!-- Rempli par JavaScript -->
-            </div>
+            <div id="modalBody"></div>
         </div>
     </div>
 
-    <!-- ============================================
-    TOAST NOTIFICATION
-    ============================================ -->
+    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================
-    JAVASCRIPT
-    ============================================ -->
     <script>
         // ============================================================
         // CONFIGURATION SUPABASE
@@ -688,9 +428,9 @@
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
 
         // ============================================================
-        // MOT DE PASSE ADMIN
+        // MOT DE PASSE ADMIN — IDENTIQUE AU TRIPLE-CLIC
         // ============================================================
-        const ADMIN_PASSWORD = "admingsecurite2026";
+        const ADMIN_PASSWORD = "gsecurite2026";
 
         // ============================================================
         // ÉLÉMENTS DOM
@@ -704,7 +444,7 @@
         const togglePasswordBtn = document.getElementById('togglePasswordBtn');
 
         // ============================================================
-        // AFFICHER/MASQUER LE MOT DE PASSE (ŒIL)
+        // AFFICHER/MASQUER LE MOT DE PASSE
         // ============================================================
         togglePasswordBtn.addEventListener('click', function() {
             const type = loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -720,19 +460,21 @@
         // AUTHENTIFICATION
         // ============================================================
         function checkSession() {
-            const isLoggedIn = sessionStorage.getItem('admin_logged_in');
-            if (isLoggedIn === 'true') {
+            // Si la session est déjà présente (venant du triple-clic)
+            if (sessionStorage.getItem('admin_logged_in') === 'true') {
                 showDashboard();
+                return;
             }
+            // Sinon, on affiche la page de connexion
+            loginPage.style.display = 'flex';
         }
 
         loginBtn.addEventListener('click', function() {
             const password = loginPassword.value.trim();
-            
             loginError.style.display = 'none';
             this.disabled = true;
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
-            
+
             setTimeout(() => {
                 if (password === ADMIN_PASSWORD) {
                     sessionStorage.setItem('admin_logged_in', 'true');
@@ -777,9 +519,7 @@
             toast.textContent = message;
             toast.className = `toast ${type}`;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
         // ============================================================
@@ -797,10 +537,9 @@
             tableContent.style.display = 'none';
             emptyState.style.display = 'none';
             tbody.innerHTML = '';
-            
+
             try {
                 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                
                 const { data, error } = await supabaseClient
                     .from('gsecurite')
                     .select('*')
@@ -809,7 +548,6 @@
                 if (error) throw error;
                 
                 allCandidatures = data || [];
-                updateStats();
                 renderCandidatures(allCandidatures);
                 
                 loadingState.style.display = 'none';
@@ -818,7 +556,6 @@
                 if (allCandidatures.length === 0) {
                     emptyState.style.display = 'block';
                 }
-                
             } catch (error) {
                 console.error('Erreur:', error);
                 loadingState.innerHTML = `
@@ -832,7 +569,7 @@
         }
 
         // ============================================================
-        // AFFICHAGE
+        // AFFICHAGE DES CANDIDATURES
         // ============================================================
         function renderCandidatures(candidatures) {
             const tbody = document.getElementById('candidaturesTableBody');
@@ -848,19 +585,16 @@
             candidatures.forEach((c, index) => {
                 const tr = document.createElement('tr');
                 
-                // Numéro
                 const tdNum = document.createElement('td');
                 tdNum.textContent = index + 1;
                 tdNum.style.fontWeight = '600';
                 tdNum.style.color = '#6C757D';
                 tr.appendChild(tdNum);
                 
-                // Nom
                 const tdNom = document.createElement('td');
                 tdNom.innerHTML = `<strong>${c.nom_complet || 'N/A'}</strong>`;
                 tr.appendChild(tdNom);
                 
-                // Contact (Email + Téléphone)
                 const tdContact = document.createElement('td');
                 tdContact.innerHTML = `
                     <div style="font-size:0.85rem; color:#6C757D;">${c.email || 'N/A'}</div>
@@ -868,14 +602,12 @@
                 `;
                 tr.appendChild(tdContact);
                 
-                // Date
                 const tdDate = document.createElement('td');
                 tdDate.textContent = c.created_at ? new Date(c.created_at).toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'}) : 'N/A';
                 tdDate.style.fontSize = '0.85rem';
                 tdDate.style.color = '#6C757D';
                 tr.appendChild(tdDate);
                 
-                // Documents
                 const tdDocs = document.createElement('td');
                 const docs = c.documents || [];
                 if (docs.length > 0) {
@@ -886,14 +618,6 @@
                         a.href = docUrl;
                         a.target = '_blank';
                         a.innerHTML = `<i class="fas fa-file"></i> Doc ${i+1}`;
-                        a.addEventListener('mouseenter', () => {
-                            a.style.background = '#C1121C';
-                            a.style.color = 'white';
-                        });
-                        a.addEventListener('mouseleave', () => {
-                            a.style.background = '#e9ecef';
-                            a.style.color = '#1D1D2C';
-                        });
                         docDiv.appendChild(a);
                     });
                     tdDocs.appendChild(docDiv);
@@ -904,7 +628,6 @@
                 }
                 tr.appendChild(tdDocs);
                 
-                // Actions : Voir + Supprimer
                 const tdActions = document.createElement('td');
                 tdActions.innerHTML = `
                     <button class="btn-action btn-view" onclick="viewDetails('${c.id}')" title="Voir les détails">
@@ -921,30 +644,22 @@
         }
 
         // ============================================================
-        // STATISTIQUE UNIQUE
-        // ============================================================
-        function updateStats() {
-            const total = allCandidatures.length;
-            document.getElementById('totalCandidatures').textContent = total;
-        }
-
-        // ============================================================
-        // MODAL DETAILS
+        // MODAL DÉTAILS
         // ============================================================
         const detailModal = document.getElementById('detailModal');
         const modalBody = document.getElementById('modalBody');
         const modalClose = document.getElementById('modalClose');
 
         window.viewDetails = function(id) {
-            const candidature = allCandidatures.find(c => c.id == id);
-            if (!candidature) return;
+            const c = allCandidatures.find(c => c.id == id);
+            if (!c) return;
             
-            const docs = candidature.documents || [];
+            const docs = c.documents || [];
             let docsHtml = '';
             if (docs.length > 0) {
                 docsHtml = '<div class="detail-docs">';
                 docs.forEach((docUrl, i) => {
-                    docsHtml += `<a href="${docUrl}" target="_blank"><i class="fas fa-download"></i> Télécharger document ${i+1}</a>`;
+                    docsHtml += `<a href="${docUrl}" target="_blank"><i class="fas fa-download"></i> Document ${i+1}</a>`;
                 });
                 docsHtml += '</div>';
             } else {
@@ -954,67 +669,54 @@
             modalBody.innerHTML = `
                 <div class="detail-row">
                     <span class="detail-label">Nom complet</span>
-                    <span class="detail-value"><strong>${candidature.nom_complet || 'N/A'}</strong></span>
+                    <span class="detail-value"><strong>${c.nom_complet || 'N/A'}</strong></span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Email</span>
-                    <span class="detail-value">${candidature.email || 'N/A'}</span>
+                    <span class="detail-value">${c.email || 'N/A'}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Téléphone</span>
-                    <span class="detail-value">${candidature.telephone || 'N/A'}</span>
+                    <span class="detail-value">${c.telephone || 'N/A'}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Date de candidature</span>
-                    <span class="detail-value">${candidature.created_at ? new Date(candidature.created_at).toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'}) : 'N/A'}</span>
+                    <span class="detail-value">${c.created_at ? new Date(c.created_at).toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'}) : 'N/A'}</span>
                 </div>
                 <div class="detail-row" style="flex-direction:column; align-items:stretch;">
                     <span class="detail-label" style="width:100%; margin-bottom:6px;">Message</span>
-                    <span class="detail-value" style="padding:12px; background:#f8f9fa; border-radius:8px; white-space:pre-wrap;">${candidature.message || 'Aucun message'}</span>
+                    <span class="detail-value" style="padding:12px; background:#f8f9fa; border-radius:8px; white-space:pre-wrap;">${c.message || 'Aucun message'}</span>
                 </div>
                 <div class="detail-row" style="flex-direction:column; align-items:stretch;">
                     <span class="detail-label" style="width:100%; margin-bottom:6px;">Documents (${docs.length})</span>
                     <div style="margin-top:4px;">${docsHtml}</div>
                 </div>
             `;
-            
             detailModal.classList.add('active');
         };
 
-        modalClose.addEventListener('click', () => {
-            detailModal.classList.remove('active');
-        });
-
+        modalClose.addEventListener('click', () => detailModal.classList.remove('active'));
         window.addEventListener('click', (e) => {
-            if (e.target === detailModal) {
-                detailModal.classList.remove('active');
-            }
+            if (e.target === detailModal) detailModal.classList.remove('active');
         });
 
         // ============================================================
-        // SUPPRESSION
+        // SUPPRESSION D'UNE CANDIDATURE
         // ============================================================
         window.deleteCandidature = async function(id) {
-            if (!confirm('Êtes-vous sûr de vouloir supprimer cette candidature ? Cette action est irréversible.')) {
-                return;
-            }
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette candidature ? Cette action est irréversible.')) return;
             
             try {
                 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                
-                const { data, error } = await supabaseClient
+                const { error } = await supabaseClient
                     .from('gsecurite')
                     .delete()
                     .eq('id', id);
-                
                 if (error) throw error;
                 
                 allCandidatures = allCandidatures.filter(c => c.id != id);
                 renderCandidatures(allCandidatures);
-                updateStats();
-                
                 showToast('Candidature supprimée avec succès', 'success');
-                
             } catch (error) {
                 console.error('Erreur:', error);
                 showToast('Erreur: ' + error.message, 'error');
@@ -1026,6 +728,5 @@
         // ============================================================
         checkSession();
     </script>
-
 </body>
 </html>
