@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
     <title>G-SÉCURITÉ - Sécurité Privée Burkina Faso</title>
 
+    <!-- Préconnexions -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://otdiywrvzappbmjfkkyi.supabase.co" crossorigin>
+
+    <!-- Préchargement de l'image du premier slide -->
+    <link rel="preload" as="image" href="gsecurite/slide1.jpg">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
-    <!-- AOS Animation -->
+    <!-- AOS CSS (léger, pas bloquant) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Supabase SDK -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js">
-    </script>
-
+    <!-- Style principal optimisé -->
     <style>
-        /* ============================================================
-               ROOT VARIABLES
-               ============================================================ */
+        /* ===== RESET & VARIABLES ===== */
         :root {
             --color-primary: #C1121C;
             --color-primary-light: #D62839;
@@ -36,24 +39,9 @@
             --transition-slow: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* ============================================================
-               RESET & BASE (CORRECTION SCROLL HORIZONTAL)
-               ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html,
-        body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-            margin: 0;
-            padding: 0;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { overflow-x: hidden !important; width: 100% !important; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-family);
             color: var(--color-text-dark);
@@ -62,128 +50,13 @@
             padding-top: 80px;
             overflow-x: hidden !important;
         }
-        #site-content {
-            overflow-x: hidden !important;
-            width: 100% !important;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        ul {
-            list-style: none;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        #site-content { overflow-x: hidden !important; width: 100% !important; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* ============================================================
-               PAGE LOADER (CORRECTION CENTRAGE MOBILE)
-               ============================================================ */
-        .page-loader {
-            position: fixed;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
-            background: var(--color-secondary);
-            z-index: 100000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 18px;
-            text-align: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        .page-loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .page-loader img {
-            display: block;
-            height: 60px;
-            width: auto;
-            max-width: 80%;
-            border-radius: 6px;
-            animation: loaderPulse 1.4s ease-in-out infinite;
-            margin: 0 auto;
-        }
-        .page-loader .loader-bar {
-            width: 140px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .page-loader .loader-bar::after {
-            content: '';
-            display: block;
-            width: 40%;
-            height: 100%;
-            background: var(--color-primary);
-            border-radius: 4px;
-            animation: loaderSlide 1.1s ease-in-out infinite;
-        }
-        @keyframes loaderPulse {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.08);
-                opacity: 0.85;
-            }
-        }
-        @keyframes loaderSlide {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(350%);
-            }
-        }
-
-        /* ============================================================
-               CUSTOM CURSOR (desktop only)
-               ============================================================ */
-        .cursor-dot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 10px;
-            height: 10px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99998;
-            transform: translate(-50%, -50%);
-            transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
-        }
-        .cursor-dot.hovering {
-            width: 34px;
-            height: 34px;
-            background: rgba(193, 18, 28, 0.25);
-            border: 1px solid var(--color-primary);
-        }
-        @media (max-width: 992px),
-        (hover: none) {
-            .cursor-dot {
-                display: none;
-            }
-        }
-
-        /* ============================================================
-               HEADER
-               ============================================================ */
+        /* ===== HEADER ===== */
         .header {
             position: fixed;
             top: 0;
@@ -229,10 +102,7 @@
         .logo span {
             color: var(--color-primary);
         }
-        .logo-text-desktop {
-            display: inline;
-        }
-
+        .logo-text-desktop { display: inline; }
         .logo-text-mobile {
             display: none;
             white-space: nowrap;
@@ -245,9 +115,7 @@
             transform: translate(-50%, -50%);
             pointer-events: none;
         }
-        .logo-text-mobile span {
-            color: var(--color-primary);
-        }
+        .logo-text-mobile span { color: var(--color-primary); }
 
         .hamburger {
             display: none;
@@ -269,15 +137,9 @@
             border-radius: 3px;
             transition: all var(--transition);
         }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
         .nav {
             display: flex;
@@ -318,30 +180,18 @@
             font-weight: 600;
             border-bottom: none !important;
         }
-        .nav-cta::after {
-            display: none;
-        }
+        .nav-cta::after { display: none; }
         .nav-cta:hover {
             background: var(--color-primary-dark);
             transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-top: 72px;
-            }
-            .logo img {
-                height: 35px !important;
-            }
-            .logo-text-desktop {
-                display: none;
-            }
-            .logo-text-mobile {
-                display: block;
-            }
-            .hamburger {
-                display: flex;
-            }
+            body { padding-top: 72px; }
+            .logo img { height: 35px !important; }
+            .logo-text-desktop { display: none; }
+            .logo-text-mobile { display: block; }
+            .hamburger { display: flex; }
             .nav {
                 position: fixed;
                 top: 72px;
@@ -357,18 +207,11 @@
                 border-top: 1px solid rgba(255, 255, 255, 0.05);
                 z-index: 999;
             }
-            .nav.open {
-                transform: translateY(0);
-            }
-            /* Correction padding container mobile */
-            .container {
-                padding: 0 15px !important;
-            }
+            .nav.open { transform: translateY(0); }
+            .container { padding: 0 15px !important; }
         }
 
-        /* ============================================================
-               HERO SLIDER (avec parallax)
-               ============================================================ */
+        /* ===== HERO SLIDER ===== */
         .hero-slider {
             position: relative;
             width: 100%;
@@ -390,9 +233,7 @@
             background-position: center;
             will-change: transform;
         }
-        .slide.active {
-            opacity: 1;
-        }
+        .slide.active { opacity: 1; }
         .slide-1 {
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.8) 40%, rgba(29, 29, 44, 0.4) 100%),
                 url('gsecurite/slide1.jpg') center 40%/cover no-repeat;
@@ -415,24 +256,12 @@
         .slide.active .slide-content .hero-buttons {
             animation: heroRise 0.9s ease both;
         }
-        .slide.active .slide-content h1 {
-            animation-delay: 0.08s;
-        }
-        .slide.active .slide-content p {
-            animation-delay: 0.18s;
-        }
-        .slide.active .slide-content .hero-buttons {
-            animation-delay: 0.28s;
-        }
+        .slide.active .slide-content h1 { animation-delay: 0.08s; }
+        .slide.active .slide-content p { animation-delay: 0.18s; }
+        .slide.active .slide-content .hero-buttons { animation-delay: 0.28s; }
         @keyframes heroRise {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .slide-content .badge {
             display: inline-block;
@@ -451,9 +280,7 @@
             line-height: 1.1;
             margin-bottom: 16px;
         }
-        .slide-content h1 span {
-            color: var(--color-primary);
-        }
+        .slide-content h1 span { color: var(--color-primary); }
         .slide-content p {
             font-size: 1.2rem;
             opacity: 0.9;
@@ -516,25 +343,16 @@
             transform: scale(1.3);
         }
 
-        /* ============================================================
-               SECTIONS
-               ============================================================ */
-        .section {
-            padding: 80px 0;
-            position: relative;
-        }
-        .section-alt {
-            background: var(--color-bg-light);
-        }
+        /* ===== SECTIONS ===== */
+        .section { padding: 80px 0; position: relative; }
+        .section-alt { background: var(--color-bg-light); }
         .section-title {
             font-size: 2.6rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 12px;
         }
-        .section-title span {
-            color: var(--color-primary);
-        }
+        .section-title span { color: var(--color-primary); }
         .section-subtitle {
             text-align: center;
             font-size: 1.1rem;
@@ -543,9 +361,7 @@
             margin: 0 auto 50px auto;
         }
 
-        /* ============================================================
-               À PROPOS
-               ============================================================ */
+        /* ===== À PROPOS ===== */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -562,17 +378,13 @@
             height: auto;
             transition: transform 0.6s ease;
         }
-        .about-image:hover img {
-            transform: scale(1.04);
-        }
+        .about-image:hover img { transform: scale(1.04); }
         .about-text h3 {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 16px;
         }
-        .about-text h3 span {
-            color: var(--color-primary);
-        }
+        .about-text h3 span { color: var(--color-primary); }
         .about-text p {
             color: var(--color-text-muted);
             margin-bottom: 16px;
@@ -597,9 +409,7 @@
             box-shadow: 0 12px 30px rgba(193, 18, 28, 0.25);
         }
 
-        /* ============================================================
-               SERVICES
-               ============================================================ */
+        /* ===== SERVICES ===== */
         .services-section {
             padding: 80px 0;
             background: var(--color-bg-light);
@@ -614,9 +424,7 @@
             font-weight: 700;
             margin-bottom: 12px;
         }
-        .services-header h2 span {
-            color: var(--color-primary);
-        }
+        .services-header h2 span { color: var(--color-primary); }
         .services-header p {
             color: var(--color-text-muted);
             font-size: 1.05rem;
@@ -651,9 +459,7 @@
             object-fit: cover;
             transition: transform 0.8s ease;
         }
-        .service-card:hover .card-image img {
-            transform: scale(1.10);
-        }
+        .service-card:hover .card-image img { transform: scale(1.10); }
         .card-content {
             padding: 28px 24px;
             display: flex;
@@ -701,22 +507,15 @@
             animation: whatsappPulse 2.2s ease-in-out infinite;
         }
         @keyframes whatsappPulse {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.25);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
         }
         .btn-devis:hover {
             background: var(--color-primary-dark);
             transform: translateY(-3px);
         }
 
-        /* ============================================================
-               RECRUTEMENT
-               ============================================================ */
+        /* ===== RECRUTEMENT ===== */
         .recrutement-section {
             padding: 100px 0;
             background: linear-gradient(135deg, rgba(29, 29, 44, 0.85) 40%, rgba(29, 29, 44, 0.5) 100%),
@@ -744,9 +543,7 @@
             font-weight: 700;
             margin-bottom: 16px;
         }
-        .recrutement-box h2 span {
-            color: var(--color-primary);
-        }
+        .recrutement-box h2 span { color: var(--color-primary); }
         .recrutement-box p {
             opacity: 0.9;
             margin-bottom: 24px;
@@ -755,7 +552,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .recrutement-docs {
             background: rgba(255, 255, 255, 0.06);
             border-radius: 16px;
@@ -790,7 +586,6 @@
             color: var(--color-primary);
             font-size: 0.6rem;
         }
-
         .btn-candidature {
             display: inline-flex;
             align-items: center;
@@ -813,9 +608,7 @@
             box-shadow: 0 8px 30px rgba(193, 18, 28, 0.4);
         }
 
-        /* ============================================================
-               ZONES
-               ============================================================ */
+        /* ===== ZONES ===== */
         .zones-grid {
             display: flex;
             flex-wrap: wrap;
@@ -835,9 +628,7 @@
             align-items: center;
             gap: 8px;
         }
-        .zone-tag i {
-            color: var(--color-primary);
-        }
+        .zone-tag i { color: var(--color-primary); }
         .zone-tag:hover {
             transform: translateY(-3px) scale(1.05);
             border-color: var(--color-primary);
@@ -845,13 +636,9 @@
             color: var(--color-white);
             box-shadow: 0 8px 25px rgba(193, 18, 28, 0.18);
         }
-        .zone-tag:hover i {
-            color: var(--color-white);
-        }
+        .zone-tag:hover i { color: var(--color-white); }
 
-        /* ============================================================
-               TÉMOIGNAGES
-               ============================================================ */
+        /* ===== TÉMOIGNAGES ===== */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -874,18 +661,14 @@
             margin-bottom: 16px;
             font-size: 1.05rem;
         }
-        .testimonial-card .author {
-            font-weight: 600;
-        }
+        .testimonial-card .author { font-weight: 600; }
         .testimonial-card .author span {
             font-weight: 400;
             color: var(--color-text-muted);
             font-size: 0.9rem;
         }
 
-        /* ============================================================
-               RÉALISATIONS
-               ============================================================ */
+        /* ===== RÉALISATIONS ===== */
         .realisations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -910,9 +693,7 @@
             margin-bottom: 12px;
             transition: transform 0.4s ease;
         }
-        .realisation-card:hover i {
-            transform: scale(1.15);
-        }
+        .realisation-card:hover i { transform: scale(1.15); }
         .realisation-card h4 {
             font-size: 1.1rem;
             font-weight: 700;
@@ -923,9 +704,7 @@
             font-size: 0.95rem;
         }
 
-        /* ============================================================
-               CONTACT
-               ============================================================ */
+        /* ===== CONTACT ===== */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -965,9 +744,7 @@
             color: var(--color-text-muted);
             font-weight: 500;
         }
-        .contact-info-item span {
-            font-weight: 600;
-        }
+        .contact-info-item span { font-weight: 600; }
         .contact-form input,
         .contact-form textarea,
         .contact-form select {
@@ -992,14 +769,9 @@
             min-height: 130px;
             resize: vertical;
         }
-        .contact-form .btn {
-            width: 100%;
-            border: none;
-        }
+        .contact-form .btn { width: 100%; border: none; }
 
-        /* ============================================================
-               FOOTER
-               ============================================================ */
+        /* ===== FOOTER ===== */
         .footer {
             background: var(--color-secondary-dark);
             color: var(--color-white);
@@ -1018,15 +790,12 @@
             margin-bottom: 18px;
             color: var(--color-primary);
         }
-        .footer p,
-        .footer a {
+        .footer p, .footer a {
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             line-height: 2;
         }
-        .footer a:hover {
-            color: var(--color-primary);
-        }
+        .footer a:hover { color: var(--color-primary); }
         .footer-socials {
             display: flex;
             gap: 14px;
@@ -1049,7 +818,6 @@
             color: var(--color-white);
             transform: translateY(-3px);
         }
-
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             padding-top: 20px;
@@ -1063,9 +831,7 @@
             gap: 10px;
         }
 
-        /* ============================================================
-               MODAL RECRUTEMENT
-               ============================================================ */
+        /* ===== MODAL RECRUTEMENT ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1080,9 +846,7 @@
             align-items: center;
             padding: 20px;
         }
-        .modal-overlay.active {
-            display: flex !important;
-        }
+        .modal-overlay.active { display: flex !important; }
         .modal-content {
             background: var(--color-white);
             border-radius: 24px;
@@ -1096,26 +860,12 @@
             animation: modalSlideIn 0.4s ease;
         }
         @keyframes modalSlideIn {
-            from {
-                transform: translateY(50px) scale(0.95);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
+            from { transform: translateY(50px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
         }
-        .modal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        .modal-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .modal-content::-webkit-scrollbar-thumb {
-            background: var(--color-primary);
-            border-radius: 10px;
-        }
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 10px; }
         .modal-close {
             position: absolute;
             top: 16px;
@@ -1139,15 +889,12 @@
             color: var(--color-secondary);
             margin-bottom: 4px;
         }
-        .modal-title span {
-            color: var(--color-primary);
-        }
+        .modal-title span { color: var(--color-primary); }
         .modal-subtitle {
             color: var(--color-text-muted);
             margin-bottom: 20px;
             font-size: 0.95rem;
         }
-
         .step-indicator {
             font-size: 0.8rem;
             font-weight: 600;
@@ -1168,28 +915,16 @@
             background: var(--color-border);
             transition: background 0.3s ease;
         }
-        .progress-bar .seg.done {
-            background: var(--color-primary);
-        }
-
-        .form-step {
-            display: none;
-        }
+        .progress-bar .seg.done { background: var(--color-primary); }
+        .form-step { display: none; }
         .form-step.active {
             display: block;
             animation: stepFadeIn 0.3s ease;
         }
         @keyframes stepFadeIn {
-            from {
-                opacity: 0;
-                transform: translateX(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(8px); }
+            to { opacity: 1; transform: translateX(0); }
         }
-
         .step-nav {
             display: flex;
             gap: 12px;
@@ -1233,10 +968,7 @@
             cursor: not-allowed;
             transform: none;
         }
-
-        .modal-form .form-group {
-            margin-bottom: 16px;
-        }
+        .modal-form .form-group { margin-bottom: 16px; }
         .modal-form .form-group label {
             display: block;
             font-weight: 600;
@@ -1244,9 +976,7 @@
             color: var(--color-secondary);
             margin-bottom: 6px;
         }
-        .modal-form .form-group label .required {
-            color: var(--color-primary);
-        }
+        .modal-form .form-group label .required { color: var(--color-primary); }
         .modal-form .form-group label .file-hint {
             font-weight: 400;
             color: var(--color-text-muted);
@@ -1273,15 +1003,12 @@
             box-shadow: 0 0 0 4px rgba(193, 18, 28, 0.08);
         }
         .modal-form input::placeholder,
-        .modal-form textarea::placeholder {
-            color: #adb5bd;
-        }
+        .modal-form textarea::placeholder { color: #adb5bd; }
         .modal-form .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-
         .doc-list {
             display: flex;
             flex-direction: column;
@@ -1340,9 +1067,7 @@
             color: var(--color-primary);
             font-weight: 600;
         }
-        .doc-item input[type="file"] {
-            display: none;
-        }
+        .doc-item input[type="file"] { display: none; }
         .doc-item .doc-action {
             flex-shrink: 0;
             font-size: 0.82rem;
@@ -1359,17 +1084,13 @@
             background: var(--color-primary);
             color: var(--color-white);
         }
-
         .doc-counter {
             text-align: center;
             font-size: 0.85rem;
             color: var(--color-text-muted);
             margin-bottom: 16px;
         }
-        .doc-counter strong {
-            color: var(--color-primary);
-        }
-
+        .doc-counter strong { color: var(--color-primary); }
         .upload-progress-wrap {
             text-align: center;
             padding: 30px 0 10px;
@@ -1405,7 +1126,6 @@
             font-size: 0.85rem;
             color: var(--color-text-muted);
         }
-
         .modal-error-msg {
             margin-top: 14px;
             padding: 12px 16px;
@@ -1416,10 +1136,7 @@
             font-size: 0.9rem;
             display: none;
         }
-        .modal-error-msg.show {
-            display: block;
-        }
-
+        .modal-error-msg.show { display: block; }
         .modal-success {
             display: none;
             text-align: center;
@@ -1433,13 +1150,9 @@
             color: var(--color-secondary);
             margin: 12px 0 6px;
         }
-        .modal-success p {
-            color: var(--color-text-muted);
-        }
+        .modal-success p { color: var(--color-text-muted); }
 
-        /* ============================================================
-               MODALE DE CONNEXION (triple‑clic)
-               ============================================================ */
+        /* ===== LOGIN MODAL ===== */
         .login-modal {
             display: none;
             position: fixed;
@@ -1454,9 +1167,7 @@
             align-items: center;
             padding: 20px;
         }
-        .login-modal.active {
-            display: flex;
-        }
+        .login-modal.active { display: flex; }
         .login-modal .login-box {
             background: white;
             border-radius: 20px;
@@ -1517,165 +1228,62 @@
             text-align: center;
             display: none;
         }
-        .login-modal .login-box .error-login.show {
-            display: block;
-        }
+        .login-modal .login-box .error-login.show { display: block; }
 
-        /* ============================================================
-               RESPONSIVE GÉNÉRAL
-               ============================================================ */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .about-image {
-                order: -1;
-            }
-            .about-image img {
-                max-height: 350px;
-                object-fit: cover;
-            }
-            .slide-content h1 {
-                font-size: 3rem;
-            }
-            .slide-content {
-                text-align: center;
-            }
-            .slide-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .recrutement-box {
-                padding: 40px 30px;
-            }
-            .modal-content {
-                padding: 30px 25px;
-                max-width: 560px;
-            }
-            .recrutement-docs ul {
-                grid-template-columns: 1fr;
-            }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .about-image { order: -1; }
+            .about-image img { max-height: 350px; object-fit: cover; }
+            .slide-content h1 { font-size: 3rem; }
+            .slide-content { text-align: center; }
+            .slide-content p { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .recrutement-box { padding: 40px 30px; }
+            .modal-content { padding: 30px 25px; max-width: 560px; }
+            .recrutement-docs ul { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .hero-slider {
-                min-height: 70vh;
-            }
-            .slide {
-                padding: 40px 0;
-            }
-            .slide-content h1 {
-                font-size: 2.2rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .section {
-                padding: 50px 0;
-            }
-            .recrutement-section {
-                padding: 60px 0;
-                background-attachment: scroll;
-            }
-            .recrutement-box {
-                padding: 30px 20px;
-            }
-            .recrutement-box h2 {
-                font-size: 1.8rem;
-            }
-            .recrutement-docs {
-                padding: 16px 18px;
-            }
-            .recrutement-docs ul {
-                grid-template-columns: 1fr;
-            }
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-            .modal-content {
-                padding: 25px 18px;
-                max-width: 480px;
-            }
-            .modal-form .form-row {
-                grid-template-columns: 1fr;
-            }
-            .step-nav {
-                flex-wrap: wrap;
-            }
-            .step-nav .btn-back {
-                flex: 1;
-                text-align: center;
-            }
+            .hero-slider { min-height: 70vh; }
+            .slide { padding: 40px 0; }
+            .slide-content h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2rem; }
+            .section { padding: 50px 0; }
+            .recrutement-section { padding: 60px 0; background-attachment: scroll; }
+            .recrutement-box { padding: 30px 20px; }
+            .recrutement-box h2 { font-size: 1.8rem; }
+            .recrutement-docs { padding: 16px 18px; }
+            .recrutement-docs ul { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .modal-content { padding: 25px 18px; max-width: 480px; }
+            .modal-form .form-row { grid-template-columns: 1fr; }
+            .step-nav { flex-wrap: wrap; }
+            .step-nav .btn-back { flex: 1; text-align: center; }
             .step-nav .btn-next,
-            .step-nav .btn-submit {
-                flex: 2;
-            }
+            .step-nav .btn-submit { flex: 2; }
         }
 
         @media (max-width: 480px) {
-            .slide-content h1 {
-                font-size: 1.8rem;
-            }
-            .hero-buttons .btn {
-                width: 100%;
-                text-align: center;
-            }
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-            .card-image {
-                height: 200px;
-            }
-            .recrutement-box h2 {
-                font-size: 1.5rem;
-            }
-            .btn-candidature {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-                width: 100%;
-                justify-content: center;
-            }
-            .modal-content {
-                padding: 20px 14px;
-                max-width: 100%;
-            }
-            .modal-title {
-                font-size: 1.5rem;
-            }
-            .doc-item {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .doc-item .doc-action {
-                margin-left: auto;
-            }
-            .recrutement-docs ul li {
-                font-size: 0.8rem;
-            }
+            .slide-content h1 { font-size: 1.8rem; }
+            .hero-buttons .btn { width: 100%; text-align: center; }
+            .services-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .card-image { height: 200px; }
+            .recrutement-box h2 { font-size: 1.5rem; }
+            .btn-candidature { padding: 12px 24px; font-size: 0.9rem; width: 100%; justify-content: center; }
+            .modal-content { padding: 20px 14px; max-width: 100%; }
+            .modal-title { font-size: 1.5rem; }
+            .doc-item { flex-wrap: wrap; gap: 8px; }
+            .doc-item .doc-action { margin-left: auto; }
+            .recrutement-docs ul li { font-size: 0.8rem; }
         }
 
-        /* Respect reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
@@ -1685,19 +1293,11 @@
     </style>
 </head>
 <body>
-
-    <!-- LOADER (corrigé) -->
-    <div class="page-loader" id="pageLoader">
-        <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ" />
-        <div class="loader-bar"></div>
-    </div>
+    <!-- CONTENU DIRECT, PAS DE LOADER -->
 
     <!-- CURSEUR PERSONNALISÉ (desktop) -->
     <div class="cursor-dot" id="cursorDot"></div>
 
-    <!-- ============================================================
-    SITE COMPLET
-    ============================================================ -->
     <div id="site-content">
 
         <!-- HEADER -->
@@ -1707,15 +1307,10 @@
                     <img src="gsecurite/logo.jpg" alt="G-SÉCURITÉ Logo" />
                     <span class="logo-text-desktop">G-<span>SÉCURITÉ</span></span>
                 </a>
-
                 <span class="logo-text-mobile">G-<span>SÉCURITÉ</span></span>
-
                 <button class="hamburger" id="hamburger" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
-
                 <nav class="nav" id="nav">
                     <a href="#accueil" class="active">Accueil</a>
                     <a href="#a-propos">À propos</a>
@@ -1743,7 +1338,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="slide slide-2">
                 <div class="container">
                     <div class="slide-content">
@@ -1757,7 +1351,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="slide slide-3">
                 <div class="container">
                     <div class="slide-content">
@@ -1771,7 +1364,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="slider-dots">
                 <button class="dot active" data-index="0" aria-label="Slide 1"></button>
                 <button class="dot" data-index="1" aria-label="Slide 2"></button>
@@ -1784,7 +1376,6 @@
             <div class="container">
                 <h2 class="section-title">Qui sommes-<span>nous</span></h2>
                 <p class="section-subtitle">Une société de sécurité privée burkinabè, engagée pour la tranquillité de nos clients.</p>
-
                 <div class="about-grid">
                     <div class="about-text" data-aos="fade-right">
                         <h3>Une force pour votre <span>tranquillité</span></h3>
@@ -1793,7 +1384,7 @@
                         <a href="#contact" class="btn btn-primary">Travailler avec nous</a>
                     </div>
                     <div class="about-image" data-aos="fade-left">
-                        <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" />
+                        <img src="gsecurite/Apropos.jpg" alt="Équipe G-SÉCURITÉ" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -1806,110 +1397,76 @@
                     <h2>Nos <span>services</span></h2>
                     <p>Des solutions complètes pour tous vos besoins en sécurité.</p>
                 </div>
-
                 <div class="services-grid">
+                    <!-- 7 services avec lazy loading sur les images -->
                     <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                        <div class="card-image">
-                            <img src="gsecurite/securite-generale.png" alt="Sécurité générale">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/securite-generale.png" alt="Sécurité générale" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-shield-alt service-icon"></i>
                             <h3>Sécurité générale</h3>
                             <p>Surveillance et protection des sites industriels, commerciaux, institutionnels et résidentiels.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
-
                     <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card-image">
-                            <img src="gsecurite/vigile.jpg" alt="Vigile">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/vigile.jpg" alt="Vigile" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-user-shield service-icon"></i>
                             <h3>Vigile</h3>
                             <p>Présence humaine qualifiée pour le gardiennage, le contrôle des accès et la surveillance 24h/7.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
-
                     <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="card-image">
-                            <img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/extinceurs.jpg" alt="Sécurité incendie" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-fire-extinguisher service-icon"></i>
                             <h3>Sécurité incendie</h3>
                             <p>Dispositifs de prévention et d'intervention contre les risques d'incendie.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
-
                     <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                        <div class="card-image">
-                            <img src="gsecurite/camera.jpg" alt="Sécurité électronique">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/camera.jpg" alt="Sécurité électronique" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-video service-icon"></i>
                             <h3>Sécurité électronique</h3>
                             <p>Vidéosurveillance, systèmes d'alarme, contrôle d'accès et détection intrusion.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
-
                     <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card-image">
-                            <img src="gsecurite/escortage.png" alt="Escortage">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/escortage.png" alt="Escortage" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-crown service-icon"></i>
                             <h3>Escortage &amp; Protection</h3>
                             <p>Services d'escortage sécuritaire pour personnalités et dirigeants.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
-
                     <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="card-image">
-                            <img src="gsecurite/convoyage.png" alt="Convoie sécurisé">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/convoyage.png" alt="Convoie sécurisé" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-truck service-icon"></i>
                             <h3>Convoie sécurisé</h3>
                             <p>Transport et acheminement hautement sécurisés de vos fonds et valeurs.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
-
                     <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                        <div class="card-image">
-                            <img src="gsecurite/accessoires.png" alt="Accessoires">
-                        </div>
+                        <div class="card-image"><img src="gsecurite/accessoires.png" alt="Accessoires" loading="lazy"></div>
                         <div class="card-content">
                             <i class="fas fa-store service-icon"></i>
                             <h3>Vente d'accessoires</h3>
                             <p>Fourniture de matériel de protection individuel et d'équipements de sécurité.</p>
-                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis">
-                                <i class="fab fa-whatsapp"></i> Demander un devis
-                            </a>
+                            <a href="https://wa.me/22663907979" target="_blank" class="btn-devis"><i class="fab fa-whatsapp"></i> Demander un devis</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ZONES D'INTERVENTION -->
+        <!-- ZONES -->
         <section class="section" id="zones" data-aos="fade-up">
             <div class="container">
                 <h2 class="section-title">Nos zones <span>d'intervention</span></h2>
@@ -1934,7 +1491,6 @@
             <div class="container">
                 <h2 class="section-title">Nos <span>réalisations</span></h2>
                 <p class="section-subtitle">Des missions menées avec succès dans divers secteurs d'activité.</p>
-
                 <div class="realisations-grid">
                     <div class="realisation-card" data-aos="fade-up" data-aos-delay="0">
                         <i class="fas fa-industry"></i>
@@ -1988,7 +1544,6 @@
                 <div class="recrutement-box">
                     <h2>Rejoignez notre <span>équipe</span></h2>
                     <p>Vous êtes rigoureux, motivé et souhaitez évoluer dans un secteur exigeant ? Rejoignez-nous et faites partie de notre équipe.</p>
-
                     <div class="recrutement-docs">
                         <h4><i class="fas fa-file-alt"></i> Documents requis</h4>
                         <ul>
@@ -2001,7 +1556,6 @@
                             <li><i class="fas fa-check-circle"></i> Certificat de résidence</li>
                         </ul>
                     </div>
-
                     <button class="btn-candidature" id="btnCandidature">
                         <i class="fas fa-paper-plane"></i> Déposer ma candidature
                     </button>
@@ -2014,37 +1568,24 @@
             <div class="container">
                 <h2 class="section-title">Demandez un <span>devis</span></h2>
                 <p class="section-subtitle">Une question ? Un projet ? Contactez-nous, nous vous répondons dans les plus brefs délais.</p>
-
                 <div class="contact-grid">
                     <div class="contact-info" data-aos="fade-right">
                         <h3>Nos coordonnées</h3>
                         <div class="contact-info-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <strong>Adresse</strong>
-                                <span>Ouagadougou, Zogona</span>
-                            </div>
+                            <div><strong>Adresse</strong><span>Ouagadougou, Zogona</span></div>
                         </div>
                         <div class="contact-info-item">
                             <i class="fas fa-phone-alt"></i>
-                            <div>
-                                <strong>Téléphone</strong>
-                                <span>+226 63 90 79 79</span>
-                            </div>
+                            <div><strong>Téléphone</strong><span>+226 63 90 79 79</span></div>
                         </div>
                         <div class="contact-info-item">
                             <i class="fas fa-envelope"></i>
-                            <div>
-                                <strong>Email</strong>
-                                <span>gsecuritebf@gmail.com</span>
-                            </div>
+                            <div><strong>Email</strong><span>gsecuritebf@gmail.com</span></div>
                         </div>
                         <div class="contact-info-item">
                             <i class="fas fa-clock"></i>
-                            <div>
-                                <strong>Urgence 24h/24</strong>
-                                <span>+226 63 90 79 79</span>
-                            </div>
+                            <div><strong>Urgence 24h/24</strong><span>+226 63 90 79 79</span></div>
                         </div>
                         <div style="margin-top: 20px;">
                             <p style="font-weight: 600; margin-bottom: 8px;">Suivez-nous</p>
@@ -2055,7 +1596,6 @@
                             </div>
                         </div>
                     </div>
-
                     <form class="contact-form" id="contactForm" data-aos="fade-left">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
                             <input type="text" placeholder="Nom complet" required />
@@ -2111,7 +1651,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="footer-bottom">
                     <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés.</span>
                 </div>
@@ -2122,16 +1661,11 @@
         <div class="modal-overlay" id="recrutementModal">
             <div class="modal-content">
                 <button class="modal-close" id="modalClose">&times;</button>
-
                 <div class="form-step active" data-step="1">
                     <p class="step-indicator">Étape 1 sur 3</p>
                     <h2 class="modal-title">Rejoignez notre <span>équipe</span></h2>
                     <p class="modal-subtitle">Vos coordonnées d'abord, les documents ensuite</p>
-                    <div class="progress-bar">
-                        <div class="seg done"></div>
-                        <div class="seg"></div>
-                        <div class="seg"></div>
-                    </div>
+                    <div class="progress-bar"><div class="seg done"></div><div class="seg"></div><div class="seg"></div></div>
                     <div class="modal-form">
                         <div class="form-group">
                             <label>Nom complet <span class="required">*</span></label>
@@ -2149,62 +1683,40 @@
                         </div>
                     </div>
                     <div class="step-nav">
-                        <button type="button" class="btn-next" id="toStep2">
-                            Continuer <i class="fas fa-arrow-right"></i>
-                        </button>
+                        <button type="button" class="btn-next" id="toStep2">Continuer <i class="fas fa-arrow-right"></i></button>
                     </div>
-                    <p style="text-align:center; font-size:0.8rem; color:var(--color-text-muted); margin-top:12px;">
-                        7 documents à fournir à l'étape suivante
-                    </p>
+                    <p style="text-align:center; font-size:0.8rem; color:var(--color-text-muted); margin-top:12px;">7 documents à fournir à l'étape suivante</p>
                 </div>
-
                 <div class="form-step" data-step="2">
                     <p class="step-indicator">Étape 2 sur 3</p>
                     <h2 class="modal-title">Vos <span>documents</span></h2>
                     <p class="modal-subtitle">Formats acceptés : PDF, JPG, PNG (5 Mo max par fichier)</p>
-                    <div class="progress-bar">
-                        <div class="seg done"></div>
-                        <div class="seg done"></div>
-                        <div class="seg"></div>
-                    </div>
+                    <div class="progress-bar"><div class="seg done"></div><div class="seg done"></div><div class="seg"></div></div>
                     <p class="doc-counter"><strong id="docCount">0</strong> / 7 documents ajoutés</p>
                     <div class="doc-list" id="docList"></div>
                     <div class="modal-error-msg" id="docError"></div>
                     <div class="step-nav">
-                        <button type="button" class="btn-back" id="toStep1Back">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button type="button" class="btn-next" id="toStep3">
-                            Continuer <i class="fas fa-arrow-right"></i>
-                        </button>
+                        <button type="button" class="btn-back" id="toStep1Back"><i class="fas fa-arrow-left"></i></button>
+                        <button type="button" class="btn-next" id="toStep3">Continuer <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
-
                 <div class="form-step" data-step="3">
                     <p class="step-indicator">Étape 3 sur 3</p>
                     <h2 class="modal-title">Dernière <span>vérification</span></h2>
                     <p class="modal-subtitle">Vérifiez vos informations avant l'envoi</p>
-                    <div class="progress-bar">
-                        <div class="seg done"></div>
-                        <div class="seg done"></div>
-                        <div class="seg done"></div>
-                    </div>
+                    <div class="progress-bar"><div class="seg done"></div><div class="seg done"></div><div class="seg done"></div></div>
                     <div style="background:var(--color-bg-light); border-radius:12px; padding:16px 20px; margin-bottom:18px;">
                         <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                            <span style="color:var(--color-text-muted);">Nom</span>
-                            <strong id="recapNom">—</strong>
+                            <span style="color:var(--color-text-muted);">Nom</span><strong id="recapNom">—</strong>
                         </div>
                         <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                            <span style="color:var(--color-text-muted);">Téléphone</span>
-                            <strong id="recapTel">—</strong>
+                            <span style="color:var(--color-text-muted);">Téléphone</span><strong id="recapTel">—</strong>
                         </div>
                         <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                            <span style="color:var(--color-text-muted);">Email</span>
-                            <strong id="recapEmail">—</strong>
+                            <span style="color:var(--color-text-muted);">Email</span><strong id="recapEmail">—</strong>
                         </div>
                         <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:0.92rem;">
-                            <span style="color:var(--color-text-muted);">Documents</span>
-                            <strong id="recapDocs">—</strong>
+                            <span style="color:var(--color-text-muted);">Documents</span><strong id="recapDocs">—</strong>
                         </div>
                     </div>
                     <div class="modal-form">
@@ -2215,12 +1727,8 @@
                     </div>
                     <div id="step3FormView">
                         <div class="step-nav">
-                            <button type="button" class="btn-back" id="toStep2Back">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-                            <button type="button" class="btn-submit" id="submitRecrutement">
-                                <i class="fas fa-paper-plane"></i> Envoyer ma candidature
-                            </button>
+                            <button type="button" class="btn-back" id="toStep2Back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-submit" id="submitRecrutement"><i class="fas fa-paper-plane"></i> Envoyer ma candidature</button>
                         </div>
                         <div class="modal-error-msg" id="submitError"></div>
                     </div>
@@ -2228,13 +1736,10 @@
                         <i class="fas fa-spinner fa-spin"></i>
                         <h3>Envoi de votre candidature...</h3>
                         <p id="uploadProgressLabel">Préparation de l'envoi</p>
-                        <div class="upload-bar-track">
-                            <div class="upload-bar-fill" id="uploadBarFill"></div>
-                        </div>
+                        <div class="upload-bar-track"><div class="upload-bar-fill" id="uploadBarFill"></div></div>
                         <p class="upload-bar-label" id="uploadBarPct">0 %</p>
                     </div>
                 </div>
-
                 <div class="modal-success" id="recrutementSuccess">
                     <i class="fas fa-check-circle"></i>
                     <h3>Candidature envoyée avec succès !</h3>
@@ -2257,440 +1762,455 @@
 
     </div> <!-- fin #site-content -->
 
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
-    </script>
+    <!-- ========== SCRIPTS AVEC DEFER ========== -->
+    <!-- AOS (déplacé en bas) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <!-- Supabase (déplacé en bas) -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 
     <script>
-        // ============================================================
-        // CONFIGURATION SUPABASE
-        // ============================================================
-        const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
-
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        const MAX_FILE_MB = 5;
-
-        // ============================================================
-        // LOADER
-        // ============================================================
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('pageLoader').classList.add('hidden');
-            }, 500);
-        });
-
-        // ============================================================
-        // AOS
-        // ============================================================
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
-
-        // ============================================================
-        // CURSEUR PERSONNALISÉ
-        // ============================================================
-        const cursorDot = document.getElementById('cursorDot');
-        window.addEventListener('mousemove', function(e) {
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
-        });
-        document.querySelectorAll('a, button, .service-card, .zone-tag, .doc-item').forEach(function(el) {
-            el.addEventListener('mouseenter', function() { cursorDot.classList.add('hovering'); });
-            el.addEventListener('mouseleave', function() { cursorDot.classList.remove('hovering'); });
-        });
-
-        // ============================================================
-        // HAMBURGER
-        // ============================================================
-        const hamburger = document.getElementById('hamburger');
-        const nav = document.getElementById('nav');
-
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            nav.classList.toggle('open');
-        });
-
-        document.querySelectorAll('.nav a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                hamburger.classList.remove('active');
-                nav.classList.remove('open');
-            });
-        });
-
-        // ============================================================
-        // HEADER SCROLL
-        // ============================================================
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // ============================================================
-        // SLIDER (durée 3 secondes) + parallax léger
-        // ============================================================
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        let currentIndex = 0;
-        let interval;
-
-        function goToSlide(index) {
-            slides.forEach(function(slide, i) {
-                slide.classList.toggle('active', i === index);
-            });
-            dots.forEach(function(dot, i) {
-                dot.classList.toggle('active', i === index);
-            });
-            currentIndex = index;
-        }
-
-        function nextSlide() {
-            goToSlide((currentIndex + 1) % slides.length);
-        }
-
-        function startSlider() {
-            interval = setInterval(nextSlide, 3000);
-        }
-
-        dots.forEach(function(dot, index) {
-            dot.addEventListener('click', function() {
-                clearInterval(interval);
-                goToSlide(index);
-                startSlider();
-            });
-        });
-
-        startSlider();
-
-        const heroSlider = document.querySelector('.hero-slider');
-        window.addEventListener('scroll', function() {
-            if (!heroSlider) return;
-            const scrolled = window.scrollY;
-            if (scrolled < window.innerHeight) {
-                slides.forEach(function(slide) {
-                    slide.style.transform = 'translateY(' + (scrolled * 0.25) + 'px)';
+        // Le code JavaScript est exécuté après le chargement des scripts (defer)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialisation AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 50
                 });
             }
-        });
 
-        // ============================================================
-        // CONTACT FORM
-        // ============================================================
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
-            this.reset();
-        });
+            // Configuration Supabase
+            const SUPABASE_URL = "https://otdiywrvzappbmjfkkyi.supabase.co";
+            const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY";
+            const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+            const MAX_FILE_MB = 5;
 
-        // ============================================================
-        // RECRUTEMENT – GESTION DES DOCUMENTS
-        // ============================================================
-        const docDefinitions = [
-            { id: "docActeNaissance", key: "acte_naissance", label: "Extrait d'acte de naissance",
-                accept: ".pdf,.jpg,.jpeg,.png" },
-            { id: "docCNIB", key: "cnib", label: "Photocopie CNIB", accept: ".pdf,.jpg,.jpeg,.png" },
-            { id: "docCasier", key: "casier_judiciaire", label: "Casier judiciaire N°3", accept: ".pdf,.jpg,.jpeg,.png" },
-            { id: "docNationalite", key: "nationalite", label: "Certificat de nationalité", accept: ".pdf,.jpg,.jpeg,.png" },
-            { id: "docCV", key: "cv", label: "Curriculum Vitae", accept: ".pdf,.doc,.docx" },
-            { id: "docPhotos", key: "photos", label: "Photos (entière + 4 identité)", accept: ".jpg,.jpeg,.png" },
-            { id: "docResidence", key: "residence", label: "Certificat de résidence", accept: ".pdf,.jpg,.jpeg,.png" }
-        ];
+            // Curseur personnalisé
+            const cursorDot = document.getElementById('cursorDot');
+            if (cursorDot) {
+                window.addEventListener('mousemove', function(e) {
+                    cursorDot.style.left = e.clientX + 'px';
+                    cursorDot.style.top = e.clientY + 'px';
+                });
+                document.querySelectorAll('a, button, .service-card, .zone-tag, .doc-item').forEach(function(el) {
+                    el.addEventListener('mouseenter', function() { cursorDot.classList.add('hovering'); });
+                    el.addEventListener('mouseleave', function() { cursorDot.classList.remove('hovering'); });
+                });
+            }
 
-        const docList = document.getElementById("docList");
-        const selectedFiles = {};
+            // Hamburger
+            const hamburger = document.getElementById('hamburger');
+            const nav = document.getElementById('nav');
+            if (hamburger && nav) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    nav.classList.toggle('open');
+                });
+                document.querySelectorAll('.nav a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        nav.classList.remove('open');
+                    });
+                });
+            }
 
-        docDefinitions.forEach(function(doc) {
-            const row = document.createElement("div");
-            row.className = "doc-item";
-            row.id = "row_" + doc.id;
-            row.innerHTML =
-                '<div class="doc-icon"><i class="fas fa-file"></i></div>' +
-                '<div class="doc-info">' +
-                '<label for="' + doc.id + '">' + doc.label + '</label>' +
-                '<div class="doc-status" id="status_' + doc.id + '">Aucun fichier sélectionné</div>' +
-                '</div>' +
-                '<label class="doc-action" for="' + doc.id + '">Choisir</label>' +
-                '<input type="file" id="' + doc.id + '" accept="' + doc.accept + '">';
-            docList.appendChild(row);
-        });
-
-        docDefinitions.forEach(function(doc) {
-            const input = document.getElementById(doc.id);
-            input.addEventListener("change", function() {
-                const row = document.getElementById("row_" + doc.id);
-                const status = document.getElementById("status_" + doc.id);
-                const errorBox = document.getElementById("docError");
-
-                if (!input.files || input.files.length === 0) return;
-
-                const file = input.files[0];
-                const sizeMB = file.size / (1024 * 1024);
-
-                if (sizeMB > MAX_FILE_MB) {
-                    errorBox.textContent = "\"" + file.name + "\" dépasse " + MAX_FILE_MB +
-                        " Mo. Choisissez un fichier plus léger.";
-                    errorBox.classList.add("show");
-                    input.value = "";
-                    delete selectedFiles[doc.key];
-                    row.classList.remove("filled");
-                    status.textContent = "Aucun fichier sélectionné";
-                    updateDocCount();
-                    return;
+            // Header scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
                 }
+            });
 
-                errorBox.classList.remove("show");
-                selectedFiles[doc.key] = file;
-                row.classList.add("filled");
-                status.textContent = file.name + " (" + sizeMB.toFixed(1) + " Mo)";
+            // Slider
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            let currentIndex = 0;
+            let interval;
+
+            function goToSlide(index) {
+                slides.forEach(function(slide, i) {
+                    slide.classList.toggle('active', i === index);
+                });
+                dots.forEach(function(dot, i) {
+                    dot.classList.toggle('active', i === index);
+                });
+                currentIndex = index;
+            }
+
+            function nextSlide() {
+                goToSlide((currentIndex + 1) % slides.length);
+            }
+
+            function startSlider() {
+                if (interval) clearInterval(interval);
+                interval = setInterval(nextSlide, 3000);
+            }
+
+            if (dots.length) {
+                dots.forEach(function(dot, index) {
+                    dot.addEventListener('click', function() {
+                        clearInterval(interval);
+                        goToSlide(index);
+                        startSlider();
+                    });
+                });
+                startSlider();
+            }
+
+            // Parallax léger
+            const heroSlider = document.querySelector('.hero-slider');
+            if (heroSlider) {
+                window.addEventListener('scroll', function() {
+                    const scrolled = window.scrollY;
+                    if (scrolled < window.innerHeight) {
+                        slides.forEach(function(slide) {
+                            slide.style.transform = 'translateY(' + (scrolled * 0.25) + 'px)';
+                        });
+                    }
+                });
+            }
+
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+                    this.reset();
+                });
+            }
+
+            // ===== RECRUTEMENT – GESTION DES DOCUMENTS =====
+            const docDefinitions = [
+                { id: "docActeNaissance", key: "acte_naissance", label: "Extrait d'acte de naissance", accept: ".pdf,.jpg,.jpeg,.png" },
+                { id: "docCNIB", key: "cnib", label: "Photocopie CNIB", accept: ".pdf,.jpg,.jpeg,.png" },
+                { id: "docCasier", key: "casier_judiciaire", label: "Casier judiciaire N°3", accept: ".pdf,.jpg,.jpeg,.png" },
+                { id: "docNationalite", key: "nationalite", label: "Certificat de nationalité", accept: ".pdf,.jpg,.jpeg,.png" },
+                { id: "docCV", key: "cv", label: "Curriculum Vitae", accept: ".pdf,.doc,.docx" },
+                { id: "docPhotos", key: "photos", label: "Photos (entière + 4 identité)", accept: ".jpg,.jpeg,.png" },
+                { id: "docResidence", key: "residence", label: "Certificat de résidence", accept: ".pdf,.jpg,.jpeg,.png" }
+            ];
+
+            const docList = document.getElementById("docList");
+            const selectedFiles = {};
+
+            if (docList) {
+                docDefinitions.forEach(function(doc) {
+                    const row = document.createElement("div");
+                    row.className = "doc-item";
+                    row.id = "row_" + doc.id;
+                    row.innerHTML =
+                        '<div class="doc-icon"><i class="fas fa-file"></i></div>' +
+                        '<div class="doc-info">' +
+                        '<label for="' + doc.id + '">' + doc.label + '</label>' +
+                        '<div class="doc-status" id="status_' + doc.id + '">Aucun fichier sélectionné</div>' +
+                        '</div>' +
+                        '<label class="doc-action" for="' + doc.id + '">Choisir</label>' +
+                        '<input type="file" id="' + doc.id + '" accept="' + doc.accept + '">';
+                    docList.appendChild(row);
+                });
+
+                docDefinitions.forEach(function(doc) {
+                    const input = document.getElementById(doc.id);
+                    if (input) {
+                        input.addEventListener("change", function() {
+                            const row = document.getElementById("row_" + doc.id);
+                            const status = document.getElementById("status_" + doc.id);
+                            const errorBox = document.getElementById("docError");
+
+                            if (!input.files || input.files.length === 0) return;
+
+                            const file = input.files[0];
+                            const sizeMB = file.size / (1024 * 1024);
+
+                            if (sizeMB > MAX_FILE_MB) {
+                                errorBox.textContent = "\"" + file.name + "\" dépasse " + MAX_FILE_MB +
+                                    " Mo. Choisissez un fichier plus léger.";
+                                errorBox.classList.add("show");
+                                input.value = "";
+                                delete selectedFiles[doc.key];
+                                row.classList.remove("filled");
+                                status.textContent = "Aucun fichier sélectionné";
+                                updateDocCount();
+                                return;
+                            }
+
+                            errorBox.classList.remove("show");
+                            selectedFiles[doc.key] = file;
+                            row.classList.add("filled");
+                            status.textContent = file.name + " (" + sizeMB.toFixed(1) + " Mo)";
+                            updateDocCount();
+                        });
+                    }
+                });
+            }
+
+            function updateDocCount() {
+                const countEl = document.getElementById("docCount");
+                if (countEl) countEl.textContent = Object.keys(selectedFiles).length;
+            }
+
+            // Navigation étapes
+            const steps = document.querySelectorAll(".form-step");
+
+            function goToStep(n) {
+                steps.forEach(function(s) {
+                    s.classList.toggle("active", s.dataset.step === String(n));
+                });
+            }
+
+            const toStep2 = document.getElementById("toStep2");
+            if (toStep2) {
+                toStep2.addEventListener("click", function() {
+                    const nom = document.getElementById("nomComplet")?.value.trim();
+                    const tel = document.getElementById("telephoneRecrutement")?.value.trim();
+                    const email = document.getElementById("emailRecrutement")?.value.trim();
+
+                    if (!nom || !tel || !email) {
+                        alert("Merci de remplir tous les champs avant de continuer.");
+                        return;
+                    }
+                    goToStep(2);
+                });
+            }
+
+            const toStep1Back = document.getElementById("toStep1Back");
+            if (toStep1Back) toStep1Back.addEventListener("click", function() { goToStep(1); });
+
+            const toStep3 = document.getElementById("toStep3");
+            if (toStep3) {
+                toStep3.addEventListener("click", function() {
+                    if (Object.keys(selectedFiles).length < 7) {
+                        const errorBox = document.getElementById("docError");
+                        errorBox.textContent = "Merci d'ajouter les 7 documents requis avant de continuer.";
+                        errorBox.classList.add("show");
+                        return;
+                    }
+
+                    document.getElementById("recapNom").textContent = document.getElementById("nomComplet").value;
+                    document.getElementById("recapTel").textContent = document.getElementById("telephoneRecrutement").value;
+                    document.getElementById("recapEmail").textContent = document.getElementById("emailRecrutement").value;
+                    document.getElementById("recapDocs").textContent = Object.keys(selectedFiles).length + " / 7 fournis";
+
+                    goToStep(3);
+                });
+            }
+
+            const toStep2Back = document.getElementById("toStep2Back");
+            if (toStep2Back) toStep2Back.addEventListener("click", function() { goToStep(2); });
+
+            // Modal recrutement
+            const modal = document.getElementById("recrutementModal");
+
+            function openModal() {
+                if (modal) {
+                    modal.classList.add("active");
+                    document.body.style.overflow = "hidden";
+                }
+            }
+
+            function resetModal() {
+                goToStep(1);
+                document.getElementById("nomComplet").value = "";
+                document.getElementById("telephoneRecrutement").value = "";
+                document.getElementById("emailRecrutement").value = "";
+                document.getElementById("messageRecrutement").value = "";
+                docDefinitions.forEach(function(doc) {
+                    document.getElementById(doc.id).value = "";
+                    document.getElementById("row_" + doc.id).classList.remove("filled");
+                    document.getElementById("status_" + doc.id).textContent = "Aucun fichier sélectionné";
+                });
+                for (const k in selectedFiles) delete selectedFiles[k];
                 updateDocCount();
-            });
-        });
 
-        function updateDocCount() {
-            document.getElementById("docCount").textContent = Object.keys(selectedFiles).length;
-        }
-
-        // ============================================================
-        // NAVIGATION ÉTAPES RECRUTEMENT
-        // ============================================================
-        const steps = document.querySelectorAll(".form-step");
-
-        function goToStep(n) {
-            steps.forEach(function(s) {
-                s.classList.toggle("active", s.dataset.step === String(n));
-            });
-        }
-
-        document.getElementById("toStep2").addEventListener("click", function() {
-            const nom = document.getElementById("nomComplet").value.trim();
-            const tel = document.getElementById("telephoneRecrutement").value.trim();
-            const email = document.getElementById("emailRecrutement").value.trim();
-
-            if (!nom || !tel || !email) {
-                alert("Merci de remplir tous les champs avant de continuer.");
-                return;
-            }
-            goToStep(2);
-        });
-
-        document.getElementById("toStep1Back").addEventListener("click", function() {
-            goToStep(1);
-        });
-
-        document.getElementById("toStep3").addEventListener("click", function() {
-            if (Object.keys(selectedFiles).length < 7) {
-                const errorBox = document.getElementById("docError");
-                errorBox.textContent = "Merci d'ajouter les 7 documents requis avant de continuer.";
-                errorBox.classList.add("show");
-                return;
-            }
-
-            document.getElementById("recapNom").textContent = document.getElementById("nomComplet").value;
-            document.getElementById("recapTel").textContent = document.getElementById("telephoneRecrutement").value;
-            document.getElementById("recapEmail").textContent = document.getElementById("emailRecrutement").value;
-            document.getElementById("recapDocs").textContent = Object.keys(selectedFiles).length + " / 7 fournis";
-
-            goToStep(3);
-        });
-
-        document.getElementById("toStep2Back").addEventListener("click", function() {
-            goToStep(2);
-        });
-
-        // ============================================================
-        // OUVERTURE / FERMETURE MODAL RECRUTEMENT
-        // ============================================================
-        const modal = document.getElementById("recrutementModal");
-
-        function openModal() {
-            modal.classList.add("active");
-            document.body.style.overflow = "hidden";
-        }
-
-        function resetModal() {
-            goToStep(1);
-            document.getElementById("nomComplet").value = "";
-            document.getElementById("telephoneRecrutement").value = "";
-            document.getElementById("emailRecrutement").value = "";
-            document.getElementById("messageRecrutement").value = "";
-            docDefinitions.forEach(function(doc) {
-                document.getElementById(doc.id).value = "";
-                document.getElementById("row_" + doc.id).classList.remove("filled");
-                document.getElementById("status_" + doc.id).textContent = "Aucun fichier sélectionné";
-            });
-            for (const k in selectedFiles) delete selectedFiles[k];
-            updateDocCount();
-
-            document.getElementById("step3FormView").style.display = "block";
-            document.getElementById("uploadProgressView").style.display = "none";
-            document.getElementById("submitError").classList.remove("show");
-            document.getElementById("recrutementSuccess").style.display = "none";
-            steps.forEach(function(s) { s.style.display = ""; });
-        }
-
-        function closeModal() {
-            modal.classList.remove("active");
-            document.body.style.overflow = "";
-            resetModal();
-        }
-
-        const btnCandidature = document.getElementById("btnCandidature");
-        if (btnCandidature) btnCandidature.addEventListener("click", openModal);
-
-        document.getElementById("modalClose").addEventListener("click", closeModal);
-        document.getElementById("closeSuccessBtn").addEventListener("click", closeModal);
-        modal.addEventListener("click", function(e) {
-            if (e.target === modal) closeModal();
-        });
-
-        // ============================================================
-        // SOUMISSION RECRUTEMENT
-        // ============================================================
-        document.getElementById("submitRecrutement").addEventListener("click", async function() {
-            const submitBtn = this;
-            const errorBox = document.getElementById("submitError");
-            errorBox.classList.remove("show");
-
-            submitBtn.disabled = true;
-            document.getElementById("step3FormView").querySelector(".step-nav").style.display = "none";
-            document.getElementById("uploadProgressView").style.display = "block";
-
-            const barFill = document.getElementById("uploadBarFill");
-            const barPct = document.getElementById("uploadBarPct");
-            const progressLabel = document.getElementById("uploadProgressLabel");
-
-            const keys = Object.keys(selectedFiles);
-            const total = keys.length;
-            const fileUrls = [];
-
-            try {
-                for (let i = 0; i < total; i++) {
-                    const key = keys[i];
-                    const file = selectedFiles[key];
-
-                    progressLabel.textContent = "Envoi du document " + (i + 1) + " / " + total + " (" + file.name + ")";
-
-                    const ext = file.name.split(".").pop();
-                    const fileName = Date.now() + "_" + key + "." + ext;
-                    const filePath = "gsecurite/" + fileName;
-
-                    const { error: uploadError } = await supabaseClient.storage
-                        .from("gsecurite")
-                        .upload(filePath, file);
-
-                    if (uploadError) throw new Error("Erreur upload " + key + ": " + uploadError.message);
-
-                    const { data: urlData } = supabaseClient.storage
-                        .from("gsecurite")
-                        .getPublicUrl(filePath);
-
-                    fileUrls.push(urlData.publicUrl);
-
-                    const pct = Math.round(((i + 1) / total) * 100);
-                    barFill.style.width = pct + "%";
-                    barPct.textContent = pct + " %";
-                }
-
-                progressLabel.textContent = "Finalisation de votre candidature...";
-
-                const { error: dbError } = await supabaseClient
-                    .from("gsecurite")
-                    .insert([{
-                        nom_complet: document.getElementById("nomComplet").value,
-                        email: document.getElementById("emailRecrutement").value,
-                        telephone: document.getElementById("telephoneRecrutement").value,
-                        message: document.getElementById("messageRecrutement").value,
-                        documents: fileUrls,
-                        statut: "en_attente"
-                    }]);
-
-                if (dbError) throw dbError;
-
-                steps.forEach(function(s) { s.style.display = "none"; });
-                document.getElementById("recrutementSuccess").style.display = "block";
-
-            } catch (error) {
+                document.getElementById("step3FormView").style.display = "block";
                 document.getElementById("uploadProgressView").style.display = "none";
-                document.getElementById("step3FormView").querySelector(".step-nav").style.display = "flex";
-                errorBox.textContent = "Erreur : " + error.message;
-                errorBox.classList.add("show");
-                submitBtn.disabled = false;
+                document.getElementById("submitError").classList.remove("show");
+                document.getElementById("recrutementSuccess").style.display = "none";
+                steps.forEach(function(s) { s.style.display = ""; });
             }
-        });
 
-        // ============================================================
-        // TRIPLE‑CLIC SUR L'IMAGE DU LOGO -> MODALE DE CONNEXION
-        // ============================================================
-        const logo = document.getElementById('mainLogo');
-        let clickCount = 0;
-        let clickTimer = null;
-
-        logo.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            clickCount++;
-            if (clickTimer) clearTimeout(clickTimer);
-
-            clickTimer = setTimeout(() => {
-                clickCount = 0;
-            }, 800);
-
-            if (clickCount === 3) {
-                clickCount = 0;
-                clearTimeout(clickTimer);
-                document.getElementById('loginModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.getElementById('loginError').classList.remove('show');
-                document.getElementById('loginPass').value = '';
-                document.getElementById('loginPass').focus();
+            function closeModal() {
+                if (modal) {
+                    modal.classList.remove("active");
+                    document.body.style.overflow = "";
+                    resetModal();
+                }
             }
-        });
 
-        // Fermeture modale connexion
-        document.getElementById('closeLogin').addEventListener('click', function() {
-            document.getElementById('loginModal').classList.remove('active');
-            document.body.style.overflow = '';
-        });
+            const btnCandidature = document.getElementById("btnCandidature");
+            if (btnCandidature) btnCandidature.addEventListener("click", openModal);
 
-        document.getElementById('loginModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-                document.body.style.overflow = '';
+            const modalClose = document.getElementById("modalClose");
+            if (modalClose) modalClose.addEventListener("click", closeModal);
+
+            const closeSuccessBtn = document.getElementById("closeSuccessBtn");
+            if (closeSuccessBtn) closeSuccessBtn.addEventListener("click", closeModal);
+
+            if (modal) {
+                modal.addEventListener("click", function(e) {
+                    if (e.target === modal) closeModal();
+                });
             }
-        });
 
-        // ============================================================
-        // CONNEXION — UN SEUL LOGIN : mot de passe + redirection admin
-        // ============================================================
-        document.getElementById('btnLogin').addEventListener('click', function() {
-            const pass = document.getElementById('loginPass').value.trim();
-            const validPass = 'gsecurite2026';
+            // Soumission recrutement
+            const submitRecrutement = document.getElementById("submitRecrutement");
+            if (submitRecrutement) {
+                submitRecrutement.addEventListener("click", async function() {
+                    if (!supabaseClient) {
+                        alert("Erreur de connexion à la base de données. Veuillez réessayer.");
+                        return;
+                    }
+                    const submitBtn = this;
+                    const errorBox = document.getElementById("submitError");
+                    errorBox.classList.remove("show");
 
-            if (pass === validPass) {
-                // Enregistre la session pour éviter un deuxième login
-                sessionStorage.setItem('admin_logged_in', 'true');
-                window.location.href = 'admin.html';
-            } else {
-                document.getElementById('loginError').classList.add('show');
-                document.getElementById('loginPass').value = '';
-                document.getElementById('loginPass').focus();
+                    submitBtn.disabled = true;
+                    document.getElementById("step3FormView").querySelector(".step-nav").style.display = "none";
+                    document.getElementById("uploadProgressView").style.display = "block";
+
+                    const barFill = document.getElementById("uploadBarFill");
+                    const barPct = document.getElementById("uploadBarPct");
+                    const progressLabel = document.getElementById("uploadProgressLabel");
+
+                    const keys = Object.keys(selectedFiles);
+                    const total = keys.length;
+                    const fileUrls = [];
+
+                    try {
+                        for (let i = 0; i < total; i++) {
+                            const key = keys[i];
+                            const file = selectedFiles[key];
+
+                            progressLabel.textContent = "Envoi du document " + (i + 1) + " / " + total + " (" + file.name + ")";
+
+                            const ext = file.name.split(".").pop();
+                            const fileName = Date.now() + "_" + key + "." + ext;
+                            const filePath = "gsecurite/" + fileName;
+
+                            const { error: uploadError } = await supabaseClient.storage
+                                .from("gsecurite")
+                                .upload(filePath, file);
+
+                            if (uploadError) throw new Error("Erreur upload " + key + ": " + uploadError.message);
+
+                            const { data: urlData } = supabaseClient.storage
+                                .from("gsecurite")
+                                .getPublicUrl(filePath);
+
+                            fileUrls.push(urlData.publicUrl);
+
+                            const pct = Math.round(((i + 1) / total) * 100);
+                            barFill.style.width = pct + "%";
+                            barPct.textContent = pct + " %";
+                        }
+
+                        progressLabel.textContent = "Finalisation de votre candidature...";
+
+                        const { error: dbError } = await supabaseClient
+                            .from("gsecurite")
+                            .insert([{
+                                nom_complet: document.getElementById("nomComplet").value,
+                                email: document.getElementById("emailRecrutement").value,
+                                telephone: document.getElementById("telephoneRecrutement").value,
+                                message: document.getElementById("messageRecrutement").value,
+                                documents: fileUrls,
+                                statut: "en_attente"
+                            }]);
+
+                        if (dbError) throw dbError;
+
+                        steps.forEach(function(s) { s.style.display = "none"; });
+                        document.getElementById("recrutementSuccess").style.display = "block";
+
+                    } catch (error) {
+                        document.getElementById("uploadProgressView").style.display = "none";
+                        document.getElementById("step3FormView").querySelector(".step-nav").style.display = "flex";
+                        errorBox.textContent = "Erreur : " + error.message;
+                        errorBox.classList.add("show");
+                        submitBtn.disabled = false;
+                    }
+                });
             }
-        });
 
-        document.getElementById('loginPass').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('btnLogin').click();
+            // Triple-clic logo -> login
+            const logo = document.getElementById('mainLogo');
+            let clickCount = 0;
+            let clickTimer = null;
+
+            if (logo) {
+                logo.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    clickCount++;
+                    if (clickTimer) clearTimeout(clickTimer);
+
+                    clickTimer = setTimeout(() => {
+                        clickCount = 0;
+                    }, 800);
+
+                    if (clickCount === 3) {
+                        clickCount = 0;
+                        clearTimeout(clickTimer);
+                        document.getElementById('loginModal').classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        document.getElementById('loginError').classList.remove('show');
+                        document.getElementById('loginPass').value = '';
+                        document.getElementById('loginPass').focus();
+                    }
+                });
             }
-        });
+
+            // Fermeture login
+            const closeLogin = document.getElementById('closeLogin');
+            if (closeLogin) {
+                closeLogin.addEventListener('click', function() {
+                    document.getElementById('loginModal').classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+
+            // Connexion admin
+            const btnLogin = document.getElementById('btnLogin');
+            if (btnLogin) {
+                btnLogin.addEventListener('click', function() {
+                    const pass = document.getElementById('loginPass').value.trim();
+                    const validPass = 'gsecurite2026';
+
+                    if (pass === validPass) {
+                        sessionStorage.setItem('admin_logged_in', 'true');
+                        window.location.href = 'admin.html';
+                    } else {
+                        document.getElementById('loginError').classList.add('show');
+                        document.getElementById('loginPass').value = '';
+                        document.getElementById('loginPass').focus();
+                    }
+                });
+            }
+
+            const loginPass = document.getElementById('loginPass');
+            if (loginPass) {
+                loginPass.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        document.getElementById('btnLogin').click();
+                    }
+                });
+            }
+        }); // fin DOMContentLoaded
     </script>
 
 </body>
