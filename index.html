@@ -248,6 +248,32 @@
         .footer-socials a:hover { background: var(--color-primary); color: var(--color-white); transform: translateY(-3px); }
         .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px; text-align: center; font-size: 0.9rem; color: rgba(255, 255, 255, 0.4); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 
+        /* ===== CRÉDIT MAHMARGROUP ===== */
+        .footer-credit {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.02em;
+        }
+        .footer-credit a {
+            color: var(--color-primary);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        .footer-credit a::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: -2px;
+            height: 1.5px;
+            background: var(--color-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .footer-credit a:hover { color: var(--color-primary-light); }
+        .footer-credit a:hover::after { transform: scaleX(1); background: var(--color-primary-light); }
+
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
         .modal-overlay.active { display: flex !important; }
         .modal-content { background: var(--color-white); border-radius: 24px; max-width: 620px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px 42px; position: relative; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); animation: modalSlideIn 0.4s ease; }
@@ -728,7 +754,8 @@
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés. Réalisé par kevin zongo</span>
+                    <span>&copy; 2026 G-SÉCURITÉ. Tous droits réservés.</span>
+                    <span class="footer-credit">Conçu par <a href="#" target="_blank" rel="noopener">MahmarGroup</a></span>
                 </div>
             </div>
         </footer>
